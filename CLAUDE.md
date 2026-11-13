@@ -254,7 +254,7 @@ Output per recipe: `{ recipe, status, missing[], viaGroup[], viaSubstitute[], op
 - Recipe card: name, time + bucket, difficulty, equipment icons (stovetop/oven/blender…), missing items in red, "via substitute" in amber.
 - Recipe detail: ingredients with ✓/✗ against pantry, missing list, equipment, steps, favorite button, "ثبّت لليوم / للغد".
 - Pantry: category chips → toggles. Available items first. Search with Arabic normalization. Staples marked with a pin icon; long-press or menu to (un)mark staple. "نفد" quick action. Add custom ingredient (name + category).
-- Onboarding (first run only, re-runnable from settings): (1) staples — `defaultStaple` items pre-checked, grouped by category; (2) equipment — stove pre-checked; (3) done → home. Preferences are optional in settings, not in onboarding.
+- Onboarding (first run only, re-runnable from settings): (1) household size — «كم شخصاً في البيت؟», default 4, saved to `householdSize`; (2) staples — `defaultStaple` items pre-checked, grouped by category; (3) equipment — stove pre-checked; then done → home. Other preferences stay optional in settings, not in onboarding.
 - Arabic numerals: use Western digits (0–9) for consistency with times. Units in Arabic (غ، مل، ملعقة كبيرة…).
 - Empty states everywhere (no pantry items, no matches, offline AI).
 
@@ -288,7 +288,7 @@ Each phase ends with: `pnpm lint && pnpm typecheck && pnpm test && pnpm build` g
 ### Phase 1 — Data foundation
 - Zod schemas for Ingredient, Equipment, Recipe, Backup.
 - `ingredients.ts` (~200–250 items across all categories, with aliases and groups; mark ~25 `defaultStaple`, ~80 `common`).
-  Default staples: ملح، فلفل أسود، بهارات مشكلة، كمون، كزبرة يابسة، بابريكا، قرفة، زيت نباتي، زيت زيتون، سمن، بصل، ثوم، سكر، طحين، أرز، برغل، معكرونة، شعيرية، رب البندورة، خبز، ليمون، خل، مرقة مكعبات، نعنع يابس.
+  Default staples: ملح، فلفل أسود، بهارات مشكلة، كمون، كزبرة يابسة، بابريكا، قرفة، زيت نباتي، زيت زيتون، سمن، بصل، ثوم، سكر، طحين، أرز، برغل، معكرونة، شعيرية، رب البندورة، خبز، ليمون، خل، مرقة مكعبات، نعنع يابس، عدس بني.
 - `equipment.ts`.
 - First **22 recipes** (they cover the golden test, oven exclusion, advancePrep and both cuisines): مجدرة، شوربة عدس، فتة حمص، مقلوبة باذنجان، شيخ المحشي، كبة بالصينية، داود باشا، فاصولياء خضراء بالزيت، بامية باللحمة، شاكرية، شكشوكة، فول مدمس، فريكة بالدجاج، مناقيش زعتر، معكرونة بولونيز، معكرونة بصلصة البندورة، معكرونة بالبشاميل على الموقد، أومليت، أرز مقلي، كاري دجاج، معكرونة باللحمة بالفرن، أرز بشعيرية.
 - Data integrity test: every recipe parses with Zod; every `ref` exists (ingredient id or known group); every substitute target exists; ids unique; no empty steps.
@@ -302,7 +302,7 @@ Each phase ends with: `pnpm lint && pnpm typecheck && pnpm test && pnpm build` g
 **Done when:** all matching tests pass with ≥90% line coverage on `src/lib/matching`.
 
 ### Phase 3 — Onboarding, pantry, equipment
-- Onboarding wizard (2 steps) writing through repositories; redirect to onboarding when `onboardingDone` is false.
+- Onboarding wizard (3 steps: household size, staples, equipment) writing through repositories; redirect to onboarding when `onboardingDone` is false.
 - Pantry screen: category chips, toggles, staple pin, "نفد", search, add custom ingredient, equipment tab.
 
 **Done when:** first run → onboarding → staples persist after reload; adding 3 items takes < 20 s; custom ingredient appears in search and in matching.

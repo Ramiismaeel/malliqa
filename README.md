@@ -28,7 +28,7 @@ pnpm install
 pnpm dev
 ```
 
-Open http://localhost:3000. The first run starts the onboarding wizard (staples, then equipment).
+Open http://localhost:3000. The first run starts the onboarding wizard (household size, staples, then equipment).
 
 The AI assistant is optional. To enable it locally, copy `.env.example` to `.env.local` and set `GEMINI_API_KEY`.
 

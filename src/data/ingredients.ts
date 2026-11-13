@@ -148,7 +148,7 @@ export const ingredients: Ingredient[] = [
   { id: "samosa-sheets", name: "رقائق سمبوسك", nameEn: "Samosa sheets", emoji: "🥟", aliases: ["عجينة سمبوسة", "رقائق سبرنغ رول"], category: "grains" },
 
   // ── البقوليات ─────────────────────────────────────────────────────────
-  { id: "brown-lentils", name: "عدس بني", nameEn: "Brown lentils", emoji: "🫘", aliases: ["عدس أسود", "عدس حب", "عدس أخضر", "عدس مجدرة"], category: "legumes", common: true },
+  { id: "brown-lentils", name: "عدس بني", nameEn: "Brown lentils", emoji: "🫘", aliases: ["عدس أسود", "عدس حب", "عدس أخضر", "عدس مجدرة"], category: "legumes", defaultStaple: true, common: true },
   { id: "red-lentils", name: "عدس أحمر", nameEn: "Red lentils", emoji: "🫘", aliases: ["عدس مجروش", "عدس أصفر", "عدس شوربة"], category: "legumes", common: true },
   { id: "chickpeas-dry", name: "حمص حب يابس", nameEn: "Dried chickpeas", emoji: "🫘", aliases: ["حمص ناشف", "حمص حب", "نخي"], category: "legumes", groups: ["chickpeas-any"], common: true },
   { id: "chickpeas-canned", name: "حمص مسلوق", nameEn: "Cooked chickpeas", emoji: "🥫", aliases: ["حمص معلب", "علبة حمص", "حمص جاهز"], category: "legumes", groups: ["chickpeas-any"], common: true },
