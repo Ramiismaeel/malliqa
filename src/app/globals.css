@@ -1,0 +1,325 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: false;
+}
+
+/* ── ملّيقة — light theme: tahini cream, Aleppo pepper, olive, saffron ── */
+@plugin "daisyui/theme" {
+  name: "malliqa";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: oklch(99% 0.006 85);
+  --color-base-200: oklch(96.5% 0.014 82);
+  --color-base-300: oklch(91.5% 0.024 78);
+  --color-base-content: oklch(27% 0.035 45);
+
+  --color-primary: oklch(56% 0.185 32);
+  --color-primary-content: oklch(98.5% 0.012 80);
+  --color-secondary: oklch(50% 0.105 128);
+  --color-secondary-content: oklch(98.5% 0.02 120);
+  --color-accent: oklch(80% 0.15 80);
+  --color-accent-content: oklch(27% 0.06 60);
+  --color-neutral: oklch(31% 0.04 42);
+  --color-neutral-content: oklch(96% 0.015 80);
+
+  --color-info: oklch(58% 0.1 225);
+  --color-info-content: oklch(98% 0.01 225);
+  --color-success: oklch(56% 0.13 150);
+  --color-success-content: oklch(98.5% 0.02 150);
+  --color-warning: oklch(74% 0.16 68);
+  --color-warning-content: oklch(27% 0.06 60);
+  --color-error: oklch(54% 0.21 22);
+  --color-error-content: oklch(98.5% 0.012 20);
+
+  --radius-selector: 1rem;
+  --radius-field: 0.9rem;
+  --radius-box: 1.4rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* ── ملّيقة — dark theme: toasted spice and charcoal ───────────────────── */
+@plugin "daisyui/theme" {
+  name: "malliqa-dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: oklch(25% 0.016 55);
+  --color-base-200: oklch(20.5% 0.014 55);
+  --color-base-300: oklch(32% 0.02 55);
+  --color-base-content: oklch(93% 0.02 80);
+
+  --color-primary: oklch(70% 0.16 38);
+  --color-primary-content: oklch(19% 0.035 40);
+  --color-secondary: oklch(72% 0.115 128);
+  --color-secondary-content: oklch(20% 0.04 128);
+  --color-accent: oklch(82% 0.14 82);
+  --color-accent-content: oklch(24% 0.05 60);
+  --color-neutral: oklch(36% 0.022 55);
+  --color-neutral-content: oklch(93% 0.02 80);
+
+  --color-info: oklch(72% 0.1 225);
+  --color-info-content: oklch(20% 0.04 225);
+  --color-success: oklch(72% 0.14 150);
+  --color-success-content: oklch(20% 0.04 150);
+  --color-warning: oklch(80% 0.15 75);
+  --color-warning-content: oklch(24% 0.05 60);
+  --color-error: oklch(70% 0.17 22);
+  --color-error-content: oklch(19% 0.04 20);
+
+  --radius-selector: 1rem;
+  --radius-field: 0.9rem;
+  --radius-box: 1.4rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme inline {
+  --font-sans: var(--font-plex), ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
+  --font-display: var(--font-lalezar), var(--font-plex), ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-rise: rise 0.5s var(--ease-out-soft) both;
+  --animate-page: page-in 0.35s var(--ease-out-soft) both;
+  --animate-pop: pop 0.35s var(--ease-spring) both;
+  --animate-fade: fade 0.3s ease both;
+  --animate-float: float 5s ease-in-out infinite;
+  --animate-steam: steam 2.6s ease-in-out infinite;
+  --animate-wiggle: wiggle 0.6s ease both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-slide-down: slide-down 0.4s var(--ease-out-soft) both;
+  --animate-stir: stir 1.6s ease-in-out infinite;
+  --animate-heart: heart 0.45s var(--ease-spring) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-3deg);
+    }
+    50% {
+      transform: translateY(-8px) rotate(3deg);
+    }
+  }
+  @keyframes steam {
+    0% {
+      opacity: 0;
+      transform: translateY(6px) scaleX(1);
+    }
+    40% {
+      opacity: 0.75;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-14px) scaleX(1.5);
+    }
+  }
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(0);
+    }
+    25% {
+      transform: rotate(-10deg);
+    }
+    75% {
+      transform: rotate(10deg);
+    }
+  }
+  @keyframes shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes stir {
+    0%,
+    100% {
+      transform: rotate(-14deg);
+    }
+    50% {
+      transform: rotate(14deg);
+    }
+  }
+  @keyframes heart {
+    0% {
+      transform: scale(1);
+    }
+    40% {
+      transform: scale(1.35);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-base-200);
+    /* Soft warm glows — a hint of saffron and pepper behind the page. */
+    background-image:
+      radial-gradient(60rem 28rem at 110% -10%, color-mix(in oklab, var(--color-accent) 22%, transparent), transparent 70%),
+      radial-gradient(48rem 24rem at -20% 0%, color-mix(in oklab, var(--color-primary) 14%, transparent), transparent 70%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--color-base-content);
+    font-family: var(--font-sans);
+    overscroll-behavior-y: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* Native emoji read as "icons" throughout the app; keep them crisp. */
+  .emoji {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    font-style: normal;
+    line-height: 1;
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* Horizontal chip rows: scroll without a visible scrollbar. */
+@utility scroll-row {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Card surface used across the app. */
+@utility surface {
+  background-color: var(--color-base-100);
+  border: 1px solid color-mix(in oklab, var(--color-base-content) 8%, transparent);
+  border-radius: var(--radius-box);
+  box-shadow:
+    0 1px 0 color-mix(in oklab, var(--color-base-content) 4%, transparent),
+    0 10px 24px -18px color-mix(in oklab, var(--color-base-content) 40%, transparent);
+}
+
+/* Press feedback for anything tappable. */
+@utility pressable {
+  transition:
+    transform 0.18s var(--ease-out-soft),
+    box-shadow 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+@utility skeleton-warm {
+  border-radius: var(--radius-box);
+  background: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--color-base-content) 6%, transparent) 30%,
+    color-mix(in oklab, var(--color-base-content) 12%, transparent) 50%,
+    color-mix(in oklab, var(--color-base-content) 6%, transparent) 70%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+/* Space for the floating bottom navigation + device safe area. */
+@utility pb-nav {
+  padding-bottom: calc(6.5rem + env(safe-area-inset-bottom));
+}
+
+@utility pt-safe {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
