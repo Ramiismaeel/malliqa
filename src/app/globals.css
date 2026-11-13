@@ -261,19 +261,6 @@
   letter-spacing: 0;
 }
 
-/* Horizontal chip rows: scroll without a visible scrollbar. */
-@utility scroll-row {
-  display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
 /* Card surface used across the app. */
 @utility surface {
   background-color: var(--color-base-100);

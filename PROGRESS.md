@@ -79,3 +79,13 @@ Short notes appended at the end of each phase. Scope and order live in `CLAUDE.m
 - Accessibility pass: 44px tap targets, labels on icon buttons, text contrast raised, focus rings, reduced motion.
 - README: setup, env vars, Vercel Firewall rule, how to add a recipe.
 - **Open:** deploy to Vercel (not done — nothing has been pushed).
+
+## After v1.0 — owner feedback (2026-11-13)
+
+- Lemon moved from «إضافات» to «الخضار».
+- Gas stove and electric/induction hob merged into one item, «غاز / طباخ» (id `stove`). Dexie **version 2** rewrites
+  saved `gas-stove` / `electric-hob` rows; old backups are mapped on import; `capabilitiesOf` still accepts the old ids.
+- Food processor: custom drawing on the equipment card and its own line icon on recipes (it shared the blender icon).
+- Filter chips no longer scroll horizontally (they were cut off with no way to reach the rest on desktop): the quick
+  filters are three rows of equal-width chips, pantry categories and cuisines wrap, and the recipes page keeps
+  cuisine/time/type/difficulty in a «فلاتر» panel with an active-filter count.

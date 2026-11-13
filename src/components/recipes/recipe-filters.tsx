@@ -22,50 +22,57 @@ const MEAL_OPTIONS: Array<{ value: MealChip; label: string; emoji: string }> = [
 
 const CUISINE_OPTIONS: Cuisine[] = ["syrian", "levantine", "arab", "italian", "asian", "quick", "bakery"];
 
-function Divider() {
-  return <span aria-hidden="true" className="my-2 w-px shrink-0 bg-base-content/12" />;
-}
-
 interface RecipeFiltersProps<T extends HomeFilters> {
   value: T;
   onChange: (value: T) => void;
 }
 
-/** One scrollable row of quick filters: time, difficulty, meal type. */
+/**
+ * Quick filters: time, meal type, difficulty. Each group is one row of
+ * equal-width chips, so every filter is visible on any screen width — no
+ * horizontal scrolling and nothing cut off.
+ */
 export function RecipeFilters<T extends HomeFilters>({ value, onChange }: RecipeFiltersProps<T>) {
   return (
-    <div className="scroll-row -mx-4 px-4 py-1" role="group" aria-label="تصفية الوصفات">
-      {TIME_OPTIONS.map((option) => (
-        <Chip
-          key={option.value}
-          active={value.time.includes(option.value)}
-          onToggle={() => onChange({ ...value, time: toggleIn(value.time, option.value) })}
-        >
-          <Emoji>{option.emoji}</Emoji>
-          {timeBucketLabels[option.value].label}
-        </Chip>
-      ))}
-      <Divider />
-      {MEAL_OPTIONS.map((option) => (
-        <Chip
-          key={option.value}
-          active={value.meal.includes(option.value)}
-          onToggle={() => onChange({ ...value, meal: toggleIn(value.meal, option.value) })}
-        >
-          <Emoji>{option.emoji}</Emoji>
-          {option.label}
-        </Chip>
-      ))}
-      <Divider />
-      {DIFFICULTY_OPTIONS.map((option) => (
-        <Chip
-          key={option}
-          active={value.difficulty.includes(option)}
-          onToggle={() => onChange({ ...value, difficulty: toggleIn(value.difficulty, option) })}
-        >
-          {difficultyLabels[option]}
-        </Chip>
-      ))}
+    <div className="flex flex-col gap-2">
+      <div className="grid grid-cols-3 gap-2" role="group" aria-label="المدة">
+        {TIME_OPTIONS.map((option) => (
+          <Chip
+            key={option.value}
+            fill
+            active={value.time.includes(option.value)}
+            onToggle={() => onChange({ ...value, time: toggleIn(value.time, option.value) })}
+          >
+            <Emoji>{option.emoji}</Emoji>
+            {timeBucketLabels[option.value].label}
+          </Chip>
+        ))}
+      </div>
+      <div className="grid grid-cols-4 gap-2" role="group" aria-label="نوع الوجبة">
+        {MEAL_OPTIONS.map((option) => (
+          <Chip
+            key={option.value}
+            fill
+            active={value.meal.includes(option.value)}
+            onToggle={() => onChange({ ...value, meal: toggleIn(value.meal, option.value) })}
+          >
+            <Emoji>{option.emoji}</Emoji>
+            {option.label}
+          </Chip>
+        ))}
+      </div>
+      <div className="grid grid-cols-3 gap-2" role="group" aria-label="الصعوبة">
+        {DIFFICULTY_OPTIONS.map((option) => (
+          <Chip
+            key={option}
+            fill
+            active={value.difficulty.includes(option)}
+            onToggle={() => onChange({ ...value, difficulty: toggleIn(value.difficulty, option) })}
+          >
+            {difficultyLabels[option]}
+          </Chip>
+        ))}
+      </div>
     </div>
   );
 }
@@ -75,9 +82,10 @@ interface CuisineFiltersProps {
   onChange: (value: Cuisine[]) => void;
 }
 
+/** Cuisine chips; they wrap onto as many lines as needed. */
 export function CuisineFilters({ value, onChange }: CuisineFiltersProps) {
   return (
-    <div className="scroll-row -mx-4 px-4 py-1" role="group" aria-label="المطبخ">
+    <div className="flex flex-wrap gap-2" role="group" aria-label="المطبخ">
       {CUISINE_OPTIONS.map((cuisine) => (
         <Chip key={cuisine} active={value.includes(cuisine)} onToggle={() => onChange(toggleIn(value, cuisine))}>
           <Emoji>{cuisineLabels[cuisine].emoji}</Emoji>
@@ -90,4 +98,8 @@ export function CuisineFilters({ value, onChange }: CuisineFiltersProps) {
 
 export function hasActiveFilters(filters: HomeFilters): boolean {
   return filters.time.length > 0 || filters.difficulty.length > 0 || filters.meal.length > 0;
+}
+
+export function countActiveFilters(filters: HomeFilters & { cuisine?: Cuisine[] }): number {
+  return filters.time.length + filters.difficulty.length + filters.meal.length + (filters.cuisine?.length ?? 0);
 }

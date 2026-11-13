@@ -1,4 +1,5 @@
 import Dexie, { type EntityTable } from "dexie";
+import { legacyEquipmentIds } from "@/data/equipment";
 import type {
   AiRecipeRow,
   CustomIngredient,
@@ -35,6 +36,19 @@ export class MalliqaDB extends Dexie {
       favorites: "recipeId, addedAt",
       dayPlan: "date",
       aiRecipes: "id, createdAt",
+    });
+
+    // v2: gas stove and electric hob were merged into one "stove" item.
+    // Same stores; only the saved equipment ids are rewritten.
+    this.version(2).upgrade(async (tx) => {
+      const table = tx.table<EquipmentRow, string>("equipment");
+      const rows = await table.toArray();
+      for (const row of rows) {
+        const current = legacyEquipmentIds[row.equipmentId];
+        if (!current) continue;
+        await table.delete(row.equipmentId);
+        if (row.available) await table.put({ equipmentId: current, available: true });
+      }
     });
   }
 }

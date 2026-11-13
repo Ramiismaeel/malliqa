@@ -56,7 +56,7 @@ export default function PantryPage() {
           {!hasHeat && (
             <div role="alert" className="flex items-start gap-3 rounded-3xl bg-warning/20 p-4 text-sm leading-relaxed">
               <Emoji className="text-2xl">🔥</Emoji>
-              <span>لم تحدّد موقداً. بدونه ستظهر فقط السلطات والسندويشات وما لا يحتاج طبخاً.</span>
+              <span>لم تحدّد الغاز / الطباخ. بدونه ستظهر فقط السلطات والسندويشات وما لا يحتاج طبخاً.</span>
             </div>
           )}
           <EquipmentList selected={equipmentIds} onToggle={(id) => void toggleEquipment(id)} />

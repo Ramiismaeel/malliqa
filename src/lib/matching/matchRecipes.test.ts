@@ -83,7 +83,7 @@ describe("golden test", () => {
     recipes: allRecipes,
     availableIngredientIds: new Set([...fresh, ...staples]),
     stapleIds: new Set(staples),
-    capabilities: capabilitiesOf(["electric-hob"]),
+    capabilities: capabilitiesOf(["stove"]),
     ingredientGroups: builtinIngredientGroups,
     day: "today",
   });
@@ -112,7 +112,7 @@ describe("golden test", () => {
       recipes: allRecipes,
       availableIngredientIds: new Set([...fresh, ...staples, "vermicelli"]),
       stapleIds: new Set([...staples, "vermicelli"]),
-      capabilities: capabilitiesOf(["electric-hob"]),
+      capabilities: capabilitiesOf(["stove"]),
       ingredientGroups: builtinIngredientGroups,
       day: "today",
     });
@@ -131,7 +131,7 @@ describe("golden test", () => {
       recipes: allRecipes.filter((r) => r.id === "rice-with-vermicelli"),
       availableIngredientIds: new Set([...staples, "vermicelli", "minced-meat"]),
       stapleIds: new Set([...staples, "vermicelli"]),
-      capabilities: capabilitiesOf(["electric-hob"]),
+      capabilities: capabilitiesOf(["stove"]),
       ingredientGroups: builtinIngredientGroups,
       day: "today",
     });
@@ -344,7 +344,9 @@ describe("equipment", () => {
     expect(result.missingEquipment).toEqual([]);
   });
 
-  it("gas stove and electric hob both provide the stovetop capability", () => {
+  it("the stove provides the stovetop capability", () => {
+    expect(capabilitiesOf(["stove"]).has("stovetop")).toBe(true);
+    // Ids from before the two stoves were merged still work.
     expect(capabilitiesOf(["gas-stove"]).has("stovetop")).toBe(true);
     expect(capabilitiesOf(["electric-hob"]).has("stovetop")).toBe(true);
     expect(capabilitiesOf(["unknown-device"]).size).toBe(0);

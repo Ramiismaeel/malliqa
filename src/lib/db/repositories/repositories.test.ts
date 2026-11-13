@@ -1,6 +1,7 @@
 import "fake-indexeddb/auto";
 import { beforeEach, describe, expect, it } from "vitest";
-import { db } from "@/lib/db/dexie";
+import Dexie from "dexie";
+import { db, MalliqaDB } from "@/lib/db/dexie";
 import { deleteAiRecipe, listAiRecipes, saveAiRecipe } from "./aiRecipes";
 import { clearAllData, exportBackup, importBackup, parseBackup, summarizeBackup } from "./backup";
 import { clearPlan, dateKey, getPlan, pruneOldPlans, setPlan } from "./dayPlan";
@@ -94,8 +95,42 @@ describe("equipment repository", () => {
   it("toggles and replaces equipment", async () => {
     expect(await toggleEquipment("oven")).toBe(true);
     expect(await toggleEquipment("oven")).toBe(false);
-    await replaceEquipment(["electric-hob", "blender"]);
-    expect((await listEquipment()).map((r) => r.equipmentId).sort()).toEqual(["blender", "electric-hob"]);
+    await replaceEquipment(["stove", "blender"]);
+    expect((await listEquipment()).map((r) => r.equipmentId).sort()).toEqual(["blender", "stove"]);
+  });
+});
+
+describe("equipment migration (v2)", () => {
+  it("rewrites the old gas stove / electric hob ids to the single stove", async () => {
+    const name = "malliqa-migration-test";
+    await Dexie.delete(name);
+
+    // A database as version 1 of the app left it.
+    const old = new Dexie(name);
+    old.version(1).stores({
+      pantry: "ingredientId, available, isStaple",
+      customIngredients: "id, category",
+      equipment: "equipmentId",
+      settings: "key",
+      favorites: "recipeId, addedAt",
+      dayPlan: "date",
+      aiRecipes: "id, createdAt",
+    });
+    await old.table("equipment").bulkPut([
+      { equipmentId: "electric-hob", available: true },
+      { equipmentId: "gas-stove", available: true },
+      { equipmentId: "oven", available: true },
+    ]);
+    await old.table("pantry").put({ ingredientId: "salt", available: true, isStaple: true, updatedAt: 1 });
+    old.close();
+
+    const upgraded = new MalliqaDB(name);
+    const ids = (await upgraded.equipment.toArray()).map((row) => row.equipmentId).sort();
+    expect(ids).toEqual(["oven", "stove"]);
+    // Everything else is untouched.
+    expect(await upgraded.pantry.count()).toBe(1);
+    upgraded.close();
+    await Dexie.delete(name);
   });
 });
 
@@ -158,7 +193,7 @@ describe("backup", () => {
   it("round-trips all user data and never exports the access token", async () => {
     await replaceStaples(["salt", "rice"]);
     await setAvailable("minced-meat", true);
-    await replaceEquipment(["electric-hob"]);
+    await replaceEquipment(["stove"]);
     await setSetting("onboardingDone", true);
     await setSetting("aiAccessToken", "secret");
     await toggleFavorite("mujaddara");
@@ -186,6 +221,18 @@ describe("backup", () => {
     expect(await getSetting("onboardingDone")).toBe(true);
     expect(await isFavorite("mujaddara")).toBe(true);
     expect(await listAiRecipes()).toHaveLength(1);
+  });
+
+  it("maps equipment ids from old backups to the current ones", async () => {
+    await replaceEquipment(["oven"]);
+    const backup = await exportBackup();
+    backup.data.equipment = [
+      { equipmentId: "electric-hob", available: true },
+      { equipmentId: "gas-stove", available: true },
+      { equipmentId: "blender", available: true },
+    ];
+    await importBackup(backup);
+    expect((await listEquipment()).map((r) => r.equipmentId).sort()).toEqual(["blender", "stove"]);
   });
 
   it("rejects files that are not valid backups", () => {

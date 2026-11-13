@@ -56,6 +56,7 @@ export const ingredients: Ingredient[] = [
   // ── الخضار ────────────────────────────────────────────────────────────
   { id: "onion", name: "بصل", nameEn: "Onion", emoji: "🧅", aliases: ["بصل يابس", "بصل أبيض", "بصلة"], category: "vegetables", defaultStaple: true, common: true },
   { id: "garlic", name: "ثوم", nameEn: "Garlic", emoji: "🧄", aliases: ["توم", "فصوص ثوم", "ثوم مهروس"], category: "vegetables", defaultStaple: true, common: true },
+  { id: "lemon", name: "ليمون", nameEn: "Lemon", emoji: "🍋", aliases: ["حامض", "عصير ليمون", "ليمونة", "ليمون حامض"], category: "vegetables", defaultStaple: true, common: true },
   { id: "tomato", name: "بندورة", nameEn: "Tomato", emoji: "🍅", aliases: ["طماطم", "طماطم طازجة", "بندورة طازجة", "بنادورة"], category: "vegetables", groups: ["tomato-base"], common: true },
   { id: "cucumber", name: "خيار", nameEn: "Cucumber", emoji: "🥒", aliases: ["خيارة"], category: "vegetables", common: true },
   { id: "potato", name: "بطاطا", nameEn: "Potato", emoji: "🥔", aliases: ["بطاطس", "بطاطة"], category: "vegetables", common: true },
@@ -267,7 +268,6 @@ export const ingredients: Ingredient[] = [
 
   // ── إضافات ────────────────────────────────────────────────────────────
   { id: "sugar", name: "سكر", nameEn: "Sugar", emoji: "🍬", aliases: ["سكر أبيض", "سكر ناعم"], category: "other", defaultStaple: true, common: true },
-  { id: "lemon", name: "ليمون", nameEn: "Lemon", emoji: "🍋", aliases: ["حامض", "عصير ليمون", "ليمونة", "ليمون حامض"], category: "other", defaultStaple: true, common: true },
   { id: "vinegar", name: "خل", nameEn: "Vinegar", emoji: "🍶", aliases: ["خل أبيض", "خل تفاح", "خل عنب"], category: "other", defaultStaple: true, common: true },
   { id: "honey", name: "عسل", nameEn: "Honey", emoji: "🍯", aliases: ["عسل نحل"], category: "other", common: true },
   { id: "walnuts", name: "جوز", nameEn: "Walnuts", emoji: "🌰", aliases: ["عين جمل", "جوز قلب", "قلب جوز"], category: "other", groups: ["nuts-any"], common: true },

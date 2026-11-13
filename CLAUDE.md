@@ -105,7 +105,7 @@ src/
 // categories.ts
 type IngredientCategory =
   | 'meat'        // اللحوم والبروتينات (لحم، دجاج، سمك) — eggs live in dairy-eggs
-  | 'vegetables'  // الخضار
+  | 'vegetables'  // الخضار (والليمون)
   | 'fruits'      // الفواكه
   | 'grains'      // الحبوب والنشويات (أرز، برغل، معكرونة، طحين، خبز)
   | 'legumes'     // البقوليات (عدس، حمص، فول، فاصولياء)
@@ -113,7 +113,7 @@ type IngredientCategory =
   | 'spices'      // التوابل والأعشاب
   | 'sauces'      // الصلصات والمعلبات
   | 'oils'        // الزيوت والدهون
-  | 'other';      // إضافات (سكر، خل، ليمون، مكسرات…)
+  | 'other';      // إضافات (سكر، خل، مكسرات…)
 
 type EquipmentCategory = 'cooking' | 'baking' | 'electric' | 'other';
 ```
@@ -142,8 +142,8 @@ Required groups at minimum: `tomato-base` (fresh tomato, tomato juice, paste, pa
 ```ts
 // equipment.ts
 interface Equipment {
-  id: string;                 // 'gas-stove'
-  name: string;               // 'موقد غاز'
+  id: string;                 // 'stove'
+  name: string;               // 'غاز / طباخ'
   category: EquipmentCategory;
   provides: Capability[];     // what recipes can rely on
 }
@@ -152,7 +152,7 @@ type Capability =
   | 'hand-mixer' | 'stand-mixer' | 'food-processor' | 'pressure-cooker' | 'grill';
 ```
 
-Equipment list v1: gas stove, electric/induction hob (both provide `stovetop`), oven, microwave, air fryer, blender, hand mixer, stand mixer, food processor, pressure cooker, electric grill.
+Equipment list v1: stove («غاز / طباخ» — gas, electric and induction are one item; provides `stovetop`), oven, microwave, air fryer, blender, hand mixer, stand mixer, food processor, pressure cooker, electric grill.
 
 ```ts
 // Recipe (src/lib/schemas/recipe.ts)
@@ -239,7 +239,7 @@ Per recipe:
 
 Output per recipe: `{ recipe, status, missing[], viaGroup[], viaSubstitute[], optionalMissing[], missingEquipment[], freshUsed, matchPercent, needsAdvancePrep, timeBucket }`.
 
-**Golden test (must exist and pass):** pantry = onion, butter, pasta, tomato-juice, minced-meat + staples (salt, black-pepper, mixed-spices, oil, garlic, coriander, bread, rice); equipment = electric hob only.
+**Golden test (must exist and pass):** pantry = onion, butter, pasta, tomato-juice, minced-meat + staples (salt, black-pepper, mixed-spices, oil, garlic, coriander, bread, rice); equipment = stove only.
 - `spaghetti-bolognese` → ready, `freshUsed ≥ 4`, ranked above `rice-with-vermicelli`.
 - `baked-pasta-with-meat` → unsuitable (oven).
 - A recipe needing milk (e.g. stovetop béchamel pasta) → almost, missing = [milk].

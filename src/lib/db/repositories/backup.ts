@@ -1,3 +1,4 @@
+import { canonicalEquipmentId } from "@/data/equipment";
 import { db } from "@/lib/db/dexie";
 import {
   BACKUP_APP_ID,
@@ -95,7 +96,12 @@ export async function importBackup(backup: Backup): Promise<void> {
       await Promise.all([
         db.pantry.bulkPut(data.pantry),
         db.customIngredients.bulkPut(data.customIngredients),
-        db.equipment.bulkPut(data.equipment),
+        // Old backups may still use equipment ids from before the stoves were merged.
+        db.equipment.bulkPut(
+          data.equipment
+            .filter((row) => row.available)
+            .map((row) => ({ equipmentId: canonicalEquipmentId(row.equipmentId), available: true })),
+        ),
         db.settings.bulkPut(data.settings.filter((row) => row.key !== "aiAccessToken")),
         db.favorites.bulkPut(data.favorites),
         db.dayPlan.bulkPut(data.dayPlan),

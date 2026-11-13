@@ -1,9 +1,16 @@
 "use client";
 
 import { Check } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
 import { Emoji } from "@/components/ui/emoji";
+import { FoodProcessorArt } from "@/components/ui/food-processor-icon";
 import { equipmentCategories } from "@/data/categories";
 import { equipment } from "@/data/equipment";
+
+/** Equipment with no fitting emoji gets its own drawing. */
+const CUSTOM_ART: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
+  "food-processor": FoodProcessorArt,
+};
 
 interface EquipmentListProps {
   selected: ReadonlySet<string>;
@@ -26,6 +33,8 @@ export function EquipmentList({ selected, onToggle }: EquipmentListProps) {
             <div className="grid grid-cols-2 gap-2">
               {items.map((item, index) => {
                 const active = selected.has(item.id);
+                const Art = CUSTOM_ART[item.id];
+                const artState = `transition-transform duration-300 ease-spring ${active ? "scale-110" : "grayscale-[0.6]"}`;
                 return (
                   <button
                     key={item.id}
@@ -40,9 +49,11 @@ export function EquipmentList({ selected, onToggle }: EquipmentListProps) {
                     }`}
                   >
                     <span className="flex w-full items-start justify-between">
-                      <Emoji className={`text-3xl transition-transform duration-300 ease-spring ${active ? "scale-110" : "grayscale-[0.6]"}`}>
-                        {item.emoji ?? "🍳"}
-                      </Emoji>
+                      {Art ? (
+                        <Art className={`size-9 ${artState}`} />
+                      ) : (
+                        <Emoji className={`text-3xl ${artState}`}>{item.emoji ?? "🍳"}</Emoji>
+                      )}
                       <span
                         className={`grid size-6 place-items-center rounded-full border transition-colors ${
                           active ? "border-secondary bg-secondary text-secondary-content" : "border-base-content/20"

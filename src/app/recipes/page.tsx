@@ -1,10 +1,10 @@
 "use client";
 
-import { Heart, Search, Sparkles, X } from "lucide-react";
+import { ChevronDown, Heart, Search, SlidersHorizontal, Sparkles, X } from "lucide-react";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { RecipeCardSkeleton } from "@/components/recipes/recipe-card";
-import { CuisineFilters, RecipeFilters } from "@/components/recipes/recipe-filters";
+import { countActiveFilters, CuisineFilters, RecipeFilters } from "@/components/recipes/recipe-filters";
 import { RecipeList } from "@/components/recipes/recipe-list";
 import { Chip } from "@/components/ui/chip";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -24,6 +24,9 @@ export default function RecipesPage() {
   const [day] = useSelectedDay();
   const [filters, setFilters] = useBrowseFilters();
   const favoriteIds = useFavoriteIds();
+  const activeCount = countActiveFilters(filters);
+  // The filter panel starts open when coming back to a filtered list.
+  const [panelOpen, setPanelOpen] = useState(activeCount > 0);
 
   const matchFilters = useMemo(
     () => ({
@@ -91,10 +94,26 @@ export default function RecipesPage() {
         )}
       </label>
 
-      <div className="flex flex-col gap-1">
-        <CuisineFilters value={filters.cuisine} onChange={(cuisine) => setFilters({ ...filters, cuisine })} />
-        <RecipeFilters value={filters} onChange={setFilters} />
-        <div className="scroll-row -mx-4 px-4 py-1">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            aria-expanded={panelOpen}
+            aria-controls="recipe-filter-panel"
+            onClick={() => setPanelOpen((open) => !open)}
+            className={`pressable inline-flex min-h-11 items-center gap-1.5 rounded-full border px-4 text-sm font-medium ${
+              activeCount > 0
+                ? "border-primary bg-primary/10 text-primary"
+                : "border-base-content/10 bg-base-100 text-base-content/80"
+            }`}
+          >
+            <SlidersHorizontal className="size-4" />
+            فلاتر
+            {activeCount > 0 && (
+              <span className="rounded-full bg-primary px-1.5 text-xs text-primary-content tabular-nums">{activeCount}</span>
+            )}
+            <ChevronDown className={`size-4 transition-transform duration-300 ${panelOpen ? "rotate-180" : ""}`} />
+          </button>
           <Chip
             active={filters.favoritesOnly}
             onToggle={() => setFilters({ ...filters, favoritesOnly: !filters.favoritesOnly })}
@@ -111,6 +130,14 @@ export default function RecipesPage() {
             أظهر ما ينقصه أدوات
           </Chip>
         </div>
+
+        {panelOpen && (
+          <div id="recipe-filter-panel" className="surface flex animate-page flex-col gap-3 p-3">
+            <CuisineFilters value={filters.cuisine} onChange={(cuisine) => setFilters({ ...filters, cuisine })} />
+            <hr className="border-base-content/8" />
+            <RecipeFilters value={filters} onChange={setFilters} />
+          </div>
+        )}
       </div>
 
       {!kitchen || !visible ? (

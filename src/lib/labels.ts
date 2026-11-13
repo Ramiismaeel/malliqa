@@ -45,7 +45,7 @@ export const statusLabels: Record<MatchStatus, string> = {
 };
 
 export const capabilityLabels: Record<Capability, string> = {
-  stovetop: "موقد",
+  stovetop: "غاز / طباخ",
   oven: "فرن",
   microwave: "مايكروويف",
   "air-fryer": "قلاية هوائية",

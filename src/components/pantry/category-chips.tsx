@@ -12,10 +12,10 @@ interface CategoryChipsProps {
   counts: Partial<Record<IngredientCategory, number>>;
 }
 
-/** Horizontal row of category chips with "available" counts. */
+/** Category chips with "available" counts; they wrap so all are always visible. */
 export function CategoryChips({ value, onChange, counts }: CategoryChipsProps) {
   return (
-    <div className="scroll-row -mx-4 px-4 py-1" role="group" aria-label="فئات المكونات">
+    <div className="flex flex-wrap gap-2" role="group" aria-label="فئات المكونات">
       <Chip active={value === "all"} onToggle={() => onChange("all")}>
         <Emoji>🧺</Emoji>
         عندي

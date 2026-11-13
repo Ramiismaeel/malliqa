@@ -9,6 +9,7 @@ import {
   type LucideIcon,
   type LucideProps,
 } from "lucide-react";
+import { FoodProcessorIcon } from "@/components/ui/food-processor-icon";
 import { capabilityLabels } from "@/lib/labels";
 import type { Capability } from "@/lib/schemas/equipment";
 import type { Recipe } from "@/lib/schemas/recipe";
@@ -35,7 +36,7 @@ function OvenIcon(props: LucideProps) {
   );
 }
 
-const ICONS: Record<Capability, LucideIcon | typeof OvenIcon> = {
+const ICONS: Record<Capability, LucideIcon | typeof OvenIcon | typeof FoodProcessorIcon> = {
   stovetop: Flame,
   oven: OvenIcon,
   microwave: Microwave,
@@ -43,7 +44,7 @@ const ICONS: Record<Capability, LucideIcon | typeof OvenIcon> = {
   blender: Blend,
   "hand-mixer": Zap,
   "stand-mixer": Zap,
-  "food-processor": Blend,
+  "food-processor": FoodProcessorIcon,
   "pressure-cooker": CookingPot,
   grill: Utensils,
 };
