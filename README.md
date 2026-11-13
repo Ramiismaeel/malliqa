@@ -43,6 +43,7 @@ The AI assistant is optional. To enable it locally, copy `.env.example` to `.env
 | `pnpm test` · `pnpm test:coverage` | Vitest; coverage enforces ≥ 90% lines on `src/lib/matching` |
 | `pnpm icons` | Regenerates the PWA icons in `public/icons` from `scripts/generate-icons.mjs` |
 | `pnpm recipes:draft <cuisine> <count> [hint]` | Dev-only: asks Gemini for draft recipes and writes them to `src/data/recipes/_drafts/` for human review |
+| `pnpm studio` | Dev-only: the content studio at http://localhost:3220 — review, classify and comment on every recipe (see below) |
 
 Every phase ends with `pnpm lint && pnpm typecheck && pnpm test && pnpm build` green.
 
@@ -78,6 +79,27 @@ The route has no login, so anyone who knows the URL can spend your Gemini quota.
 3. **Access token** (recommended for a family app) — set `APP_ACCESS_TOKEN` in Vercel and enter the same value in the app's settings on each device.
 
 The route also validates the request size and shape with Zod (≤ 60 ingredient names, ≤ 50 excluded recipe names, 3–5 recipes).
+
+## Content studio (internal review page)
+
+```bash
+pnpm studio
+```
+
+Opens a local page at **http://localhost:3220** for the owner / content writer. It is not part of the app: nothing in
+`src/` imports it, and it is never built or deployed.
+
+- Lists every built-in recipe straight from `src/data` with its emoji, ingredients (groups expanded), substitutes,
+  equipment and steps. Search uses the same Arabic normalization as the app.
+- Per recipe: a **course** (أساسية / مقبلات / حلويات), a free-text **comment or correction**, an optional replacement
+  emoji, and a «راجعتها وهي صحيحة» mark. Keys: `↑` `↓` move, `1` `2` `3` classify, `C` comment, `/` search.
+- **«+ طبخة جديدة»** drafts a recipe in free text (name, ingredients and steps one per line).
+- **«ملاحظات عامة»** holds notes that are not about one recipe.
+
+Everything autosaves to [`content/recipe-review.json`](content/recipe-review.json) (created on the first edit). Commit
+that file like any other. The notes are then applied to the code — by hand or by an AI assistant, following "Content
+review workflow" in [CLAUDE.md](CLAUDE.md). If the file changes on disk while the page is open, the page refuses to
+overwrite it and asks for a reload. The server restarts itself when recipe files change; reload the page to see edits.
 
 ## How to add a recipe
 

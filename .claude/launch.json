@@ -12,6 +12,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["start", "--port", "3211"],
       "port": 3211
+    },
+    {
+      "name": "malliqa-studio",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["studio"],
+      "port": 3220
     }
   ]
 }

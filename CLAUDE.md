@@ -377,3 +377,42 @@ Planned for v1.2: cooking history + variety in suggestions, images, servings sca
 - No `any`. Zod `infer` types are the single source of types for data.
 - Small commits per task; update `PROGRESS.md` at the end of each phase.
 - When unsure about scope, re-read sections 2 and 10 before adding anything.
+
+---
+
+## 12. Content review workflow (owner notes → code)
+
+The owner reviews recipes in the **content studio** (`pnpm studio`, http://localhost:3220, code in
+`scripts/content-studio/`). It is a dev-only tool outside the app: never import it from `src/`, never deploy it. It
+writes one file, **`content/recipe-review.json`** (schema: `scripts/content-studio/review.ts`):
+
+```ts
+{
+  version: 1,
+  generalNotes: string,                       // notes not tied to one recipe
+  recipes: { [recipeId]: {
+    course?: 'main' | 'appetizer' | 'dessert', // أساسية / مقبلات / حلويات
+    ok?: true,                                 // owner read it and found it correct
+    comment?: string,                          // what is wrong or missing (free text, Arabic)
+    emoji?: string,                            // replacement emoji
+  } },
+  newRecipes: Array<{ id, name, emoji, course?, cuisine, mealType, time, servings, description,
+                      ingredients /* one per line */, steps /* one per line */, notes }>,
+}
+```
+
+When asked to "apply the review" (or similar), read that file and:
+
+1. **Comments / emoji** → fix the recipe in `src/data/recipes/<cuisine>.ts` (add missing ingredients to
+   `src/data/ingredients.ts` first if needed). Then delete that `comment` / `emoji` from the JSON and drop `ok`, so the
+   recipe shows up again as not reviewed. If a comment is unclear, leave it in place and ask.
+2. **New recipes** → write a proper `Recipe` (ids, refs, units, equipment, steps) in the file of its cuisine, then remove
+   the entry from `newRecipes`. Carry its `course` over to `recipes[<new id>].course`.
+3. **General notes** → act on them, then remove the lines that are done.
+4. **`course`** stays in the JSON until the owner asks to bring the classification into the app. At that point add
+   `course` to the Recipe schema, move the values into the recipe files, add the filter to the UI, and remove `course`
+   from the review schema.
+5. Run `pnpm lint && pnpm typecheck && pnpm test`, and report what was applied and what was left.
+
+Never edit the JSON while the owner may have unsaved work without saying so: the studio detects the change and asks
+them to reload.

@@ -13,7 +13,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "icons": "node scripts/generate-icons.mjs",
-    "recipes:draft": "tsx --env-file=.env.local scripts/generate-recipes.ts"
+    "recipes:draft": "tsx --env-file=.env.local scripts/generate-recipes.ts",
+    "studio": "tsx watch scripts/content-studio/server.ts"
   },
   "dependencies": {
     "@google/genai": "^3.2.0",

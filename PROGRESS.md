@@ -86,6 +86,10 @@ Short notes appended at the end of each phase. Scope and order live in `CLAUDE.m
 - Gas stove and electric/induction hob merged into one item, «غاز / طباخ» (id `stove`). Dexie **version 2** rewrites
   saved `gas-stove` / `electric-hob` rows; old backups are mapped on import; `capabilitiesOf` still accepts the old ids.
 - Food processor: custom drawing on the equipment card and its own line icon on recipes (it shared the blender icon).
+- **Content studio** (`pnpm studio`, `scripts/content-studio/`): a local review page for the owner — every recipe with
+  its emoji, ingredients and steps; per-recipe course (أساسية / مقبلات / حلويات), comment, replacement emoji and a
+  "reviewed" mark; free-text drafts of new recipes; general notes. Saves to `content/recipe-review.json`; the workflow
+  for applying it is CLAUDE.md §12. The course is not in the app yet — the owner classifies first.
 - Filter chips no longer scroll horizontally (they were cut off with no way to reach the rest on desktop): the quick
   filters are three rows of equal-width chips, pantry categories and cuisines wrap, and the recipes page keeps
   cuisine/time/type/difficulty in a «فلاتر» panel with an active-filter count.
