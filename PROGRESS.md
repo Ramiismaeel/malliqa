@@ -86,6 +86,12 @@ Short notes appended at the end of each phase. Scope and order live in `CLAUDE.m
 - Gas stove and electric/induction hob merged into one item, «غاز / طباخ» (id `stove`). Dexie **version 2** rewrites
   saved `gas-stove` / `electric-hob` rows; old backups are mapped on import; `capabilitiesOf` still accepts the old ids.
 - Food processor: custom drawing on the equipment card and its own line icon on recipes (it shared the blender icon).
+- **Bottom nav taps:** the bar's wrapper was `pointer-events-none`, so the 16px beside the pill and the strip under it
+  (12px, or the whole safe-area inset on phones) passed taps to the page behind — 27% of the bar's zone at 430px — and
+  toggled pantry items scrolled under it; the pill's own padding and gaps (another 18%) did nothing. Now every point
+  from the bar's top edge to the screen edge belongs to a tab (links fill their cells and extend down and sideways),
+  and a fade hides content behind the zone. Checked by hit-testing the zone at 360px and 430px.
+- Microwave: own drawing on the equipment card instead of the satellite-dish emoji.
 - Onboarding asks for the household size first (3 steps now: household → staples → equipment); brown lentils are a
   default staple. Existing kitchens are not changed — defaults only apply to a first run.
 - **Visitor analytics:** Vercel Web Analytics via `<Analytics />` in the root layout; `/_vercel/*` is network-only in the

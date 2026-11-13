@@ -7,7 +7,7 @@ export const equipment: Equipment[] = [
   { id: "stove", name: "غاز / طباخ", emoji: "🔥", category: "cooking", provides: ["stovetop"] },
   { id: "pressure-cooker", name: "طنجرة ضغط", emoji: "🍲", category: "cooking", provides: ["pressure-cooker"] },
   { id: "oven", name: "فرن", emoji: "🥧", category: "baking", provides: ["oven"] },
-  { id: "microwave", name: "مايكروويف", emoji: "📡", category: "electric", provides: ["microwave"] },
+  { id: "microwave", name: "مايكروويف", emoji: "♨️", category: "electric", provides: ["microwave"] },
   { id: "air-fryer", name: "قلاية هوائية", emoji: "🌬️", category: "electric", provides: ["air-fryer"] },
   { id: "blender", name: "خلاط", emoji: "🥤", category: "electric", provides: ["blender"] },
   { id: "hand-mixer", name: "خفاقة يدوية كهربائية", emoji: "🥚", category: "electric", provides: ["hand-mixer"] },
