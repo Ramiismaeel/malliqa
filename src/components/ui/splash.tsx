@@ -14,7 +14,7 @@ export function Splash() {
           <BrandMark className="size-16" steaming />
         </span>
         <span className="font-display text-5xl text-primary">ملّيقة</span>
-        <span className="text-sm text-base-content/60">شو نطبخ اليوم؟</span>
+        <span className="text-sm text-base-content/65">شو نطبخ اليوم؟</span>
       </div>
     </div>
   );

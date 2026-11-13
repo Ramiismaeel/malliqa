@@ -107,7 +107,7 @@ function AddForm({
 
       <label className="flex flex-col gap-1.5">
         <span className="text-sm font-semibold">
-          يقوم مقام <span className="font-normal text-base-content/55">(اختياري)</span>
+          يقوم مقام <span className="font-normal text-base-content/65">(اختياري)</span>
         </span>
         <select value={groupId} onChange={(event) => setGroupId(event.target.value)} className="select select-lg w-full rounded-2xl">
           <option value="">لا شيء</option>
@@ -117,7 +117,7 @@ function AddForm({
             </option>
           ))}
         </select>
-        <span className="text-xs text-base-content/55">مثلاً: صلصة بيتية تقوم مقام «قاعدة طماطم» في الوصفات.</span>
+        <span className="text-xs text-base-content/65">مثلاً: صلصة بيتية تقوم مقام «قاعدة طماطم» في الوصفات.</span>
       </label>
 
       <button type="submit" disabled={!canSave} className="btn btn-primary btn-lg rounded-full">

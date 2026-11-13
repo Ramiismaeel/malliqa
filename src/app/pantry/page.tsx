@@ -10,6 +10,7 @@ import { Segmented } from "@/components/ui/segmented";
 import { capabilitiesOf } from "@/data/equipment";
 import { useCustomIngredients, useEquipmentRows, usePantryRows } from "@/lib/db/hooks";
 import { toggleEquipment } from "@/lib/db/repositories/equipment";
+import { formatCount, ITEM_FORMS } from "@/lib/format";
 
 type Tab = "ingredients" | "equipment";
 
@@ -28,7 +29,7 @@ export default function PantryPage() {
     <div className="flex flex-col gap-4">
       <PageHeader
         title="مطبخي"
-        subtitle={loading ? "…" : `${availableCount} مادة متوفرة · ${equipmentIds.size} أدوات`}
+        subtitle={loading ? "…" : `${formatCount(availableCount, ITEM_FORMS)} متوفرة · ${formatCount(equipmentIds.size, { one: "أداة واحدة", two: "أداتان", few: "أدوات", many: "أداة" })}`}
         action={<OnlineBadge />}
       />
 

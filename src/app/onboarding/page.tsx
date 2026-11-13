@@ -92,7 +92,7 @@ function Wizard({ initialStaples, initialEquipment, rerun }: WizardProps) {
       <header className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <Logo />
-          <span className="text-sm font-semibold text-base-content/55" aria-label={`الخطوة ${step + 1} من 2`}>
+          <span className="text-sm font-semibold text-base-content/65" aria-label={`الخطوة ${step + 1} من 2`}>
             {step + 1} / 2
           </span>
         </div>

@@ -84,7 +84,7 @@ export default function RecipesPage() {
             type="button"
             onClick={() => setFilters({ ...filters, query: "" })}
             aria-label="امسح البحث"
-            className="grid size-8 place-items-center rounded-full"
+            className="-me-3 grid size-11 shrink-0 place-items-center rounded-full"
           >
             <X className="size-4" />
           </button>

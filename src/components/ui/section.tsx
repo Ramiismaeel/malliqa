@@ -26,7 +26,7 @@ export function Section({ title, emoji, count, hint, action, children, className
               </span>
             )}
           </h2>
-          {hint && <p className="mt-0.5 text-xs text-base-content/60">{hint}</p>}
+          {hint && <p className="mt-0.5 text-xs text-base-content/65">{hint}</p>}
         </div>
         {action}
       </header>

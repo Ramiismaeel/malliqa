@@ -99,7 +99,7 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
       <header className="flex flex-col gap-1.5">
         <h1 className="font-display text-4xl leading-tight">{recipe.name}</h1>
         {recipe.nameEn && (
-          <p dir="ltr" className="text-end text-sm text-base-content/50">
+          <p dir="ltr" className="text-end text-sm text-base-content/65">
             {recipe.nameEn}
           </p>
         )}

@@ -26,7 +26,7 @@ export function Chip({ active, onToggle, children, count, className = "" }: Chip
       {count !== undefined && (
         <span
           className={`rounded-full px-1.5 text-xs tabular-nums ${
-            active ? "bg-primary-content/20" : "bg-base-content/8 text-base-content/60"
+            active ? "bg-primary-content/20" : "bg-base-content/8 text-base-content/65"
           }`}
         >
           {count}

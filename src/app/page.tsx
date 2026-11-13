@@ -16,6 +16,7 @@ import { Segmented } from "@/components/ui/segmented";
 import { useDayPlan, useFavoriteIds } from "@/lib/db/hooks";
 import { clearPlan, dateKey } from "@/lib/db/repositories/dayPlan";
 import { setSetting } from "@/lib/db/repositories/settings";
+import { formatCount, ITEM_FORMS } from "@/lib/format";
 import { mealChipsToTypes, useHomeFilters, useSelectedDay } from "@/lib/kitchen/ui-state";
 import { useKitchen, useMatches, type Kitchen } from "@/lib/kitchen/use-kitchen";
 import { toSections, type Day } from "@/lib/matching/matchRecipes";
@@ -53,7 +54,7 @@ export default function HomePage() {
         <p className="text-sm text-base-content/65">
           {kitchen
             ? kitchen.freshCount > 0
-              ? `اقتراحات مما عندك: ${kitchen.freshCount} مادة طازجة + ${kitchen.stapleIds.size} من الأساسيات`
+              ? `اقتراحات مما عندك: ${formatCount(kitchen.freshCount, ITEM_FORMS)} طازجة + ${kitchen.stapleIds.size} من الأساسيات`
               : "اقتراحات من الأساسيات فقط — أضف ما اشتريته لتتحسن"
             : "نحضّر الاقتراحات…"}
         </p>
@@ -171,7 +172,7 @@ export default function HomePage() {
                 type="button"
                 aria-expanded={showUnsuitable}
                 onClick={() => setShowUnsuitable((value) => !value)}
-                className="min-h-11 self-center text-sm font-medium text-base-content/55 underline-offset-4 hover:underline"
+                className="min-h-11 self-center text-sm font-medium text-base-content/65 underline-offset-4 hover:underline"
               >
                 {showUnsuitable ? "أخفِ" : "أظهر"} المستبعدة لنقص الأدوات ({sections.unsuitable.length})
               </button>

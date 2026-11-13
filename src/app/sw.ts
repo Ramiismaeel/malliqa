@@ -13,6 +13,11 @@ declare const self: ServiceWorkerGlobalScope;
 
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
+    // `/my-recipes/view?id=…` must hit the one precached page for any id.
+    // (`_rsc` is deliberately not ignored: RSC requests must never get HTML.)
+    ignoreURLParametersMatching: [/^utm_/, /^fbclid$/, /^id$/],
+  },
   // The new worker waits; the UpdateBanner asks the user before activating it.
   skipWaiting: false,
   clientsClaim: true,

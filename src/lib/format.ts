@@ -54,6 +54,16 @@ export function formatAdvancePrep(prep: AdvancePrep, label: string): string {
   return `${label} ${formatHours(prep.hours)}`;
 }
 
+/** Arabic count agreement: 1 مادة، 2 مادتان، 3–10 مواد، 11+ مادة. */
+export function formatCount(count: number, forms: { one: string; two: string; few: string; many: string }): string {
+  if (count === 1) return forms.one;
+  if (count === 2) return forms.two;
+  if (count >= 3 && count <= 10) return `${count} ${forms.few}`;
+  return `${count} ${forms.many}`;
+}
+
+export const ITEM_FORMS = { one: "مادة واحدة", two: "مادتان", few: "مواد", many: "مادة" } as const;
+
 /** 1 → "شخص", 2 → "شخصين", 4 → "4 أشخاص", 12 → "12 شخصاً" */
 export function formatServings(count: number): string {
   if (count === 1) return "شخص";

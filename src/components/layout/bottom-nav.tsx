@@ -42,7 +42,7 @@ export function BottomNav() {
                 href={tab.href}
                 aria-current={active ? "page" : undefined}
                 className={`pressable group flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-[1.25rem] text-[0.7rem] font-semibold ${
-                  active ? "bg-primary text-primary-content shadow-md shadow-primary/30" : "text-base-content/60 hover:text-base-content"
+                  active ? "bg-primary text-primary-content shadow-md shadow-primary/30" : "text-base-content/65 hover:text-base-content"
                 }`}
               >
                 <Icon

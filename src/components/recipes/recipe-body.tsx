@@ -1,4 +1,4 @@
-import { Check, Clock, Flame, Gauge, Replace, Sparkles, Users, X } from "lucide-react";
+import { Check, Clock, Flame, Gauge, Minus, Replace, Sparkles, Users, X } from "lucide-react";
 import type { ReactNode } from "react";
 import { Emoji } from "@/components/ui/emoji";
 import { formatAdvancePrep, formatAmount, formatMinutes, formatServings } from "@/lib/format";
@@ -16,14 +16,14 @@ import type { Capability } from "@/lib/schemas/equipment";
 import { CUSTOM_PREFIX, type Recipe, type RecipeIngredient } from "@/lib/schemas/recipe";
 import { EquipmentBadges } from "./equipment-badges";
 
-type IngredientState = "have" | "via-group" | "via-substitute" | "missing" | "unknown";
+type IngredientState = "have" | "via-group" | "via-substitute" | "missing" | "optional-missing" | "unknown";
 
 function Stat({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
   return (
     <div className="flex flex-col items-center gap-1 rounded-2xl bg-base-100 px-2 py-3 text-center">
       <span className="text-primary">{icon}</span>
       <span className="text-sm font-bold tabular-nums">{value}</span>
-      <span className="text-[0.7rem] text-base-content/55">{label}</span>
+      <span className="text-[0.7rem] text-base-content/65">{label}</span>
     </div>
   );
 }
@@ -33,7 +33,8 @@ const STATE_STYLES: Record<IngredientState, { box: string; icon: ReactNode; labe
   "via-group": { box: "bg-success/18 text-success", icon: <Check className="size-4" strokeWidth={3} />, label: "متوفر" },
   "via-substitute": { box: "bg-warning/30 text-warning-content", icon: <Replace className="size-4" />, label: "متوفر ببديل" },
   missing: { box: "bg-error/14 text-error", icon: <X className="size-4" strokeWidth={3} />, label: "ناقص" },
-  unknown: { box: "bg-base-content/8 text-base-content/50", icon: <span className="size-1.5 rounded-full bg-current" />, label: "" },
+  "optional-missing": { box: "bg-base-content/8 text-base-content/65", icon: <Minus className="size-4" />, label: "غير متوفر (اختياري)" },
+  unknown: { box: "bg-base-content/8 text-base-content/65", icon: <span className="size-1.5 rounded-full bg-current" />, label: "" },
 };
 
 interface RecipeBodyProps {
@@ -56,7 +57,7 @@ export function RecipeBody({ recipe, match, resolveRef, capabilities }: RecipeBo
   const stateOf = (ingredient: RecipeIngredient): IngredientState => {
     if (!match) return "unknown";
     if (viaSubstitute.has(ingredient.ref)) return "via-substitute";
-    if (missing.has(ingredient.ref)) return "missing";
+    if (missing.has(ingredient.ref)) return ingredient.role === "optional" ? "optional-missing" : "missing";
     return viaGroup.has(ingredient.ref) ? "via-group" : "have";
   };
 
@@ -75,11 +76,11 @@ export function RecipeBody({ recipe, match, resolveRef, capabilities }: RecipeBo
     let detail: string | undefined;
     if (substitute) {
       detail = `استعمل ${resolveRef(substitute.ingredientId).name}${substitute.note ? ` — ${substitute.note}` : ""}`;
-    } else if (groupMember) {
+    } else if (groupMember && resolveRef(groupMember).name !== info.name) {
       detail = `عندك: ${resolveRef(groupMember).name}`;
     } else if (state === "missing" && info.hint) {
       detail = `أي من: ${info.hint}`;
-    } else if (isFreeText && state === "missing") {
+    } else if (isFreeText && (state === "missing" || state === "optional-missing")) {
       detail = "ليس في قائمة المكونات — أضفه من «مطبخي» إن كان عندك";
     }
 
@@ -91,12 +92,12 @@ export function RecipeBody({ recipe, match, resolveRef, capabilities }: RecipeBo
         </span>
         <span className="min-w-0 flex-1">
           <span className="flex flex-wrap items-baseline gap-x-2">
-            <span className={`font-semibold ${state === "missing" && ingredient.role === "optional" ? "text-base-content/60" : ""}`}>
+            <span className={`font-semibold ${state === "optional-missing" ? "text-base-content/65" : ""}`}>
               {info.name}
             </span>
-            {ingredient.note && <span className="text-sm text-base-content/55">{ingredient.note}</span>}
+            {ingredient.note && <span className="text-sm text-base-content/65">{ingredient.note}</span>}
           </span>
-          {detail && <span className="block text-xs leading-relaxed text-base-content/60">{detail}</span>}
+          {detail && <span className="block text-xs leading-relaxed text-base-content/65">{detail}</span>}
         </span>
         {amount && <span className="shrink-0 pt-0.5 text-sm font-semibold tabular-nums text-base-content/70">{amount}</span>}
       </li>

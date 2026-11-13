@@ -62,7 +62,7 @@ interface EquipmentIconsProps {
 export function EquipmentIcons({ equipment, missing = [] }: EquipmentIconsProps) {
   const required = equipment.filter((item) => item.role === "required");
   if (required.length === 0) {
-    return <span className="text-xs text-base-content/55">بلا طبخ</span>;
+    return <span className="text-xs text-base-content/65">بلا طبخ</span>;
   }
   return (
     <span className="inline-flex items-center gap-1">
@@ -70,7 +70,7 @@ export function EquipmentIcons({ equipment, missing = [] }: EquipmentIconsProps)
         <span
           key={item.cap}
           title={capabilityLabels[item.cap]}
-          className={missing.includes(item.cap) ? "text-error" : "text-base-content/55"}
+          className={missing.includes(item.cap) ? "text-error" : "text-base-content/65"}
         >
           <CapabilityIcon cap={item.cap} className="size-4" />
           <span className="sr-only">{capabilityLabels[item.cap]}</span>
@@ -100,7 +100,7 @@ export function EquipmentBadges({ equipment, capabilities }: EquipmentBadgesProp
           has === undefined || has
             ? "border-base-content/10 bg-base-100"
             : optional
-              ? "border-dashed border-base-content/20 bg-base-100/60 text-base-content/55"
+              ? "border-dashed border-base-content/20 bg-base-100/60 text-base-content/65"
               : "border-error/40 bg-error/10 text-error";
         return (
           <li key={`${item.cap}-${item.role}`} className={`inline-flex min-h-10 items-center gap-2 rounded-full border px-3.5 text-sm font-medium ${tone}`}>

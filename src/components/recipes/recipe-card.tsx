@@ -51,7 +51,8 @@ export function RecipeCard({ result, resolveRef, favorite = false, index = 0 }: 
         </Emoji>
         {status === "ready" && (
           <span className="absolute -end-1 -top-1 grid size-5 place-items-center rounded-full bg-success text-[0.65rem] font-bold text-success-content shadow-sm">
-            ✓
+            <span aria-hidden="true">✓</span>
+            <span className="sr-only">جاهزة الآن</span>
           </span>
         )}
       </span>

@@ -1,4 +1,4 @@
-# CLAUDE.md — مساعد المطبخ (Kitchen Assistant)
+# CLAUDE.md — ملّيقة (Malliqa) — مساعد المطبخ (Kitchen Assistant)
 
 A light, offline-first home app that answers one question: **"What can I cook today or tomorrow with what I have at home?"**
 Single user, no login, Arabic RTL UI, installable PWA, Android via Capacitor later.

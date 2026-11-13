@@ -37,7 +37,7 @@ export function PageHeader({ title, subtitle, action, back }: PageHeaderProps) {
         )}
         <div className="min-w-0">
           <h1 className="truncate font-display text-3xl leading-tight">{title}</h1>
-          {subtitle && <p className="truncate text-sm text-base-content/60">{subtitle}</p>}
+          {subtitle && <p className="truncate text-sm text-base-content/65">{subtitle}</p>}
         </div>
       </div>
       {action && <div className="shrink-0">{action}</div>}

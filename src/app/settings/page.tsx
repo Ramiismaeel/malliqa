@@ -177,7 +177,7 @@ export default function SettingsPage() {
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="font-semibold">عدد أفراد البيت</p>
-            <p className="text-xs text-base-content/60">للعلم فقط الآن — تعديل الكميات يأتي لاحقاً.</p>
+            <p className="text-xs text-base-content/65">للعلم فقط الآن — تعديل الكميات يأتي لاحقاً.</p>
           </div>
           <div className="flex items-center gap-1 rounded-full bg-base-200/70 p-1">
             <button
@@ -230,7 +230,7 @@ export default function SettingsPage() {
               );
             })}
           </div>
-          <p className="text-xs text-base-content/60">الأنواع المشطوبة تختفي من الاقتراحات ومن صفحة الوصفات.</p>
+          <p className="text-xs text-base-content/65">الأنواع المشطوبة تختفي من الاقتراحات ومن صفحة الوصفات.</p>
         </fieldset>
       </Card>
 
@@ -266,7 +266,7 @@ export default function SettingsPage() {
         />
         <div className="flex items-center justify-between gap-3 rounded-2xl bg-base-200/60 p-3">
           <span className="flex items-center gap-2 text-sm">
-            <ShieldCheck className={`size-5 ${storage.persisted ? "text-success" : "text-base-content/45"}`} />
+            <ShieldCheck className={`size-5 ${storage.persisted ? "text-success" : "text-base-content/65"}`} />
             {storage.persisted === null
               ? "حالة التخزين غير معروفة"
               : storage.persisted
@@ -297,7 +297,7 @@ export default function SettingsPage() {
               <Sparkles className="size-4 text-primary" />
               وصفاتي المحفوظة
             </span>
-            <span className="flex items-center gap-1 text-sm text-base-content/60">
+            <span className="flex items-center gap-1 text-sm text-base-content/65">
               {aiRecipes?.length ?? 0}
               <ChevronLeft className="size-4" />
             </span>
@@ -307,7 +307,7 @@ export default function SettingsPage() {
               <RotateCcw className="size-4 text-primary" />
               أعد اختيار الأساسيات والأدوات
             </span>
-            <ChevronLeft className="size-4 text-base-content/60" />
+            <ChevronLeft className="size-4 text-base-content/65" />
           </Link>
         </div>
       </Card>
@@ -317,10 +317,10 @@ export default function SettingsPage() {
           <BrandMark className="size-9" />
         </span>
         <p className="font-display text-2xl text-primary">{APP_NAME}</p>
-        <p className="text-xs text-base-content/55">
+        <p className="text-xs text-base-content/65">
           الإصدار {APP_VERSION} · {allRecipes.length} وصفة · {ingredients.length} مكوّناً
         </p>
-        <p className="max-w-xs text-xs leading-relaxed text-base-content/55">
+        <p className="max-w-xs text-xs leading-relaxed text-base-content/65">
           تعمل بلا إنترنت. لا حسابات ولا تتبّع — كل شيء يبقى على جهازك.
         </p>
         <button type="button" onClick={() => setConfirmReset(true)} className="btn btn-ghost btn-sm mt-2 min-h-11 rounded-full text-error">
@@ -403,7 +403,7 @@ function AccessTokenField({ initial, disabled }: { initial: string; disabled: bo
       }}
     >
       <label htmlFor="ai-token" className="font-semibold">
-        رمز الوصول <span className="font-normal text-base-content/55">(اختياري)</span>
+        رمز الوصول <span className="font-normal text-base-content/65">(اختياري)</span>
       </label>
       <div className="flex gap-2">
         <label className="input w-full flex-1 rounded-full bg-base-200/60">
@@ -424,7 +424,7 @@ function AccessTokenField({ initial, disabled }: { initial: string; disabled: bo
           احفظ
         </button>
       </div>
-      <p className="text-xs leading-relaxed text-base-content/60">
+      <p className="text-xs leading-relaxed text-base-content/65">
         يلزم فقط إذا كان مسار المساعد محمياً برمز (APP_ACCESS_TOKEN). يبقى على هذا الجهاز ولا يدخل في النسخ الاحتياطية.
       </p>
     </form>

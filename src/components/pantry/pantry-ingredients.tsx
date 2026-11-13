@@ -15,7 +15,7 @@ import {
   setAvailable,
   setStaple,
 } from "@/lib/db/repositories/pantry";
-import { ingredientSearchText } from "@/lib/kitchen/names";
+import { findIngredientIdByName, ingredientSearchText } from "@/lib/kitchen/names";
 import type { CustomIngredient, PantryRow } from "@/lib/schemas/backup";
 import type { IngredientCategory } from "@/lib/schemas/ingredient";
 import { matchesQuery } from "@/lib/text/arabic";
@@ -132,10 +132,12 @@ export function PantryIngredients({ pantryRows, customIngredients }: PantryIngre
             لم نجد «{trimmedQuery}» في القائمة. يمكنك إضافته كمكوّن خاص بك.
           </EmptyState>
         )}
-        <button type="button" onClick={() => setAddOpen(true)} className="btn btn-outline btn-primary rounded-full">
-          <Plus className="size-5" />
-          أضف «{trimmedQuery}» كمكوّن جديد
-        </button>
+        {findIngredientIdByName(trimmedQuery) === undefined && !results.some((item) => item.name === trimmedQuery) && (
+          <button type="button" onClick={() => setAddOpen(true)} className="btn btn-outline btn-primary rounded-full">
+            <Plus className="size-5" />
+            أضف «{trimmedQuery}» كمكوّن جديد
+          </button>
+        )}
       </div>
     );
   } else if (category === "all") {
@@ -169,7 +171,7 @@ export function PantryIngredients({ pantryRows, customIngredients }: PantryIngre
           {staples.length > 0 ? (
             <div className="flex flex-wrap gap-2">{staples.map(renderToggle)}</div>
           ) : (
-            <p className="px-1 text-sm text-base-content/60">لا أساسيات بعد. اضغط مطوّلاً على مادة واختر «ثبّت كأساسي».</p>
+            <p className="px-1 text-sm text-base-content/65">لا أساسيات بعد. اضغط مطوّلاً على مادة واختر «ثبّت كأساسي».</p>
           )}
         </Section>
       </div>
@@ -213,7 +215,7 @@ export function PantryIngredients({ pantryRows, customIngredients }: PantryIngre
             enterKeyHint="search"
           />
           {query && (
-            <button type="button" onClick={() => setQuery("")} aria-label="امسح البحث" className="grid size-8 place-items-center rounded-full">
+            <button type="button" onClick={() => setQuery("")} aria-label="امسح البحث" className="-me-3 grid size-11 shrink-0 place-items-center rounded-full">
               <X className="size-4" />
             </button>
           )}
@@ -253,7 +255,7 @@ export function PantryIngredients({ pantryRows, customIngredients }: PantryIngre
       <Sheet open={menuItem !== undefined} onClose={() => setMenuId(null)} title={menuItem?.name ?? ""}>
         {menuItem && (
           <div className="flex flex-col gap-2">
-            <p className="mb-1 text-sm text-base-content/60">
+            <p className="mb-1 text-sm text-base-content/65">
               {isStaple(menuItem.id)
                 ? "مثبّت كأساسي: يُعدّ متوفراً دائماً حتى تغيّره أنت."
                 : "الأساسيات مواد لا تنقطع من مطبخك (ملح، زيت، أرز…)."}

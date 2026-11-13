@@ -15,6 +15,7 @@ const eslintConfig = defineConfig([
     "coverage/**",
     "public/**",
     ".api-stash/**",
+    "src/data/recipes/_drafts/**",
   ]),
 ]);
 

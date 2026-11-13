@@ -66,7 +66,7 @@ export function AiAssistant({ kitchen, matches }: AiAssistantProps) {
           اقترح لي أفكاراً جديدة
         </button>
         {!online && (
-          <p role="status" className="relative text-center text-xs text-base-content/60">
+          <p role="status" className="relative text-center text-xs text-base-content/65">
             المساعد يحتاج إلى الإنترنت. كل شيء آخر يعمل بدونه.
           </p>
         )}
@@ -253,7 +253,7 @@ function AssistantFlow({ kitchen, matches, onClose }: AiAssistantProps & { onClo
                   )}
                 </span>
                 <span className="line-clamp-2 text-sm text-base-content/65">{recipe.description}</span>
-                <span className="flex flex-wrap items-center gap-x-2.5 text-xs text-base-content/60">
+                <span className="flex flex-wrap items-center gap-x-2.5 text-xs text-base-content/65">
                   <span className="inline-flex items-center gap-1 font-semibold tabular-nums">
                     <Clock className="size-3.5" />
                     {formatMinutes(totalMinutes(recipe))}

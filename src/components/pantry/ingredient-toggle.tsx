@@ -71,7 +71,7 @@ export function IngredientToggle({ name, emoji, active, staple = false, onToggle
         active
           ? "border-secondary/40 bg-secondary/15 text-base-content shadow-sm"
           : staple
-            ? "border-dashed border-base-content/25 bg-base-100/60 text-base-content/50"
+            ? "border-dashed border-base-content/25 bg-base-100/60 text-base-content/65"
             : "border-base-content/10 bg-base-100 text-base-content/75 hover:border-secondary/40"
       }`}
     >
