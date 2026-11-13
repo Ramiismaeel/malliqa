@@ -65,6 +65,13 @@ Without `GEMINI_API_KEY` the app works fully; the assistant answers with a clear
 2. Add the environment variables above.
 3. Deploy.
 
+### Visitor analytics
+
+The root layout renders `<Analytics />` from `@vercel/analytics` (Vercel Web Analytics: cookieless, no consent banner).
+Enable it once in the Vercel dashboard (project → **Analytics** → Enable); numbers appear in that tab. It only counts
+page views on the Vercel deployment: offline visits are not counted, and the script is absent (a harmless 404) when the
+app runs anywhere else, e.g. `pnpm start` locally or a static export. The service worker never caches `/_vercel/*`.
+
 ### Protect the AI route (do this before sharing the URL)
 
 The route has no login, so anyone who knows the URL can spend your Gemini quota. Use all three:

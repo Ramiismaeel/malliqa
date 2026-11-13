@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans_Arabic, Lalezar } from "next/font/google";
 import type { ReactNode } from "react";
@@ -60,6 +61,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className="antialiased">
         <AppShell>{children}</AppShell>
+        {/* Visitor counts on the Vercel deployment (cookieless). Does nothing offline or in a static export. */}
+        <Analytics />
       </body>
     </html>
   );

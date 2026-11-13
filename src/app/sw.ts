@@ -28,6 +28,12 @@ const serwist = new Serwist({
       matcher: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith("/api/"),
       handler: new NetworkOnly(),
     },
+    // Vercel Web Analytics: its script and page-view beacons are never cached,
+    // so an offline visit simply is not counted.
+    {
+      matcher: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith("/_vercel/"),
+      handler: new NetworkOnly(),
+    },
     ...defaultCache,
   ],
   fallbacks: {

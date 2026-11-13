@@ -86,6 +86,8 @@ Short notes appended at the end of each phase. Scope and order live in `CLAUDE.m
 - Gas stove and electric/induction hob merged into one item, «غاز / طباخ» (id `stove`). Dexie **version 2** rewrites
   saved `gas-stove` / `electric-hob` rows; old backups are mapped on import; `capabilitiesOf` still accepts the old ids.
 - Food processor: custom drawing on the equipment card and its own line icon on recipes (it shared the blender icon).
+- **Visitor analytics:** Vercel Web Analytics via `<Analytics />` in the root layout; `/_vercel/*` is network-only in the
+  service worker. Checked locally that the page requests `/_vercel/insights/script.js` (404 off Vercel, as expected).
 - **Content studio** (`pnpm studio`, `scripts/content-studio/`): a local review page for the owner — every recipe with
   its emoji, ingredients and steps; per-recipe course (أساسية / مقبلات / حلويات), comment, replacement emoji and a
   "reviewed" mark; free-text drafts of new recipes; general notes. Saves to `content/recipe-review.json`; the workflow

@@ -18,6 +18,7 @@ This file is the source of truth for scope and order. Work phase by phase. Do no
 | Offline | Serwist | Try `@serwist/turbopack` first; fallback: `@serwist/next` + `next build --webpack` |
 | AI | Gemini via `@google/genai`, model from env `GEMINI_MODEL` (default `gemini-3.5-flash-lite`) | Server-side only. Do NOT send `temperature`, `top_p`, `top_k` (deprecated on new models) |
 | Hosting | Vercel | |
+| Analytics | Vercel Web Analytics (`@vercel/analytics`) | Cookieless visitor counts, `<Analytics />` in `layout.tsx`. Works only on the Vercel deployment; `/_vercel/*` is network-only in the service worker. No custom events, no user data |
 | Tests | Vitest | Playwright is out of scope for v1 |
 | Package manager | pnpm | |
 
