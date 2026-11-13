@@ -1,0 +1,797 @@
+{
+  "version": 1,
+  "updatedAt": "2026-11-13T21:11:11.855Z",
+  "generalNotes": "",
+  "recipes": {
+    "mujaddara": {
+      "course": "main",
+      "comment": "لا داعي للكمون فهو اختياري",
+      "updatedAt": "2026-11-13T14:18:50.237Z"
+    },
+    "lentil-soup": {
+      "course": "main",
+      "comment": "الكمون اختياري",
+      "updatedAt": "2026-11-13T14:19:21.941Z"
+    },
+    "fattet-hummus": {
+      "course": "main",
+      "updatedAt": "2026-11-13T14:19:48.429Z"
+    },
+    "maqluba-eggplant": {
+      "course": "main",
+      "updatedAt": "2026-11-13T14:20:30.528Z"
+    },
+    "sheikh-al-mahshi": {
+      "course": "main",
+      "comment": "النعنع اليابس اختياري والايقونة هي ايقونه خيار وليس كوسا بلبن",
+      "updatedAt": "2026-11-13T14:21:29.009Z"
+    },
+    "kibbeh-bil-sanieh": {
+      "course": "main",
+      "comment": "غالبا تحتاج ماكينة كبة",
+      "updatedAt": "2026-11-13T14:22:30.149Z"
+    },
+    "dawood-basha": {
+      "course": "main",
+      "updatedAt": "2026-11-13T14:23:07.542Z"
+    },
+    "green-beans-in-oil": {
+      "course": "main",
+      "comment": "يمكن اضافة كزبرة اختياري",
+      "updatedAt": "2026-11-13T14:23:41.097Z"
+    },
+    "okra-with-meat": {
+      "course": "main",
+      "updatedAt": "2026-11-13T14:24:04.113Z"
+    },
+    "shakriyeh": {
+      "course": "main",
+      "comment": "نشا اختياري",
+      "updatedAt": "2026-11-13T14:24:37.717Z"
+    },
+    "freekeh-with-chicken": {
+      "course": "main",
+      "comment": "يمكن اضافة حبات برغل خلف فخذ الدجاج في الايقونة",
+      "updatedAt": "2026-11-13T14:25:50.877Z"
+    },
+    "fuul-mudammas": {
+      "course": "main",
+      "updatedAt": "2026-11-13T14:26:08.101Z"
+    },
+    "harraq-osbao": {
+      "course": "main",
+      "comment": "الكمون اختياري هنا",
+      "updatedAt": "2026-11-13T14:26:25.897Z"
+    },
+    "kibbeh-labaniyeh": {
+      "course": "main",
+      "comment": "النشا والنعنع اليابس اختياري",
+      "updatedAt": "2026-11-13T14:27:22.081Z"
+    },
+    "fried-kibbeh": {
+      "course": "main",
+      "updatedAt": "2026-11-13T14:27:40.325Z"
+    },
+    "kousa-mahshi": {
+      "course": "main",
+      "comment": "استبدل ايقونه الخيار ب ايقونة كوسا والنعنع اليابس اختياري",
+      "updatedAt": "2026-11-13T14:28:39.957Z"
+    },
+    "yabraq": {
+      "course": "main",
+      "comment": "هل يمكن انشاء ايقونة تعبر عن رولات من ورق العنب الملفوف ك اسطوانات؟ تشبه الاصابع",
+      "updatedAt": "2026-11-13T14:29:37.552Z"
+    },
+    "yalanji": {
+      "course": "appetizer",
+      "comment": "هل يمكن انشاء ايقونة تعبر عن رولات من ورق العنب الملفوف وحواليه قطع ليمون؟ اجعلها تشبه الاصابع",
+      "updatedAt": "2026-11-13T14:30:41.513Z"
+    },
+    "shish-barak": {
+      "course": "main",
+      "comment": "النعنع اليابس اختياري",
+      "updatedAt": "2026-11-13T14:33:51.221Z"
+    },
+    "fattet-makdous": {
+      "course": "main",
+      "updatedAt": "2026-11-13T14:34:52.146Z"
+    },
+    "burghul-with-tomato": {
+      "course": "main",
+      "comment": "لا داعي للنعنع اليابس في الاختياري",
+      "updatedAt": "2026-11-13T14:35:26.398Z"
+    },
+    "burghul-with-chickpeas": {
+      "course": "main",
+      "comment": "البصل اختياري",
+      "updatedAt": "2026-11-13T14:35:58.145Z"
+    },
+    "bulgur-with-vermicelli": {
+      "course": "main",
+      "comment": "اضف فلفل اسود اختياري",
+      "updatedAt": "2026-11-13T14:36:26.873Z"
+    },
+    "peas-and-carrots-stew": {
+      "course": "main",
+      "comment": "اضف لحم وبازلاء بجانب الجزر في الايقونة",
+      "updatedAt": "2026-11-13T14:37:20.217Z"
+    },
+    "spinach-stew": {
+      "course": "main",
+      "comment": "الثوم والكزبرة اختياري",
+      "updatedAt": "2026-11-13T14:37:57.042Z"
+    },
+    "white-beans-stew": {
+      "course": "main",
+      "comment": "البصل اختياري واجعل لون الاسم فاصوليا حبوب بدل فاصوليا بيضاء",
+      "updatedAt": "2026-11-13T15:00:34.730Z"
+    },
+    "potato-stew": {
+      "course": "main",
+      "comment": "الثوم اختياري",
+      "updatedAt": "2026-11-13T15:00:55.169Z"
+    },
+    "mfarakeh-potato": {
+      "course": "main",
+      "updatedAt": "2026-11-13T15:01:16.962Z"
+    },
+    "mfarakeh-zucchini": {
+      "course": "main",
+      "comment": "الثوم والنعنع اليابس اختياري والايقونة تعبر عن الخيار قم بتغييرها الى كوسا",
+      "updatedAt": "2026-11-13T15:02:03.193Z"
+    },
+    "batata-harra": {
+      "course": "main",
+      "updatedAt": "2026-11-13T15:02:15.601Z"
+    },
+    "ejjeh": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T15:02:55.461Z"
+    },
+    "kebab-hindi": {
+      "course": "main",
+      "comment": "الثوم اختياري واضف اللحم المفروم الة جانب الطماطم في الايقونة",
+      "updatedAt": "2026-11-13T15:03:42.433Z"
+    },
+    "kofta-bil-sanieh": {
+      "course": "main",
+      "updatedAt": "2026-11-13T15:03:57.025Z"
+    },
+    "kabab-karaz": {
+      "course": "main",
+      "comment": "اضف اللحم المفروم الى الكرز في الايقونة",
+      "updatedAt": "2026-11-13T15:04:48.873Z"
+    },
+    "ouzi-rice": {
+      "course": "main",
+      "comment": "اضافة اسم اخر بجانبها رز ببازلا زالقرفة اختيارية",
+      "updatedAt": "2026-11-13T15:05:45.958Z"
+    },
+    "mahshi-malfouf": {
+      "course": "main",
+      "comment": "النعنع اليابس اختياري",
+      "updatedAt": "2026-11-13T15:06:16.341Z"
+    },
+    "vermicelli-tomato-soup": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T15:10:11.289Z"
+    },
+    "kishk-soup": {
+      "course": "appetizer",
+      "comment": "الصحن في الايقونة يبدو فارغ اضف اليه سائل لون ابيض غامق قليلا",
+      "updatedAt": "2026-11-13T15:10:59.173Z"
+    },
+    "sayadiyeh": {
+      "course": "main",
+      "comment": "الكمون اختياري",
+      "updatedAt": "2026-11-13T15:11:35.909Z"
+    },
+    "mnazaleh": {
+      "course": "main",
+      "updatedAt": "2026-11-13T15:11:47.481Z"
+    },
+    "kawaj": {
+      "course": "main",
+      "comment": "الثوم اختياري",
+      "updatedAt": "2026-11-13T15:12:13.886Z"
+    },
+    "potato-kibbeh": {
+      "course": "appetizer",
+      "comment": "النعنع اليابس اختياري",
+      "updatedAt": "2026-11-13T15:12:41.793Z"
+    },
+    "rice-with-fava": {
+      "course": "main",
+      "comment": "الثوم اختياري. واضف الرز واللحم الى الايقونة بجانب الفول",
+      "updatedAt": "2026-11-13T15:13:17.658Z"
+    },
+    "muhammara": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T15:13:31.977Z"
+    },
+    "mutabbal": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T15:13:42.625Z"
+    },
+    "toshka": {
+      "course": "main",
+      "updatedAt": "2026-11-13T15:14:14.783Z"
+    },
+    "dibs-tahini": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T15:14:24.472Z"
+    },
+    "mamounieh": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T15:14:32.429Z"
+    },
+    "rice-pudding": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T15:14:37.525Z"
+    },
+    "mhalabiyeh": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T15:14:43.933Z"
+    },
+    "awameh": {
+      "course": "dessert",
+      "comment": "الايقونة تشبه الدونات اما العوامة فهي كرات بنية لامعة",
+      "updatedAt": "2026-11-13T15:17:31.485Z"
+    },
+    "hummus": {
+      "course": "appetizer",
+      "comment": "الايقونة غير مناسبة للحمص",
+      "updatedAt": "2026-11-13T15:18:06.821Z"
+    },
+    "tabbouleh": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T15:18:18.850Z"
+    },
+    "fattoush": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T15:18:31.738Z"
+    },
+    "arabic-salad": {
+      "course": "appetizer",
+      "comment": "الايقونة فيها خيار فقط. يجب ان تكون خيار مقطع مع بندورة داخل صحن عميق",
+      "updatedAt": "2026-11-13T15:19:20.835Z"
+    },
+    "cucumber-yogurt-salad": {
+      "course": "appetizer",
+      "comment": "اجعل الايقونة خيار مقطع داخل اللبن في صحن عميق",
+      "updatedAt": "2026-11-13T15:19:53.313Z"
+    },
+    "shanklish-salad": {
+      "course": "appetizer",
+      "comment": "الشنكليش هو قرص دائري من الداخل جبن متعفن ومن الخارج بعض البهارات التي تجعل لونه رمادي مائل للاحمر. قم بتغيير الايقونة",
+      "updatedAt": "2026-11-13T15:21:02.101Z"
+    },
+    "labneh-zaatar-sandwich": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T15:24:48.689Z"
+    },
+    "falafel": {
+      "course": "main",
+      "comment": "الفلافل صعبة الصنع في المنزل من الصفر بهذه المواد. قم ب استبدال حمص و كزبرة وكمون وثوم ب علبة فلافل (علبة بهارت الفلافل تنقع في الماء وتشكل اقراص ثم تقلى بالزيت)",
+      "updatedAt": "2026-11-13T15:27:42.233Z"
+    },
+    "balila": {
+      "course": "appetizer",
+      "comment": "الايقونة للفاصولية الحمراء قم ب استبدالها ب حبات حمص صفراء",
+      "updatedAt": "2026-11-13T15:30:08.741Z"
+    },
+    "shawarma-chicken": {
+      "course": "main",
+      "comment": "الكمون اختياري",
+      "updatedAt": "2026-11-13T15:31:09.049Z"
+    },
+    "shish-tawook": {
+      "course": "main",
+      "comment": "قاعدة الطماطم اختياري",
+      "updatedAt": "2026-11-13T15:31:48.953Z"
+    },
+    "arayes": {
+      "course": "main",
+      "updatedAt": "2026-11-13T15:32:05.126Z"
+    },
+    "kafta-with-tahini": {
+      "course": "main",
+      "updatedAt": "2026-11-13T15:39:09.390Z"
+    },
+    "musakhan": {
+      "course": "main",
+      "updatedAt": "2026-11-13T15:39:28.373Z"
+    },
+    "mansaf": {
+      "course": "main",
+      "comment": "المنسف هو صحن كبير دائري يحتوي علة رز ولحم. قم بتغيير الايقونة. وبخصوص الجميد فهو كرات بيضاء رمادية قيلا",
+      "updatedAt": "2026-11-13T15:41:51.503Z"
+    },
+    "molokhia-with-chicken": {
+      "course": "main",
+      "comment": "البصل اختياري",
+      "updatedAt": "2026-11-13T15:42:12.757Z"
+    },
+    "mudardara": {
+      "course": "main",
+      "comment": "الكمون اختياري",
+      "updatedAt": "2026-11-13T15:42:31.245Z"
+    },
+    "lentil-chard-soup": {
+      "course": "main",
+      "comment": "غير الايقونة الة سلق مع شرائح ليمون وحبات عدس",
+      "updatedAt": "2026-11-13T15:47:08.822Z"
+    },
+    "fattet-djaj": {
+      "course": "main",
+      "comment": "غير الايقونة الى قطع دجاج مع رز ولبن في صحن كبير",
+      "updatedAt": "2026-11-13T16:27:34.293Z"
+    },
+    "maqluba-chicken": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:27:46.613Z"
+    },
+    "musaqaa": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:28:04.766Z"
+    },
+    "samak-harra": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:29:41.130Z"
+    },
+    "shakshuka": {
+      "course": "main",
+      "comment": "اضف اسم تاني لها جظ مظ",
+      "updatedAt": "2026-11-13T16:30:25.865Z"
+    },
+    "rice-with-vermicelli": {
+      "course": "main",
+      "comment": "اضف لبن ودجاج اختياري",
+      "updatedAt": "2026-11-13T16:31:02.622Z"
+    },
+    "kabsa-chicken": {
+      "course": "main",
+      "comment": "الثوم و القرفة اختياري واضف البازلاء  والزبيب في الاختياري",
+      "updatedAt": "2026-11-13T16:32:05.445Z"
+    },
+    "mandi-chicken": {
+      "course": "main",
+      "comment": "الكمون اختياري",
+      "updatedAt": "2026-11-13T16:32:33.157Z"
+    },
+    "saleeg": {
+      "course": "main",
+      "comment": "غير الايقونة الى رز مع دجاج وحليب",
+      "updatedAt": "2026-11-13T16:37:23.406Z"
+    },
+    "koshari": {
+      "course": "main",
+      "comment": "الكمون اختياري",
+      "updatedAt": "2026-11-13T16:37:48.114Z"
+    },
+    "hawawshi": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:38:05.942Z"
+    },
+    "harira": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:38:20.721Z"
+    },
+    "couscous-vegetables": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:38:29.534Z"
+    },
+    "chicken-tagine": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:38:41.338Z"
+    },
+    "kefta-tagine": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:38:47.726Z"
+    },
+    "zaalouk": {
+      "course": "appetizer",
+      "comment": "غير الاسم الى زعلوك مغربية",
+      "updatedAt": "2026-11-13T16:39:31.978Z"
+    },
+    "om-ali": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T16:39:42.010Z"
+    },
+    "spaghetti-bolognese": {
+      "course": "main",
+      "comment": "البصل والثوم اختياري",
+      "updatedAt": "2026-11-13T16:40:09.510Z"
+    },
+    "pasta-with-tomato-sauce": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:40:21.725Z"
+    },
+    "stovetop-bechamel-pasta": {
+      "course": "main",
+      "comment": "احذف على الموقد من الاسم. وغير الايقونة ل معكرونة ب صوص ابيض",
+      "updatedAt": "2026-11-13T16:41:20.869Z"
+    },
+    "baked-pasta-with-meat": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:41:36.778Z"
+    },
+    "lasagna": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:41:44.686Z"
+    },
+    "chicken-alfredo-pasta": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:41:54.993Z"
+    },
+    "aglio-olio": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:42:14.557Z"
+    },
+    "pesto-pasta": {
+      "course": "main",
+      "comment": "قم ب اضافة اسم ثاني لل بيستو (حبق) واضافة زيت نباتي اختياري للطبخة",
+      "updatedAt": "2026-11-13T16:43:23.905Z"
+    },
+    "tuna-pasta": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:43:34.630Z"
+    },
+    "pizza-margherita": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:43:45.182Z"
+    },
+    "mushroom-risotto": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:44:10.934Z"
+    },
+    "minestrone": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T16:44:19.021Z"
+    },
+    "caprese-salad": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T16:44:23.869Z"
+    },
+    "fried-rice": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:44:35.138Z"
+    },
+    "chicken-curry": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:44:46.202Z"
+    },
+    "butter-chicken": {
+      "course": "main",
+      "comment": "الكمون اختياري",
+      "updatedAt": "2026-11-13T16:45:03.322Z"
+    },
+    "chicken-biryani": {
+      "course": "main",
+      "updatedAt": "2026-11-13T16:45:13.350Z"
+    },
+    "chicken-tikka": {
+      "course": "main",
+      "updatedAt": "2026-11-13T19:11:24.439Z"
+    },
+    "red-lentil-dal": {
+      "course": "main",
+      "updatedAt": "2026-11-13T19:11:52.255Z"
+    },
+    "chicken-noodles-stir-fry": {
+      "course": "main",
+      "comment": "ثوم اختياري",
+      "updatedAt": "2026-11-13T19:12:17.154Z"
+    },
+    "soy-honey-chicken": {
+      "course": "main",
+      "comment": "ثوم اختياري",
+      "updatedAt": "2026-11-13T19:12:32.427Z"
+    },
+    "beef-broccoli": {
+      "course": "main",
+      "updatedAt": "2026-11-13T19:12:48.051Z"
+    },
+    "vegetable-stir-fry": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T19:12:59.636Z"
+    },
+    "omelette": {
+      "course": "main",
+      "updatedAt": "2026-11-13T19:13:12.619Z"
+    },
+    "boiled-eggs-plate": {
+      "course": "main",
+      "comment": "احذف الزيت والزعتر من العنوان . الاكلة اسمها بيض مسلوق فقط. واضف الزعتر الى اختيارية",
+      "updatedAt": "2026-11-13T20:14:48.899Z"
+    },
+    "cheese-toast": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:14:57.623Z"
+    },
+    "halloumi-pan": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:15:03.779Z"
+    },
+    "french-toast": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:15:29.239Z"
+    },
+    "pancakes": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:15:33.583Z"
+    },
+    "crepes": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:15:35.870Z"
+    },
+    "oats-porridge": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:15:53.035Z"
+    },
+    "overnight-oats": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:16:00.223Z"
+    },
+    "tuna-sandwich": {
+      "course": "main",
+      "comment": "اضف الزيت الى اختياري",
+      "updatedAt": "2026-11-13T20:16:44.906Z"
+    },
+    "tuna-salad": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:16:51.579Z"
+    },
+    "egg-mayo-sandwich": {
+      "course": "main",
+      "updatedAt": "2026-11-13T20:16:57.392Z"
+    },
+    "avocado-toast": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:17:01.667Z"
+    },
+    "chicken-quesadilla": {
+      "course": "main",
+      "updatedAt": "2026-11-13T20:17:10.195Z"
+    },
+    "beef-burger": {
+      "course": "main",
+      "updatedAt": "2026-11-13T20:17:32.479Z"
+    },
+    "crispy-chicken-strips": {
+      "course": "main",
+      "updatedAt": "2026-11-13T20:17:49.899Z"
+    },
+    "french-fries": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:17:54.395Z"
+    },
+    "air-fryer-potato-wedges": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:17:58.491Z"
+    },
+    "mashed-potato": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:18:07.011Z"
+    },
+    "chicken-vermicelli-soup": {
+      "course": "main",
+      "updatedAt": "2026-11-13T20:18:31.667Z"
+    },
+    "vegetable-soup": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:18:36.134Z"
+    },
+    "cream-of-mushroom-soup": {
+      "course": "main",
+      "updatedAt": "2026-11-13T20:18:46.399Z"
+    },
+    "potato-salad": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:18:51.382Z"
+    },
+    "pasta-salad": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:18:59.888Z"
+    },
+    "greek-salad": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:19:03.431Z"
+    },
+    "coleslaw": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:19:07.311Z"
+    },
+    "chicken-caesar-salad": {
+      "course": "main",
+      "updatedAt": "2026-11-13T20:19:19.943Z"
+    },
+    "fruit-salad": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:19:26.690Z"
+    },
+    "mug-cake": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:19:33.155Z"
+    },
+    "buttered-corn": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:19:38.975Z"
+    },
+    "manakish-zaatar": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:19:47.639Z"
+    },
+    "manakish-cheese": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:19:49.787Z"
+    },
+    "lahm-bi-ajeen": {
+      "course": "main",
+      "updatedAt": "2026-11-13T20:19:55.590Z"
+    },
+    "spinach-fatayer": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:20:06.091Z"
+    },
+    "cheese-sambousek": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:20:10.019Z"
+    },
+    "pan-flatbread": {
+      "course": "appetizer",
+      "updatedAt": "2026-11-13T20:20:17.983Z"
+    },
+    "vanilla-cake": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:20:21.927Z"
+    },
+    "chocolate-cake": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:20:24.763Z"
+    },
+    "banana-bread": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:20:27.435Z"
+    },
+    "chocolate-chip-cookies": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:20:29.347Z"
+    },
+    "hareeseh": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:20:30.895Z"
+    },
+    "maamoul-dates": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:20:33.955Z"
+    },
+    "knafeh": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:20:36.526Z"
+    },
+    "qatayef": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:20:38.379Z"
+    },
+    "date-balls": {
+      "course": "dessert",
+      "updatedAt": "2026-11-13T20:20:42.131Z"
+    }
+  },
+  "newRecipes": [
+    {
+      "id": "new-mwff97yi",
+      "name": "فريكة باللحم",
+      "emoji": "",
+      "course": "main",
+      "cuisine": "syrian",
+      "mealType": "meat",
+      "time": "45",
+      "servings": "4",
+      "description": "فريكة باللحم المطبوخ والبازلاء والمكسرات",
+      "ingredients": "500 غ لحم بقر او غنم شقف\nفريكة كوب عدد 2\nبازلاء نصف كوب\nملح\nزيت او دهن\nبهارات مشكلة\n\nمسكرات اختياري\n",
+      "steps": "اسلق اللحم مع البصل والقرفة وورق الغار، واحتفظ بالمرق.\nاغسل الفريكة وانقعها 10 دقائق ثم صفِّها.\nقلّب الفريكة في السمن مع البهارات، ثم أضف 4 أكواب مرق ونصف كوب بازلاء\nاطبخها على نار هادئة 40 دقيقة حتى تنضج.\nحمّر اللحم وقدّمه فوق الفريكة مع المكسرات.",
+      "notes": "الادوات غاز",
+      "createdAt": "2026-11-13T20:21:01.962Z",
+      "updatedAt": "2026-11-13T20:26:12.619Z"
+    },
+    {
+      "id": "new-mwffgtac",
+      "name": "مفركة بطاطا باللحمة",
+      "emoji": "",
+      "course": "main",
+      "cuisine": "syrian",
+      "mealType": "meat",
+      "time": "30 د",
+      "servings": "4",
+      "description": "مكعبات بطاطا محموسة بالزيت او السمن مع اللحم المفروم",
+      "ingredients": "",
+      "steps": "",
+      "notes": "",
+      "createdAt": "2026-11-13T20:26:56.196Z",
+      "updatedAt": "2026-11-13T20:28:30.170Z"
+    },
+    {
+      "id": "new-mwffsze4",
+      "name": "البطاطا الحرة بالكزبرة والثوم",
+      "emoji": "",
+      "course": "appetizer",
+      "cuisine": "syrian",
+      "mealType": "vegetarian",
+      "time": "25",
+      "servings": "4",
+      "description": "بطاطا حارة ذهبية ومقرمشة من الخارج، غنية بنكهة الثوم والليمون والكزبرة.",
+      "ingredients": "1.3 كغ بطاطا مقطعة مكعبات.\n1 ملعقة صغيرة دبس فليفلة.\nعدة فصوص ثوم مفروم.\n½ ملعقة صغيرة فلفل أسود.\n½ ملعقة صغيرة كزبرة يابسة.\nعصير ليمونة صغيرة.\nكزبرة خضراء مفرومة.\nملح حسب الرغبة.\nزيت زيتون.\nملعقتان كبيرتان نشا الذرة اختياري.\nقليل من الخل الأبيض اختياري.",
+      "steps": "قطّع البطاطا إلى مكعبات، واغسلها وانقعها 10 دقائق بالماء مع قليل من الخل.\nصفِّ البطاطا وجففها جيداً، ثم أضف النشا وقلّبها.\nاقْلِ البطاطا على دفعات حتى تصبح ذهبية ومقرمشة.\nفي مقلاة، سخّن زيت الزيتون وقلّب الثوم قليلاً.\nأضف دبس الفليفلة والملح والفلفل الأسود والكزبرة اليابسة.\nأضف عصير الليمون والكزبرة الخضراء.\nأضف البطاطا المقلية وقلّب برفق حتى تتوزع النكهات دون هرسها.",
+      "notes": "",
+      "createdAt": "2026-11-13T20:36:23.980Z",
+      "updatedAt": "2026-11-13T20:39:19.915Z"
+    },
+    {
+      "id": "new-mwffxpwm",
+      "name": "بامية بالزيت",
+      "emoji": "",
+      "course": "main",
+      "cuisine": "syrian",
+      "mealType": "vegetarian",
+      "time": "30د",
+      "servings": "4",
+      "description": " البامية بزيت الزيتون على الطريقة الشامية . تتضمن الوصفة قلى البامية ثم طهيها مع مزيج من الطماطم والثوم والكزبرة الطازجة",
+      "ingredients": "\n1 كيلو بامية ( حبة صغيرة ) مفرزة او (يابسة منقوعة ومنشفة قبل بيوم)\nنصف كيلو بندورة او بندورة علب مهروسة \nضمة كزبرة \n2 ملعقة كبيرة  دبس بندورة \n2 ملعقة  كبيرة دبس رمان \n1 ملعقة صغيرة كزبرة يابسة \n1 ملعقة صغيرة فلفل ابيض \n1 ملعقة كبيرة ملح \n10 حبة ثوم \n1 كوب زيت زيتون",
+      "steps": "طريقة التحضير:\n1. اقْلِ البامية بالزيت حتى تأخذ لوناً خفيفاً، ثم صفِّها من الزيت الزائد.\n2. قطّع الثوم إلى شرائح، واترك جزءاً منه مع الكزبرة الخضراء المفرومة.\n3. في قدر، سخّن زيت الزيتون وأضف الثوم مع رشة ملح وكزبرة يابسة، وقلّب حتى يذبل ويأخذ لوناً ذهبياً خفيفاً.\n4. أضف البندورة المقطعة والملح والفلفل الأبيض، واتركها حتى تذبل.\n5. خفّف النار واترك البندورة تتسبك حوالي 7 دقائق.\n6. أضف دبس البندورة وحرّك جيداً.\n7. أضف البامية المقلية وقلّب برفق، واتركها على نار متوسطة لمدة 5 دقائق.\n8. خفّف النار وغطِّ القدر واتركها حوالي 7 دقائق حتى تنضج البامية.\n9. اخلط باقي الثوم المهروس مع الكزبرة الخضراء، وأضف الخليط إلى القدر.\n10. أضف دبس الرمان في النهاية وقلّب بسرعة للحفاظ على لون الكزبرة.\n11. ارفع النار قليلاً حتى تسخن المكونات وتتجانس، ثم أطفئ النار.\nنصائح لنجاح الوصفة:\n- لا تفرم البندورة ناعماً جداً؛ الأفضل أن تكون مكعبات مثل السلطة.\n- لا تكثر من تقليب البامية حتى لا تتفتت.\n- أضف دبس البندورة حسب الحاجة إذا كان لون البندورة غير كافٍ.\n- أضف خلطة الثوم والكزبرة ودبس الرمان في النهاية للحفاظ على النكهة واللون.\nتُقدّم باردة أو ساخنة مع الخبز العربي. 😋",
+      "notes": "",
+      "createdAt": "2026-11-13T20:40:04.966Z",
+      "updatedAt": "2026-11-13T20:45:46.686Z"
+    },
+    {
+      "id": "new-mwfg62af",
+      "name": "زهرة مقلية",
+      "emoji": "",
+      "course": "main",
+      "cuisine": "syrian",
+      "mealType": "vegetarian",
+      "time": "30",
+      "servings": "4",
+      "description": "زهرة مقلية متبلة بالليمون والتوم والطحينية",
+      "ingredients": "\nرأس زهرة (قرنبيط)\n1/2 كوب زيت زيتون\n3/4 كوب عصير ليمون\nطحينة (اختياري)\n1 ملعقة صغيرة كزبرة ياابسه\n1 ملعقة صغيرة كمون \n1 ملعقة كبيرة ثوم\n1 ملعقة كبيرة ملح\n1 ملعقة كبيرة دبس فليفلة\nكزبرة خضراء",
+      "steps": "طريقة التحضير:\n1. قطّع الزهرة إلى قطع متوسطة واغسلها جيداً.\n2. اقْلِ الزهرة بالزيت حتى تنضج وتأخذ لوناً ذهبياً، أو اشوِها بالفرن أو القلاية الهوائية كخيار أخف.\n3. اخلط عصير الليمون والثوم والملح والكمون والكزبرة اليابسة ودبس الفليفلة وزيت الزيتون.\n4. أضف نصف كمية الكزبرة الخضراء المفرومة ناعماً إلى الصوص.\n5. ضع الزهرة المقلية في وعاء واسع، وأضف الصوص تدريجياً.\n6. قلّب أو حرّك الزهرة برفق حتى تتوزع التتبيلة على جميع القطع دون أن تتفتت.\n7. رتّبها في طبق التقديم وزيّنها بالطحينة والكزبرة الخضراء وحبوب الرمان.\nنصائح:\n- اختَر زهرة طازجة ذات لون أخضر فاتح وأجزاء متماسكة.\n- لا تكثر من التقليب حتى تحافظ على شكل القطع.\n- أضف الصوص تدريجياً حسب كمية الزهرة.\n- الطحينة والرمان إضافات اختيارية لكنها تعطي طعماً مميزاً.",
+      "notes": "ادوات . فرن او قلاية هوائية اختياري",
+      "createdAt": "2026-11-13T20:46:34.263Z",
+      "updatedAt": "2026-11-13T20:50:46.771Z"
+    },
+    {
+      "id": "new-mwfgft6m",
+      "name": "سجق ارمني",
+      "emoji": "",
+      "course": "main",
+      "cuisine": "syrian",
+      "mealType": "meat",
+      "time": "30د",
+      "servings": "4",
+      "description": "سجق ارمني بالصمون المسخن مع المخلل والعيران",
+      "ingredients": "نصف كيلو لحمة مفرومة ناعمة (بقر أو غنم)،\n ملعقة كبيرة ثوم مهروس.\n1 ملعقة كبيرة دبس فليفلة.\n1 ملعقة صغيرة سبع بهارات أو بهارات سجق\n½  ملعقة صغيرة كمون اختياري\n½  ملعقة صغيرة كزبرة يابسة.\n½  ملعقة صغيرة فلفل أسود.\n½ ملعقة صغيرة حلبة مطحونة اختياري.\n½ ملعقة صغيرة قرفة ناعمة اختياري.\n½  ملعقة كبيرة ملح (حسب الرغبة).\nحوالي ½ كوب زيت نباتي (مازولا) او زيت زيتون",
+      "steps": "1. سخّن ربع كوب من الزيت في مقلاة على نار متوسطة.\n2. أضف الثوم وقلّبه حتى يذبل قليلاً.\n3. أضف اللحمة المفرومة وفتّتها بالملعقة، واتركها تستوي بهدوء.\n4. أضف الكمون والكزبرة اليابسة والفلفل الأسود وسبع البهارات والحلبة والقرفة، وقلّب جيداً.\n5. أضف الملح حسب الحاجة، مع الانتباه إلى أن دبس الفليفلة يحتوي على الملح.\n6. أضف دبس الفليفلة وقلّب جيداً حتى تتجانس النكهات.\n7. استمر بالطبخ والتقليب على نار هادئة إلى متوسطة لمدة 20–22 دقيقة، حتى تنضج اللحمة تماماً.\n8. إذا احتاجت اللحمة إلى زيت، أضف بقية الكمية تدريجياً.\nطريقة التقديم:\n- احشِ خبز الصمون بالسجق الساخن.\n- حمّص السندويش في السخّانة لمدة دقيقتين تقريباً.\n- أضف شرائح مخلل الخيار بعد التحميص مباشرة، وليس قبل ذلك حتى لا يطرى الخبز.\n- يمكن إضافة جبنة الموزاريلا على الوجه حسب الرغبة.",
+      "notes": "الايقونة سندويشة صمون",
+      "createdAt": "2026-11-13T20:54:09.022Z",
+      "updatedAt": "2026-11-13T20:58:44.965Z"
+    },
+    {
+      "id": "new-mwfgyyql",
+      "name": "برغل بكوسا",
+      "emoji": "",
+      "course": "main",
+      "cuisine": "syrian",
+      "mealType": "vegetarian",
+      "time": "20 د",
+      "servings": "4",
+      "description": "برغل مطبوخ بالكوسا",
+      "ingredients": "1 كيلو كوسا متوسطة الحجم.\n1 كيلو برغل خشن (حوالي 5 أكواب).\n10 أكواب ماء ساخن (لكل كوب برغل كوبان ماء).\n2 ملعقة كبيرة سمنة (أو زيت زيتون).\nكزبرة خضراء مفرومة او يابسة اختياري.\nعدة فصوص ثوم مفروم اختياري.\nملح حسب الرغبة.\nفلفل حسب الرغبة.",
+      "steps": "1. اغسل البرغل غسلة خفيفة وصفّه جيداً دون نقع.\n2. قطّع الكوسا إلى قطع متوسطة بحجم الإصبع تقريباً.\n3. سخّن السمنة في قدر، وأضف الكوسا.\n4. أضف الملح والفلفل وقلّب حتى تصل الكوسا إلى نصف استواء.\n5. أضف البرغل وقلّبه مع الكوسا والسمنة لبضع دقائق حتى يتحمص قليلاً.\n6. أضف الماء الساخن (10 أكواب) والملح حسب الحاجة.\n7. اتركه على نار قوية حتى يغلي، ثم غطِّ القدر واتركه حتى يتشرب البرغل الماء وينضج.\n8. افرم الثوم والكزبرة الخضراء واخلطهما جيداً.\n9. أضف خليط الثوم والكزبرة إلى البرغل بعد نضجه، وقلّب جيداً حتى تتوزع النكهات.\n10. أضف القليل من الكزبرة الخضراء للتزيين.\nنصائح وتعديلات:\n- يمكن إضافة اللحم حسب الرغبة.\n- يمكن الاستغناء عن الثوم والكزبرة، لكن إضافتهما تعطي نكهة مميزة جداً.\n- لا تقطّع الكوسا صغيرة جداً لأنها تصغر أثناء الطبخ.\n- يمكن استخدام زيت الزيتون بدلاً من السمنة.",
+      "notes": "",
+      "createdAt": "2026-11-13T21:09:02.685Z",
+      "updatedAt": "2026-11-13T21:11:11.348Z"
+    }
+  ]
+}
+

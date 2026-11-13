@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { capabilitySchema } from "./equipment";
 import {
+  courseSchema,
   cuisineSchema,
   difficultySchema,
   ingredientRoleSchema,
@@ -33,6 +34,7 @@ export const aiGeneratedRecipeSchema = z.object({
   description: z.string().trim().min(1).max(240),
   cuisine: cuisineSchema,
   mealType: mealTypeSchema,
+  course: courseSchema.optional(),
   difficulty: difficultySchema,
   prepMinutes: z.number().int().min(0).max(600),
   cookMinutes: z.number().int().min(0).max(900),
@@ -90,6 +92,7 @@ export const aiResponseJsonSchema = {
           description: { type: "string", description: "سطر واحد يصف الطبق بالعربية" },
           cuisine: { type: "string", enum: cuisineSchema.options },
           mealType: { type: "string", enum: mealTypeSchema.options },
+          course: { type: "string", enum: courseSchema.options, description: "main = طبق أساسي، appetizer = مقبلات أو سلطة أو طبق جانبي، dessert = حلويات" },
           difficulty: { type: "string", enum: difficultySchema.options },
           prepMinutes: { type: "integer" },
           cookMinutes: { type: "integer" },

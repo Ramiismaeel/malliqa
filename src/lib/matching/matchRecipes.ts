@@ -1,5 +1,5 @@
 import type { Capability } from "@/lib/schemas/equipment";
-import type { Cuisine, Difficulty, MealType, Recipe } from "@/lib/schemas/recipe";
+import { courseOf, type Course, type Cuisine, type Difficulty, type MealType, type Recipe } from "@/lib/schemas/recipe";
 import { buildAvailability, resolveRef, type Availability } from "./resolveAvailability";
 import { timeBucketOf, totalMinutes, type TimeBucket } from "./timeBucket";
 
@@ -14,6 +14,7 @@ export interface MatchFilters {
   difficulty?: Difficulty[];
   mealType?: MealType[];
   cuisine?: Cuisine[];
+  course?: Course[];
 }
 
 export interface MatchInput {
@@ -171,6 +172,7 @@ function passesFilters(result: MatchResult, filters: MatchFilters | undefined): 
   if (filters.difficulty?.length && !filters.difficulty.includes(recipe.difficulty)) return false;
   if (filters.mealType?.length && !filters.mealType.includes(recipe.mealType)) return false;
   if (filters.cuisine?.length && !filters.cuisine.includes(recipe.cuisine)) return false;
+  if (filters.course?.length && !filters.course.includes(courseOf(recipe))) return false;
   return true;
 }
 

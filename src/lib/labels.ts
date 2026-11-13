@@ -1,5 +1,5 @@
 import type { Capability } from "@/lib/schemas/equipment";
-import type { AdvancePrep, Cuisine, Difficulty, MealType, Unit } from "@/lib/schemas/recipe";
+import type { AdvancePrep, Course, Cuisine, Difficulty, MealType, Unit } from "@/lib/schemas/recipe";
 import type { MatchStatus } from "@/lib/matching/matchRecipes";
 import type { TimeBucket } from "@/lib/matching/timeBucket";
 
@@ -15,6 +15,12 @@ export const cuisineLabels: Record<Cuisine, { label: string; emoji: string }> = 
   quick: { label: "سريع وخفيف", emoji: "⚡" },
   bakery: { label: "معجنات وحلويات", emoji: "🥐" },
   other: { label: "متنوع", emoji: "🍽️" },
+};
+
+export const courseLabels: Record<Course, { label: string; emoji: string }> = {
+  main: { label: "أساسية", emoji: "🍲" },
+  appetizer: { label: "مقبلات", emoji: "🥗" },
+  dessert: { label: "حلويات", emoji: "🍮" },
 };
 
 export const mealTypeLabels: Record<MealType, { label: string; emoji: string }> = {

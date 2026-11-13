@@ -10,8 +10,9 @@ import { Chip } from "@/components/ui/chip";
 import { EmptyState } from "@/components/ui/empty-state";
 import { PageHeader } from "@/components/ui/page-header";
 import { useFavoriteIds } from "@/lib/db/hooks";
-import { mealChipsToTypes, useBrowseFilters, useSelectedDay } from "@/lib/kitchen/ui-state";
+import { EMPTY_FILTERS, mealChipsToTypes, useBrowseFilters, useSelectedDay } from "@/lib/kitchen/ui-state";
 import { useKitchen, useMatches } from "@/lib/kitchen/use-kitchen";
+import { groupByCourse } from "@/lib/matching/arrange";
 import type { Recipe } from "@/lib/schemas/recipe";
 import { matchesQuery } from "@/lib/text/arabic";
 
@@ -30,34 +31,37 @@ export default function RecipesPage() {
 
   const matchFilters = useMemo(
     () => ({
+      course: filters.course,
       time: filters.time,
       difficulty: filters.difficulty,
       mealType: mealChipsToTypes(filters.meal),
       cuisine: filters.cuisine,
     }),
-    [filters.time, filters.difficulty, filters.meal, filters.cuisine],
+    [filters.course, filters.time, filters.difficulty, filters.meal, filters.cuisine],
   );
   const results = useMatches(kitchen, day, matchFilters);
 
   const query = filters.query.trim();
   const visible = useMemo(() => {
     if (!results) return undefined;
-    return results.filter((result) => {
+    const kept = results.filter((result) => {
       if (!filters.showUnsuitable && result.status === "unsuitable") return false;
       if (filters.favoritesOnly && !favoriteIds?.has(result.recipe.id)) return false;
       if (query && !matchesQuery(searchText(result.recipe), query)) return false;
       return true;
     });
+    // Main dishes, then appetizers, then desserts; each from ready to shopping.
+    return groupByCourse(kept);
   }, [results, filters.showUnsuitable, filters.favoritesOnly, favoriteIds, query]);
 
   const hiddenUnsuitable = results && !filters.showUnsuitable ? results.filter((r) => r.status === "unsuitable").length : 0;
   const anyFilter =
     query !== "" ||
     filters.favoritesOnly ||
-    filters.time.length + filters.difficulty.length + filters.meal.length + filters.cuisine.length > 0;
+    filters.course.length + filters.time.length + filters.difficulty.length + filters.meal.length + filters.cuisine.length > 0;
 
   const reset = () =>
-    setFilters({ time: [], difficulty: [], meal: [], cuisine: [], favoritesOnly: false, showUnsuitable: filters.showUnsuitable, query: "" });
+    setFilters({ ...EMPTY_FILTERS, cuisine: [], favoritesOnly: false, showUnsuitable: filters.showUnsuitable, query: "" });
 
   return (
     <div className="flex flex-col gap-4">

@@ -70,6 +70,7 @@ src/
 │   ├── categories.ts
 │   ├── ingredients.ts          # dictionary + groups
 │   ├── equipment.ts
+│   ├── food-art.ts             # drawings used as icons (`emoji: "art:<name>"`)
 │   └── recipes/
 │       ├── index.ts            # exports allRecipes (validated in tests)
 │       ├── syrian.ts
@@ -87,6 +88,7 @@ src/
 │   ├── matching/
 │   │   ├── matchRecipes.ts
 │   │   ├── resolveAvailability.ts
+│   │   ├── arrange.ts          # on-screen order: by course, daily shuffle
 │   │   ├── timeBucket.ts
 │   │   └── matchRecipes.test.ts
 │   ├── text/arabic.ts          # normalizeArabic() for search
@@ -164,6 +166,8 @@ interface Recipe {
   description: string;                 // one line
   cuisine: 'syrian' | 'levantine' | 'arab' | 'italian' | 'asian' | 'quick' | 'bakery' | 'other';
   mealType: 'meat' | 'chicken' | 'fish' | 'vegetarian' | 'vegan';
+  course?: 'main' | 'appetizer' | 'dessert'; // أساسية / مقبلات / حلويات. Every built-in recipe has one; missing (AI) = main
+  emoji?: string;                      // one emoji, or 'art:<name>' for a drawing from src/data/food-art.ts
   difficulty: 'easy' | 'medium' | 'hard';
   prepMinutes: number;
   cookMinutes: number;
@@ -222,7 +226,7 @@ matchRecipes(input: {
   stapleIds: Set<string>;
   capabilities: Set<Capability>;         // derived from available equipment
   day: 'today' | 'tomorrow';
-  filters?: { time?: TimeBucket[]; difficulty?: Difficulty[]; mealType?: MealType[]; cuisine?: Cuisine[] };
+  filters?: { time?: TimeBucket[]; difficulty?: Difficulty[]; mealType?: MealType[]; cuisine?: Cuisine[]; course?: Course[] };
   excludedMealTypes?: MealType[];
 }): MatchResult[]
 ```
@@ -240,6 +244,12 @@ Per recipe:
 
 Output per recipe: `{ recipe, status, missing[], viaGroup[], viaSubstitute[], optionalMissing[], missingEquipment[], freshUsed, matchPercent, needsAdvancePrep, timeBucket }`.
 
+**On-screen order** (`arrange.ts`, pure, applied after `matchRecipes`; the ranking in step 6 is unchanged):
+- Home, inside every section — `arrangeForDay(results, seed)`: course (main → appetizer → dessert) → missing count asc →
+  a shuffle keyed by `hash(seed + recipe id)`, with the planned day's date (`YYYY-MM-DD`) as the seed. So the same dish
+  is not on top every day, and nothing jumps while the pantry is edited.
+- Recipes page — `groupByCourse(results)`: course first, the engine's ranking inside each course. No shuffle.
+
 **Golden test (must exist and pass):** pantry = onion, butter, pasta, tomato-juice, minced-meat + staples (salt, black-pepper, mixed-spices, oil, garlic, coriander, bread, rice); equipment = stove only.
 - `spaghetti-bolognese` → ready, `freshUsed ≥ 4`, ranked above `rice-with-vermicelli`.
 - `baked-pasta-with-meat` → unsuitable (oven).
@@ -250,7 +260,7 @@ Output per recipe: `{ recipe, status, missing[], viaGroup[], viaSubstitute[], op
 ## 6. UX notes
 
 - Mobile-first, bottom nav with 4 tabs: **اقتراحات** (home), **مطبخي** (pantry), **وصفات**, **إعدادات**.
-- Home: segmented control **اليوم | غداً** at top → sections: "جاهزة الآن", "ينقصها شيء بسيط", "جهّزها الليلة للغد" (today mode only), collapsed "تحتاج تسوّق". Quick filter chips: سريعة/متوسطة/طويلة, سهلة/متوسطة/صعبة, لحوم/دجاج/سمك/نباتي. AI button at the bottom ("اقترح لي أفكاراً جديدة"), disabled offline.
+- Home: segmented control **اليوم | غداً** at top → sections: "جاهزة الآن", "ينقصها شيء بسيط", "جهّزها الليلة للغد" (today mode only), collapsed "تحتاج تسوّق". Inside each section: main dishes, then appetizers, then desserts (a small heading opens each group), in an order that changes daily. Quick filter chips: أساسية/مقبلات/حلويات, سريعة/متوسطة/طويلة, سهلة/متوسطة/صعبة, لحوم/دجاج/سمك/نباتي. AI button at the bottom ("اقترح لي أفكاراً جديدة"), disabled offline.
 - Recipe card: name, time + bucket, difficulty, equipment icons (stovetop/oven/blender…), missing items in red, "via substitute" in amber.
 - Recipe detail: ingredients with ✓/✗ against pantry, missing list, equipment, steps, favorite button, "ثبّت لليوم / للغد".
 - Pantry: category chips → toggles. Available items first. Search with Arabic normalization. Staples marked with a pin icon; long-press or menu to (un)mark staple. "نفد" quick action. Add custom ingredient (name + category).
@@ -392,7 +402,7 @@ writes one file, **`content/recipe-review.json`** (schema: `scripts/content-stud
   version: 1,
   generalNotes: string,                       // notes not tied to one recipe
   recipes: { [recipeId]: {
-    course?: 'main' | 'appetizer' | 'dessert', // أساسية / مقبلات / حلويات
+    course?: 'main' | 'appetizer' | 'dessert', // requested change of course (only stored when it differs from the recipe's)
     ok?: true,                                 // owner read it and found it correct
     comment?: string,                          // what is wrong or missing (free text, Arabic)
     emoji?: string,                            // replacement emoji
@@ -404,15 +414,18 @@ writes one file, **`content/recipe-review.json`** (schema: `scripts/content-stud
 
 When asked to "apply the review" (or similar), read that file and:
 
+0. **Before changing the JSON**, copy it to `content/applied/recipe-review-<date>.json`. `content/` holds the owner's
+   own words; the copy is the only record of them once the notes are cleared.
 1. **Comments / emoji** → fix the recipe in `src/data/recipes/<cuisine>.ts` (add missing ingredients to
    `src/data/ingredients.ts` first if needed). Then delete that `comment` / `emoji` from the JSON and drop `ok`, so the
-   recipe shows up again as not reviewed. If a comment is unclear, leave it in place and ask.
-2. **New recipes** → write a proper `Recipe` (ids, refs, units, equipment, steps) in the file of its cuisine, then remove
-   the entry from `newRecipes`. Carry its `course` over to `recipes[<new id>].course`.
+   recipe shows up again as not reviewed. If a comment is unclear, leave it in place and ask. A comment that asks for a
+   picture no emoji gives (a dish, a shape) → add a drawing to `src/data/food-art.ts` and set `emoji: "art:<name>"`.
+2. **New recipes** → write a proper `Recipe` (ids, refs, units, equipment, steps, `course`) in the file of its cuisine,
+   then remove the entry from `newRecipes`. A new recipe that is the same dish as an existing one updates that recipe
+   instead of adding a second one — say so in the report.
 3. **General notes** → act on them, then remove the lines that are done.
-4. **`course`** stays in the JSON until the owner asks to bring the classification into the app. At that point add
-   `course` to the Recipe schema, move the values into the recipe files, add the filter to the UI, and remove `course`
-   from the review schema.
+4. **`course`** lives in the recipe files (since 2026-11-13). In the JSON, `recipes[id].course` is a requested change:
+   set it on the recipe, then delete it from the JSON.
 5. Run `pnpm lint && pnpm typecheck && pnpm test`, and report what was applied and what was left.
 
 Never edit the JSON while the owner may have unsaved work without saying so: the studio detects the change and asks

@@ -18,7 +18,7 @@ export const ingredientSchema = z.object({
   id: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
   name: z.string().min(1),
   nameEn: z.string().min(1).optional(),
-  emoji: z.string().min(1).max(8).optional(),
+  emoji: z.string().min(1).max(40).optional(),
   aliases: z.array(z.string().min(1)),
   category: ingredientCategorySchema,
   groups: z.array(z.string().min(1)).optional(),

@@ -6,6 +6,7 @@ import type { RefResolver } from "@/lib/kitchen/names";
 import {
   advancePrepLabels,
   capabilityLabels,
+  courseLabels,
   cuisineLabels,
   difficultyLabels,
   mealTypeLabels,
@@ -13,7 +14,7 @@ import {
 } from "@/lib/labels";
 import type { MatchResult } from "@/lib/matching/matchRecipes";
 import type { Capability } from "@/lib/schemas/equipment";
-import { CUSTOM_PREFIX, type Recipe, type RecipeIngredient } from "@/lib/schemas/recipe";
+import { courseOf, CUSTOM_PREFIX, type Recipe, type RecipeIngredient } from "@/lib/schemas/recipe";
 import { EquipmentBadges } from "./equipment-badges";
 
 type IngredientState = "have" | "via-group" | "via-substitute" | "missing" | "optional-missing" | "unknown";
@@ -116,6 +117,10 @@ export function RecipeBody({ recipe, match, resolveRef, capabilities }: RecipeBo
       </div>
 
       <div className="flex flex-wrap gap-1.5">
+        <span className="badge badge-lg gap-1 rounded-full border-none bg-base-100">
+          <Emoji>{courseLabels[courseOf(recipe)].emoji}</Emoji>
+          {courseLabels[courseOf(recipe)].label}
+        </span>
         <span className="badge badge-lg gap-1 rounded-full border-none bg-base-100">
           <Emoji>{cuisineLabels[recipe.cuisine].emoji}</Emoji>
           {cuisineLabels[recipe.cuisine].label}

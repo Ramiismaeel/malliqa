@@ -43,7 +43,7 @@ The AI assistant is optional. To enable it locally, copy `.env.example` to `.env
 | `pnpm test` · `pnpm test:coverage` | Vitest; coverage enforces ≥ 90% lines on `src/lib/matching` |
 | `pnpm icons` | Regenerates the PWA icons in `public/icons` from `scripts/generate-icons.mjs` |
 | `pnpm recipes:draft <cuisine> <count> [hint]` | Dev-only: asks Gemini for draft recipes and writes them to `src/data/recipes/_drafts/` for human review |
-| `pnpm studio` | Dev-only: the content studio at http://localhost:3220 — review, classify and comment on every recipe (see below) |
+| `pnpm studio` | Dev-only: the content studio at http://localhost:3220 — review and comment on every recipe, draft new ones (see below) |
 
 Every phase ends with `pnpm lint && pnpm typecheck && pnpm test && pnpm build` green.
 
@@ -98,14 +98,16 @@ Opens a local page at **http://localhost:3220** for the owner / content writer. 
 
 - Lists every built-in recipe straight from `src/data` with its emoji, ingredients (groups expanded), substitutes,
   equipment and steps. Search uses the same Arabic normalization as the app.
-- Per recipe: a **course** (أساسية / مقبلات / حلويات), a free-text **comment or correction**, an optional replacement
-  emoji, and a «راجعتها وهي صحيحة» mark. Keys: `↑` `↓` move, `1` `2` `3` classify, `C` comment, `/` search.
+- Per recipe: its **course** (أساسية / مقبلات / حلويات — read from the recipe; picking another one records a requested
+  change), a free-text **comment or correction**, an optional replacement emoji, and a «راجعتها وهي صحيحة» mark.
+  Keys: `↑` `↓` move, `1` `2` `3` course, `C` comment, `/` search.
 - **«+ طبخة جديدة»** drafts a recipe in free text (name, ingredients and steps one per line).
 - **«ملاحظات عامة»** holds notes that are not about one recipe.
 
 Everything autosaves to [`content/recipe-review.json`](content/recipe-review.json) (created on the first edit). Commit
 that file like any other. The notes are then applied to the code — by hand or by an AI assistant, following "Content
-review workflow" in [CLAUDE.md](CLAUDE.md). If the file changes on disk while the page is open, the page refuses to
+review workflow" in [CLAUDE.md](CLAUDE.md); the notes are cleared once applied, and the file as the owner wrote it is
+kept in `content/applied/`. If the file changes on disk while the page is open, the page refuses to
 overwrite it and asks for a reload. The server restarts itself when recipe files change; reload the page to see edits.
 
 ## How to add a recipe
@@ -118,9 +120,10 @@ overwrite it and asks for a reload. The server restarts itself when recipe files
   id: "burghul-with-tomato",          // kebab-case English, unique, never changes
   name: "برغل ببندورة",
   nameEn: "Bulgur with tomato",        // optional
-  emoji: "🍅",                          // shown instead of a photo
+  emoji: "🍅",                          // shown instead of a photo; or "art:<name>" for a drawing in src/data/food-art.ts
   description: "برغل مفلفل بالبندورة والبصل.",
   mealType: "vegan",                   // meat | chicken | fish | vegetarian | vegan
+  course: "main",                      // main | appetizer | dessert — decides its place in the lists
   difficulty: "easy",                  // easy | medium | hard
   prepMinutes: 5,
   cookMinutes: 25,

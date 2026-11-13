@@ -14,6 +14,7 @@ import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import path from "node:path";
 import { z } from "zod";
+import { foodArtSvg } from "../../src/data/food-art";
 import { groupMembers, ingredientById } from "../../src/data/ingredients";
 import { allRecipes } from "../../src/data/recipes";
 import { formatAmount, formatHours, formatMinutes, formatServings } from "../../src/lib/format";
@@ -27,7 +28,7 @@ import {
   timeBucketLabels,
 } from "../../src/lib/labels";
 import { timeBucketOf, totalMinutes } from "../../src/lib/matching/timeBucket";
-import { GROUP_PREFIX, type Recipe } from "../../src/lib/schemas/recipe";
+import { courseOf, GROUP_PREFIX, type Recipe } from "../../src/lib/schemas/recipe";
 import { normalizeArabic } from "../../src/lib/text/arabic";
 import { courses, emptyReview, normalizeReview, reviewSchema, type Review } from "./review";
 
@@ -71,6 +72,7 @@ function recipeView(recipe: Recipe) {
     description: recipe.description,
     cuisine: recipe.cuisine,
     mealType: recipe.mealType,
+    course: courseOf(recipe),
     difficulty: difficultyLabels[recipe.difficulty],
     prep: formatMinutes(recipe.prepMinutes),
     cook: formatMinutes(recipe.cookMinutes),
@@ -173,6 +175,12 @@ async function handle(req: IncomingMessage, res: ServerResponse): Promise<void> 
 
   if (req.method === "GET" && url.pathname === "/") {
     return send(res, 200, await readFile(PAGE_FILE, "utf8"), "text/html; charset=utf-8");
+  }
+  // Drawings used instead of an emoji (`emoji: "art:<name>"`), as images.
+  const art = /^\/art\/([a-z0-9-]+)\.svg$/.exec(url.pathname);
+  if (req.method === "GET" && art) {
+    const svg = foodArtSvg(art[1] ?? "");
+    return svg ? send(res, 200, svg, "image/svg+xml; charset=utf-8") : send(res, 404, { error: "not found" });
   }
   if (req.method === "GET" && url.pathname === "/api/catalog") {
     return send(res, 200, catalog);

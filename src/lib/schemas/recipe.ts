@@ -16,6 +16,9 @@ export const mealTypeSchema = z.enum(["meat", "chicken", "fish", "vegetarian", "
 
 export const difficultySchema = z.enum(["easy", "medium", "hard"]);
 
+/** Where a dish sits in a meal: أساسية / مقبلات / حلويات. */
+export const courseSchema = z.enum(["main", "appetizer", "dessert"]);
+
 export const unitSchema = z.enum([
   "g",
   "kg",
@@ -61,11 +64,13 @@ export const recipeSchema = z.object({
   id: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, "id must be kebab-case"),
   name: z.string().min(1),
   nameEn: z.string().min(1).optional(),
-  /** Single emoji shown instead of a photo (no images in v1). */
-  emoji: z.string().min(1).max(8).optional(),
+  /** Shown instead of a photo: a single emoji, or `art:<name>` for a drawing from `src/data/food-art.ts`. */
+  emoji: z.string().min(1).max(40).optional(),
   description: z.string().min(1),
   cuisine: cuisineSchema,
   mealType: mealTypeSchema,
+  /** Every built-in recipe has one; AI recipes may omit it (treated as a main dish). */
+  course: courseSchema.optional(),
   difficulty: difficultySchema,
   prepMinutes: z.number().int().min(0),
   cookMinutes: z.number().int().min(0),
@@ -82,6 +87,7 @@ export const recipeSchema = z.object({
 export type Cuisine = z.infer<typeof cuisineSchema>;
 export type MealType = z.infer<typeof mealTypeSchema>;
 export type Difficulty = z.infer<typeof difficultySchema>;
+export type Course = z.infer<typeof courseSchema>;
 export type Unit = z.infer<typeof unitSchema>;
 export type RecipeIngredient = z.infer<typeof recipeIngredientSchema>;
 export type AdvancePrep = z.infer<typeof advancePrepSchema>;
@@ -89,4 +95,9 @@ export type Substitute = z.infer<typeof substituteSchema>;
 export type Recipe = z.infer<typeof recipeSchema>;
 
 export const GROUP_PREFIX = "group:";
+/** Prefix of an `emoji` value that names a drawing instead of an emoji. */
+export const ART_PREFIX = "art:";
+
+/** A recipe without a course is a main dish. */
+export const courseOf = (recipe: Pick<Recipe, "course">): Course => recipe.course ?? "main";
 export const CUSTOM_PREFIX = "custom:";

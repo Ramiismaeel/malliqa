@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 import type { Day } from "@/lib/matching/matchRecipes";
 import type { TimeBucket } from "@/lib/matching/timeBucket";
-import type { Cuisine, Difficulty } from "@/lib/schemas/recipe";
+import type { Course, Cuisine, Difficulty } from "@/lib/schemas/recipe";
 
 // Tiny in-memory stores for view state that should survive navigating to a
 // recipe and back (selected day, active filters). Not persisted: a fresh app
@@ -37,6 +37,7 @@ function useStore<T>(store: ReturnType<typeof createStore<T>>) {
 export type MealChip = "meat" | "chicken" | "fish" | "veg";
 
 export interface HomeFilters {
+  course: Course[];
   time: TimeBucket[];
   difficulty: Difficulty[];
   meal: MealChip[];
@@ -50,11 +51,12 @@ export interface BrowseFilters extends HomeFilters {
 }
 
 const dayStore = createStore<Day>("today");
-const homeFiltersStore = createStore<HomeFilters>({ time: [], difficulty: [], meal: [] });
+/** No filter selected. */
+export const EMPTY_FILTERS: HomeFilters = { course: [], time: [], difficulty: [], meal: [] };
+
+const homeFiltersStore = createStore<HomeFilters>(EMPTY_FILTERS);
 const browseFiltersStore = createStore<BrowseFilters>({
-  time: [],
-  difficulty: [],
-  meal: [],
+  ...EMPTY_FILTERS,
   cuisine: [],
   favoritesOnly: false,
   showUnsuitable: false,

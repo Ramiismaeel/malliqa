@@ -100,6 +100,25 @@ Short notes appended at the end of each phase. Scope and order live in `CLAUDE.m
   its emoji, ingredients and steps; per-recipe course (أساسية / مقبلات / حلويات), comment, replacement emoji and a
   "reviewed" mark; free-text drafts of new recipes; general notes. Saves to `content/recipe-review.json`; the workflow
   for applying it is CLAUDE.md §12. The course is not in the app yet — the owner classifies first.
+- **Review applied (2026-11-13)** — the owner's first pass over all 154 recipes in the content studio:
+  - `course` (main / appetizer / dessert) is now part of the Recipe schema and set on every built-in recipe (optional
+    for AI recipes, which default to main; the AI route may return it). Filter chips أساسية/مقبلات/حلويات on home and in
+    the recipes filter panel; a course badge on the recipe page.
+  - **Order:** home sections show main dishes, then appetizers, then desserts, with a heading per group; inside a
+    course, fewer missing ingredients first, then a shuffle that changes with the date (`arrange.ts`). The recipes page
+    groups by course and keeps the engine's ranking. `matchRecipes` and the golden test are unchanged.
+  - 56 comments applied: ingredients made optional (cumin, dried mint, garlic, onion, starch…), a few added, six
+    renames, falafel rewritten around a ready falafel mix, new ingredients `falafel-mix`, `fenugreek`, `samoun`;
+    «فاصولياء بيضاء» is now «فاصولياء حبوب».
+  - **Drawings:** 24 SVG icons in `src/data/food-art.ts` (grape-leaf rolls, mansaf, shanklish, zucchini, hummus…), used
+    through `emoji: "art:<name>"` on 22 recipes and 4 ingredients; `Emoji` renders them and the studio serves them at
+    `/art/<name>.svg`.
+  - 6 new recipes (freekeh with meat, potato mfarakeh with meat, okra in oil, fried cauliflower, Armenian sujuk, bulgur
+    with zucchini) — 160 recipes now. The owner's «البطاطا الحرة بالكزبرة والثوم» replaced the content of the existing
+    `batata-harra` (same dish) and made it an appetizer.
+  - Left open: «كبة بالصينية — غالباً تحتاج ماكينة كبة» (no such tool in the equipment list yet).
+  - Studio: the course buttons now show the recipe's course from the code; picking another one records a requested
+    change. The original review file is kept in `content/applied/`.
 - Filter chips no longer scroll horizontally (they were cut off with no way to reach the rest on desktop): the quick
   filters are three rows of equal-width chips, pantry categories and cuisines wrap, and the recipes page keeps
   cuisine/time/type/difficulty in a «فلاتر» panel with an active-filter count.

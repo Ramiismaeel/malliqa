@@ -17,9 +17,10 @@ import { useDayPlan, useFavoriteIds } from "@/lib/db/hooks";
 import { clearPlan, dateKey } from "@/lib/db/repositories/dayPlan";
 import { setSetting } from "@/lib/db/repositories/settings";
 import { formatCount, ITEM_FORMS } from "@/lib/format";
-import { mealChipsToTypes, useHomeFilters, useSelectedDay } from "@/lib/kitchen/ui-state";
+import { EMPTY_FILTERS, mealChipsToTypes, useHomeFilters, useSelectedDay } from "@/lib/kitchen/ui-state";
 import { useKitchen, useMatches, type Kitchen } from "@/lib/kitchen/use-kitchen";
-import { toSections, type Day } from "@/lib/matching/matchRecipes";
+import { arrangeForDay } from "@/lib/matching/arrange";
+import { toSections, type Day, type MatchSections } from "@/lib/matching/matchRecipes";
 
 const BACKUP_REMINDER_MS = 30 * 24 * 60 * 60 * 1000;
 const BACKUP_SNOOZE_MS = 7 * 24 * 60 * 60 * 1000;
@@ -33,11 +34,25 @@ export default function HomePage() {
   const [showShopping, setShowShopping] = useState(false);
 
   const matchFilters = useMemo(
-    () => ({ time: filters.time, difficulty: filters.difficulty, mealType: mealChipsToTypes(filters.meal) }),
+    () => ({
+      course: filters.course,
+      time: filters.time,
+      difficulty: filters.difficulty,
+      mealType: mealChipsToTypes(filters.meal),
+    }),
     [filters],
   );
   const results = useMatches(kitchen, day, matchFilters);
-  const sections = useMemo(() => (results ? toSections(results) : undefined), [results]);
+  // Inside every section: main dishes, then appetizers, then desserts, each in
+  // an order that changes with the day being planned.
+  const sections = useMemo(() => {
+    if (!results) return undefined;
+    const split = toSections(results);
+    const seed = dateKey(day === "today" ? 0 : 1);
+    const arranged = {} as MatchSections;
+    for (const name of Object.keys(split) as Array<keyof MatchSections>) arranged[name] = arrangeForDay(split[name], seed);
+    return arranged;
+  }, [results, day]);
 
   const filtered = hasActiveFilters(filters);
   const nothingToCook = sections ? sections.ready.length + sections.almost.length + sections.prepTonight.length === 0 : false;
@@ -125,7 +140,7 @@ export default function HomePage() {
                 filtered ? (
                   <button
                     type="button"
-                    onClick={() => setFilters({ time: [], difficulty: [], meal: [] })}
+                    onClick={() => setFilters(EMPTY_FILTERS)}
                     className="btn btn-primary rounded-full"
                   >
                     امسح الفلاتر

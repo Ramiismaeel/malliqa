@@ -77,6 +77,11 @@
         outline: 2px solid var(--primary);
         outline-offset: 2px;
       }
+      .emoji img.art {
+        width: 1.2em;
+        height: 1.2em;
+        vertical-align: -0.2em;
+      }
       .emoji {
         font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
         font-style: normal;
@@ -820,7 +825,12 @@
         }
         return el;
       }
-      const emoji = (text) => h("span", { class: "emoji", "aria-hidden": "true" }, text);
+      // An icon is an emoji, or `art:<name>` for a drawing from src/data/food-art.ts.
+      const iconNode = (value) => {
+        const match = /^art:([a-z0-9-]+)$/.exec(value || "");
+        return match ? h("img", { class: "art", src: `/art/${match[1]}.svg`, alt: "" }) : value || "";
+      };
+      const emoji = (text) => h("span", { class: "emoji", "aria-hidden": "true" }, iconNode(text));
 
       // Same rules as src/lib/text/arabic.ts, so search behaves like the app.
       function normalize(input) {
@@ -870,15 +880,17 @@
       const courseOf = (id) => state.courses.find((course) => course.id === id);
       const cuisineOf = (id) => state.cuisines.find((cuisine) => cuisine.id === id);
       const mealTypeOf = (id) => state.mealTypes.find((type) => type.id === id);
-      const hasComment = (note) => Boolean((note.comment && note.comment.trim()) || (note.emoji && note.emoji.trim()));
+      // A recipe's course lives in the code; a note holds one only as a requested change.
+      const courseIdOf = (recipe, note) => note.course || recipe.course;
+      const hasComment = (note) =>
+        Boolean((note.comment && note.comment.trim()) || (note.emoji && note.emoji.trim()) || note.course);
 
       const FILTERS = [
         { id: "all", label: "الكل", test: () => true },
-        { id: "unclassified", label: "غير مصنّفة", test: (note) => !note.course },
-        { id: "main", test: (note) => note.course === "main" },
-        { id: "appetizer", test: (note) => note.course === "appetizer" },
-        { id: "dessert", test: (note) => note.course === "dessert" },
-        { id: "commented", label: "💬 عليها تعليق", test: hasComment },
+        { id: "main", test: (note, recipe) => courseIdOf(recipe, note) === "main" },
+        { id: "appetizer", test: (note, recipe) => courseIdOf(recipe, note) === "appetizer" },
+        { id: "dessert", test: (note, recipe) => courseIdOf(recipe, note) === "dessert" },
+        { id: "commented", label: "💬 عليها تعديل", test: hasComment },
         { id: "ok", label: "✓ راجعتها", test: (note) => Boolean(note.ok) },
         { id: "unreviewed", label: "لم تُراجع", test: (note) => !note.ok && !hasComment(note) },
       ];
@@ -973,10 +985,10 @@
       }
 
       function setCourse(id, course) {
-        const cleared = noteOf(id).course === course;
-        patchNote(id, { course: cleared ? undefined : course });
-        if (state.autoAdvance && !cleared) step(1);
-        else refreshReviewBox();
+        // Picking the course the recipe already has withdraws a requested change.
+        const current = state.byId.get(id).course;
+        patchNote(id, { course: course === current ? undefined : course });
+        refreshReviewBox();
       }
 
       function newRecipeById(id) {
@@ -1034,14 +1046,14 @@
             (recipe) =>
               (state.cuisine === "all" || recipe.cuisine === state.cuisine) &&
               words.every((word) => recipe.search.includes(word)) &&
-              filter.test(noteOf(recipe.id)),
+              filter.test(noteOf(recipe.id), recipe),
           )
           .map((recipe) => recipe.id);
       }
 
       function recipeRow(recipe) {
         const note = noteOf(recipe.id);
-        const course = courseOf(note.course);
+        const course = courseOf(courseIdOf(recipe, note));
         const cuisine = cuisineOf(recipe.cuisine);
         return h(
           "button",
@@ -1052,7 +1064,7 @@
             "aria-current": state.selected === `r/${recipe.id}` ? "true" : null,
             onclick: () => select(`r/${recipe.id}`),
           },
-          h("span", { class: "tile emoji" }, note.emoji || recipe.emoji),
+          h("span", { class: "tile emoji" }, iconNode(note.emoji || recipe.emoji)),
           h(
             "span",
             null,
@@ -1062,7 +1074,7 @@
           h(
             "span",
             { class: "marks" },
-            hasComment(note) && h("span", { class: "mark comment", title: "عليها تعليق" }, "💬"),
+            hasComment(note) && h("span", { class: "mark comment", title: "عليها تعليق أو تعديل مطلوب" }, "💬"),
             note.ok && h("span", { class: "mark ok", title: "راجعتها وهي صحيحة" }, "✓"),
             course && h("span", { class: `mark course-${course.id}`, title: course.label }, course.label),
           ),
@@ -1139,7 +1151,7 @@
         $("filters").replaceChildren(
           ...FILTERS.map((filter) => {
             const course = courseOf(filter.id);
-            const count = state.recipes.filter((recipe) => filter.test(noteOf(recipe.id))).length;
+            const count = state.recipes.filter((recipe) => filter.test(noteOf(recipe.id), recipe)).length;
             return h(
               "button",
               {
@@ -1163,23 +1175,29 @@
       function renderStats() {
         const total = state.recipes.length;
         const notes = state.recipes.map((recipe) => noteOf(recipe.id));
-        const per = state.courses.map((course) => notes.filter((note) => note.course === course.id).length);
-        const classified = per.reduce((sum, count) => sum + count, 0);
+        const per = state.courses.map(
+          (course) => state.recipes.filter((recipe) => courseIdOf(recipe, noteOf(recipe.id)) === course.id).length,
+        );
         const colors = ["var(--primary)", "var(--olive)", "var(--saffron)"];
         $("stats").replaceChildren(
           h(
             "div",
             { class: "progress" },
-            h("div", { class: "progress-label" }, h("span", null, "التصنيف"), h("b", null, `${classified} / ${total}`)),
             h(
               "div",
-              { class: "bar", role: "img", "aria-label": `صُنّف ${classified} من ${total}` },
+              { class: "progress-label" },
+              h("span", null, state.courses.map((course, index) => `${course.label} ${per[index]}`).join(" · ")),
+              h("b", null, total),
+            ),
+            h(
+              "div",
+              { class: "bar", role: "img", "aria-label": "توزيع الطبخات على التصنيفات" },
               per.map((count, index) =>
                 h("i", { style: `width:${total ? (count / total) * 100 : 0}%;background:${colors[index]}` }),
               ),
             ),
           ),
-          h("span", { class: "pill" }, "💬 تعليقات ", h("b", null, notes.filter(hasComment).length)),
+          h("span", { class: "pill" }, "💬 تعديلات ", h("b", null, notes.filter(hasComment).length)),
           h("span", { class: "pill" }, "✓ راجعتها ", h("b", null, notes.filter((note) => note.ok).length)),
           h("span", { class: "pill" }, "✨ جديدة ", h("b", null, state.review.newRecipes.length)),
         );
@@ -1233,7 +1251,12 @@
           h(
             "div",
             null,
-            h("label", null, "التصنيف"),
+            h(
+              "label",
+              null,
+              "التصنيف ",
+              note.course && h("small", null, `(تغيير مطلوب — في التطبيق الآن: ${courseOf(recipe.course).label})`),
+            ),
             h(
               "div",
               { class: "seg", role: "group", "aria-label": "التصنيف" },
@@ -1243,7 +1266,7 @@
                   {
                     type: "button",
                     "data-course": course.id,
-                    "aria-pressed": String(note.course === course.id),
+                    "aria-pressed": String(courseIdOf(recipe, note) === course.id),
                     onclick: () => setCourse(recipe.id, course.id),
                   },
                   emoji(course.emoji),
@@ -1278,7 +1301,7 @@
               class: "field emoji",
               id: "alt-emoji",
               maxlength: 16,
-              placeholder: recipe.emoji,
+              placeholder: recipe.emoji.startsWith("art:") ? "🍽️" : recipe.emoji,
               value: note.emoji || "",
               oninput: (event) => patchNote(recipe.id, { emoji: event.target.value.trim() }),
             }),
@@ -1290,8 +1313,10 @@
               type: "button",
               "aria-pressed": String(Boolean(note.ok)),
               onclick: () => {
-                patchNote(recipe.id, { ok: !noteOf(recipe.id).ok });
-                refreshReviewBox();
+                const ok = !noteOf(recipe.id).ok;
+                patchNote(recipe.id, { ok });
+                if (ok && state.autoAdvance) step(1);
+                else refreshReviewBox();
               },
             },
             note.ok ? "✓ راجعتها وهي صحيحة" : "علّمها: راجعتها وهي صحيحة",
@@ -1309,7 +1334,7 @@
                 } catch {}
               },
             }),
-            "انتقل للطبخة التالية بعد التصنيف",
+            "انتقل للطبخة التالية بعد تعليمها «راجعتها»",
           ),
         );
       }
@@ -1379,7 +1404,7 @@
           h(
             "header",
             { class: "card head" },
-            h("div", { class: "big emoji" }, recipe.emoji),
+            h("div", { class: "big emoji" }, iconNode(recipe.emoji)),
             h(
               "div",
               { style: "min-width:0" },

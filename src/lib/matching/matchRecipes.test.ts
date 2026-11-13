@@ -432,6 +432,17 @@ describe("filters", () => {
     expect(ids(run(recipes, { filters: { cuisine: ["syrian"] } }))).toEqual(["quick-vegan"]);
   });
 
+  it("filters by course; a recipe without a course counts as a main dish", () => {
+    const dishes = [
+      recipe({ id: "stew", course: "main" }),
+      recipe({ id: "salad", course: "appetizer" }),
+      recipe({ id: "cake", course: "dessert" }),
+      recipe({ id: "ai-dish" }),
+    ];
+    expect(ids(run(dishes, { filters: { course: ["main"] } }))).toEqual(["ai-dish", "stew"]);
+    expect(ids(run(dishes, { filters: { course: ["appetizer", "dessert"] } }))).toEqual(["cake", "salad"]);
+  });
+
   it("combines filters with AND and ignores empty arrays", () => {
     expect(ids(run(recipes, { filters: { time: ["long"], mealType: ["meat"] } }))).toEqual([]);
     expect(ids(run(recipes, { filters: { time: [], difficulty: [] } }))).toHaveLength(3);

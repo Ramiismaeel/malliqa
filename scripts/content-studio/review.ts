@@ -1,19 +1,18 @@
 // Shape of content/recipe-review.json — the hand-off file between the content
 // studio (written by the owner) and whoever applies the notes to src/data.
 import { z } from "zod";
+import { courseLabels } from "../../src/lib/labels";
+import { courseSchema, type Course } from "../../src/lib/schemas/recipe";
 
-/** Where a dish sits in a meal. Not part of the app's Recipe schema yet. */
-export const courseSchema = z.enum(["main", "appetizer", "dessert"]);
-export type Course = z.infer<typeof courseSchema>;
-
-export const courses: Array<{ id: Course; label: string; emoji: string }> = [
-  { id: "main", label: "أساسية", emoji: "🍲" },
-  { id: "appetizer", label: "مقبلات", emoji: "🥗" },
-  { id: "dessert", label: "حلويات", emoji: "🍮" },
-];
+/** The three courses, in the order the app shows them. */
+export const courses: Array<{ id: Course; label: string; emoji: string }> = courseSchema.options.map((id) => ({
+  id,
+  ...courseLabels[id],
+}));
 
 /** Notes on one existing recipe, keyed by recipe id. */
 export const recipeNoteSchema = z.object({
+  /** Requested change of course. Only stored when it differs from the recipe's own course. */
   course: courseSchema.optional(),
   /** The owner read the recipe and found it correct. */
   ok: z.boolean().optional(),

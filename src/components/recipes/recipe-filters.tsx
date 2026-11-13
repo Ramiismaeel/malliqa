@@ -1,9 +1,11 @@
 import { Chip } from "@/components/ui/chip";
 import { Emoji } from "@/components/ui/emoji";
 import { toggleIn, type HomeFilters, type MealChip } from "@/lib/kitchen/ui-state";
-import { cuisineLabels, difficultyLabels, timeBucketLabels } from "@/lib/labels";
+import { courseLabels, cuisineLabels, difficultyLabels, timeBucketLabels } from "@/lib/labels";
 import type { TimeBucket } from "@/lib/matching/timeBucket";
-import type { Cuisine, Difficulty } from "@/lib/schemas/recipe";
+import type { Course, Cuisine, Difficulty } from "@/lib/schemas/recipe";
+
+const COURSE_OPTIONS: Course[] = ["main", "appetizer", "dessert"];
 
 const TIME_OPTIONS: Array<{ value: TimeBucket; emoji: string }> = [
   { value: "quick", emoji: "⚡" },
@@ -28,13 +30,26 @@ interface RecipeFiltersProps<T extends HomeFilters> {
 }
 
 /**
- * Quick filters: time, meal type, difficulty. Each group is one row of
+ * Quick filters: course, time, meal type, difficulty. Each group is one row of
  * equal-width chips, so every filter is visible on any screen width — no
  * horizontal scrolling and nothing cut off.
  */
 export function RecipeFilters<T extends HomeFilters>({ value, onChange }: RecipeFiltersProps<T>) {
   return (
     <div className="flex flex-col gap-2">
+      <div className="grid grid-cols-3 gap-2" role="group" aria-label="نوع الطبق">
+        {COURSE_OPTIONS.map((option) => (
+          <Chip
+            key={option}
+            fill
+            active={value.course.includes(option)}
+            onToggle={() => onChange({ ...value, course: toggleIn(value.course, option) })}
+          >
+            <Emoji>{courseLabels[option].emoji}</Emoji>
+            {courseLabels[option].label}
+          </Chip>
+        ))}
+      </div>
       <div className="grid grid-cols-3 gap-2" role="group" aria-label="المدة">
         {TIME_OPTIONS.map((option) => (
           <Chip
@@ -97,9 +112,11 @@ export function CuisineFilters({ value, onChange }: CuisineFiltersProps) {
 }
 
 export function hasActiveFilters(filters: HomeFilters): boolean {
-  return filters.time.length > 0 || filters.difficulty.length > 0 || filters.meal.length > 0;
+  return filters.course.length > 0 || filters.time.length > 0 || filters.difficulty.length > 0 || filters.meal.length > 0;
 }
 
 export function countActiveFilters(filters: HomeFilters & { cuisine?: Cuisine[] }): number {
-  return filters.time.length + filters.difficulty.length + filters.meal.length + (filters.cuisine?.length ?? 0);
+  return (
+    filters.course.length + filters.time.length + filters.difficulty.length + filters.meal.length + (filters.cuisine?.length ?? 0)
+  );
 }

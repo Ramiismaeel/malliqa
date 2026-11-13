@@ -34,6 +34,7 @@ export function toRecipe(generated: AiGeneratedRecipe, id: string): Recipe {
     description: generated.description,
     cuisine: generated.cuisine,
     mealType: generated.mealType,
+    ...(generated.course ? { course: generated.course } : {}),
     difficulty: generated.difficulty,
     prepMinutes: generated.prepMinutes,
     cookMinutes: generated.cookMinutes,

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { equipment } from "@/data/equipment";
+import { foodArt } from "@/data/food-art";
 import {
   defaultStapleIds,
   groupById,
@@ -10,7 +11,7 @@ import {
 } from "@/data/ingredients";
 import { equipmentSchema } from "@/lib/schemas/equipment";
 import { ingredientGroupSchema, ingredientSchema } from "@/lib/schemas/ingredient";
-import { GROUP_PREFIX, recipeSchema } from "@/lib/schemas/recipe";
+import { ART_PREFIX, courseSchema, GROUP_PREFIX, recipeSchema } from "@/lib/schemas/recipe";
 import { timeBucketOf } from "@/lib/matching/timeBucket";
 import { normalizeArabic } from "@/lib/text/arabic";
 import { allRecipes } from "./index";
@@ -140,6 +141,20 @@ describe("recipes", () => {
       expect(recipe.steps.length, recipe.id).toBeGreaterThanOrEqual(2);
       for (const step of recipe.steps) expect(step.trim().length, recipe.id).toBeGreaterThan(5);
     }
+  });
+
+  it("every built-in recipe has a course, and each course has recipes", () => {
+    for (const recipe of allRecipes) expect(recipe.course, recipe.id).toBeDefined();
+    for (const course of courseSchema.options) {
+      expect(allRecipes.filter((r) => r.course === course).length, course).toBeGreaterThanOrEqual(10);
+    }
+  });
+
+  it("every drawing used as an icon exists, and every drawing is used", () => {
+    const icons = [...allRecipes, ...ingredients].map((item) => item.emoji ?? "");
+    const used = new Set(icons.filter((icon) => icon.startsWith(ART_PREFIX)).map((icon) => icon.slice(ART_PREFIX.length)));
+    for (const name of used) expect(foodArt[name], name).toBeDefined();
+    for (const name of Object.keys(foodArt)) expect(used.has(name), name).toBe(true);
   });
 
   it("built-in recipes are marked as builtin", () => {
