@@ -4,6 +4,7 @@ import { Check } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
 import { Emoji } from "@/components/ui/emoji";
 import { FoodProcessorArt } from "@/components/ui/food-processor-icon";
+import { MeatGrinderArt } from "@/components/ui/meat-grinder-icon";
 import { MicrowaveArt } from "@/components/ui/microwave-icon";
 import { equipmentCategories } from "@/data/categories";
 import { equipment } from "@/data/equipment";
@@ -11,6 +12,7 @@ import { equipment } from "@/data/equipment";
 /** Equipment with no fitting emoji gets its own drawing. */
 const CUSTOM_ART: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
   "food-processor": FoodProcessorArt,
+  "kibbeh-machine": MeatGrinderArt,
   microwave: MicrowaveArt,
 };
 

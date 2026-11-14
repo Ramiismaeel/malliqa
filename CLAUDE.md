@@ -152,10 +152,10 @@ interface Equipment {
 }
 type Capability =
   | 'stovetop' | 'oven' | 'microwave' | 'air-fryer' | 'blender'
-  | 'hand-mixer' | 'stand-mixer' | 'food-processor' | 'pressure-cooker' | 'grill';
+  | 'hand-mixer' | 'stand-mixer' | 'food-processor' | 'meat-grinder' | 'pressure-cooker' | 'grill';
 ```
 
-Equipment list v1: stove («غاز / طباخ» — gas, electric and induction are one item; provides `stovetop`), oven, microwave, air fryer, blender, hand mixer, stand mixer, food processor, pressure cooker, electric grill.
+Equipment list v1: stove («غاز / طباخ» — gas, electric and induction are one item; provides `stovetop`), oven, microwave, air fryer, blender, hand mixer, stand mixer, food processor, kibbeh machine («ماكينة كبة», provides `meat-grinder`), pressure cooker, electric grill.
 
 ```ts
 // Recipe (src/lib/schemas/recipe.ts)

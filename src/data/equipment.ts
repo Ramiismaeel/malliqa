@@ -13,6 +13,8 @@ export const equipment: Equipment[] = [
   { id: "hand-mixer", name: "خفاقة يدوية كهربائية", emoji: "🥚", category: "electric", provides: ["hand-mixer"] },
   { id: "stand-mixer", name: "عجانة", emoji: "🎂", category: "electric", provides: ["stand-mixer", "hand-mixer"] },
   { id: "food-processor", name: "محضّرة طعام (فرّامة)", emoji: "🥗", category: "electric", provides: ["food-processor"] },
+  // Drawn by hand on its card (no emoji fits); the emoji is only a fallback.
+  { id: "kibbeh-machine", name: "ماكينة كبة (فرّامة لحم)", emoji: "⚙️", category: "electric", provides: ["meat-grinder"] },
   { id: "electric-grill", name: "شواية كهربائية", emoji: "🥓", category: "electric", provides: ["grill"] },
   { id: "charcoal-grill", name: "منقل فحم", emoji: "🍢", category: "other", provides: ["grill"] },
 ];

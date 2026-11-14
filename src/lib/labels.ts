@@ -59,6 +59,7 @@ export const capabilityLabels: Record<Capability, string> = {
   "hand-mixer": "خفاقة",
   "stand-mixer": "عجانة",
   "food-processor": "محضّرة طعام",
+  "meat-grinder": "ماكينة كبة",
   "pressure-cooker": "طنجرة ضغط",
   grill: "شواية",
 };

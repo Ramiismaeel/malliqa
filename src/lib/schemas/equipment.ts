@@ -9,6 +9,7 @@ export const capabilitySchema = z.enum([
   "hand-mixer",
   "stand-mixer",
   "food-processor",
+  "meat-grinder",
   "pressure-cooker",
   "grill",
 ]);

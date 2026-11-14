@@ -205,9 +205,9 @@ export const syrianRecipes = defineRecipes("syrian", [
       opt(g("yogurt-any"), 1, "cup", "للتقديم"),
     ],
     substitutes: [{ for: "kibbeh-meat", use: ["minced-meat"], note: "افرمه مرتين ليصبح ناعماً" }],
-    equipment: [...need("oven"), ...nice("food-processor", "stovetop")],
+    equipment: [...need("oven", "meat-grinder"), ...nice("food-processor", "stovetop")],
     steps: [
-      "انقع البرغل الناعم 15 دقيقة ثم اعجنه مع الهبرة وبصلة مبشورة والبهارات حتى يتماسك.",
+      "انقع البرغل الناعم 15 دقيقة، ثم مرّره مع الهبرة وبصلة مبشورة والبهارات في ماكينة الكبة واعجنه حتى يتماسك.",
       "قلّب لحم الحشوة مع البصل المفروم والجوز والبهارات.",
       "افرد نصف العجينة في صينية مدهونة، ثم الحشوة، ثم النصف الثاني.",
       "قطّعها معيّنات وادهن الوجه بالسمن.",

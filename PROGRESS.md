@@ -116,7 +116,9 @@ Short notes appended at the end of each phase. Scope and order live in `CLAUDE.m
   - 6 new recipes (freekeh with meat, potato mfarakeh with meat, okra in oil, fried cauliflower, Armenian sujuk, bulgur
     with zucchini) — 160 recipes now. The owner's «البطاطا الحرة بالكزبرة والثوم» replaced the content of the existing
     `batata-harra` (same dish) and made it an appetizer.
-  - Left open: «كبة بالصينية — غالباً تحتاج ماكينة كبة» (no such tool in the equipment list yet).
+  - «كبة بالصينية — غالباً تحتاج ماكينة كبة»: new equipment item `kibbeh-machine` («ماكينة كبة (فرّامة لحم)», capability
+    `meat-grinder`, own drawing and line icon), required by `kibbeh-bil-sanieh`. No migration: a missing equipment row
+    means "not available", so the recipe is hidden as unsuitable until the owner of a machine ticks it.
   - Studio: the course buttons now show the recipe's course from the code; picking another one records a requested
     change. The original review file is kept in `content/applied/`.
 - Filter chips no longer scroll horizontally (they were cut off with no way to reach the rest on desktop): the quick
