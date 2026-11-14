@@ -388,6 +388,9 @@ Planned for v1.2: cooking history + variety in suggestions, images, servings sca
 - Client components only where needed (`'use client'` at page level for Dexie pages is fine).
 - No `any`. Zod `infer` types are the single source of types for data.
 - Small commits per task; update `PROGRESS.md` at the end of each phase.
+- Emoji: nothing newer than Emoji 12. A phone draws only what its system font has (Android 12 stops at 13.1) and
+  Firefox for Android cannot fetch newer ones, so they show as an empty box. Use a drawing from `src/data/food-art.ts`
+  (`art:<name>`) instead; a test in `recipes.test.ts` scans `src/` for newer emoji.
 - When unsure about scope, re-read sections 2 and 10 before adding anything.
 
 ---

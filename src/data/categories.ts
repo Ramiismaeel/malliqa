@@ -14,11 +14,11 @@ export const ingredientCategories: CategoryInfo<IngredientCategory>[] = [
   { id: "vegetables", name: "الخضار", shortName: "خضار", emoji: "🥬" },
   { id: "fruits", name: "الفواكه", shortName: "فواكه", emoji: "🍎" },
   { id: "grains", name: "الحبوب والنشويات", shortName: "حبوب", emoji: "🌾" },
-  { id: "legumes", name: "البقوليات", shortName: "بقوليات", emoji: "🫘" },
+  { id: "legumes", name: "البقوليات", shortName: "بقوليات", emoji: "art:fava-beans" },
   { id: "dairy-eggs", name: "الألبان والبيض", shortName: "ألبان وبيض", emoji: "🥛" },
   { id: "spices", name: "التوابل والأعشاب", shortName: "توابل", emoji: "🧂" },
   { id: "sauces", name: "الصلصات والمعلبات", shortName: "صلصات", emoji: "🥫" },
-  { id: "oils", name: "الزيوت والدهون", shortName: "زيوت", emoji: "🫒" },
+  { id: "oils", name: "الزيوت والدهون", shortName: "زيوت", emoji: "art:olive" },
   { id: "other", name: "إضافات", shortName: "إضافات", emoji: "🍯" },
 ];
 

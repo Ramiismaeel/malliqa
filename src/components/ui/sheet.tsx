@@ -16,11 +16,18 @@ interface SheetProps {
 export function Sheet({ open, onClose, title, children, footer }: SheetProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const titleId = useId();
+  // A sheet opened by a long press appears under the finger that is still
+  // down; lifting it sends a click to the backdrop. Only a press that began on
+  // the backdrop may close the sheet.
+  const pressStartedOnBackdrop = useRef(false);
 
   useEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
+    if (open && !dialog.open) {
+      pressStartedOnBackdrop.current = false;
+      dialog.showModal();
+    }
     if (!open && dialog.open) dialog.close();
   }, [open]);
 
@@ -45,11 +52,22 @@ export function Sheet({ open, onClose, title, children, footer }: SheetProps) {
           </div>
         )}
       </div>
-      <form method="dialog" className="modal-backdrop">
-        <button type="submit" aria-label="إغلاق">
+      {/* Esc, the back gesture and the ✕ button close it for keyboard and screen-reader users. */}
+      <div className="modal-backdrop" aria-hidden="true">
+        <button
+          type="button"
+          tabIndex={-1}
+          onPointerDown={() => {
+            pressStartedOnBackdrop.current = true;
+          }}
+          onClick={() => {
+            if (pressStartedOnBackdrop.current) onClose();
+            pressStartedOnBackdrop.current = false;
+          }}
+        >
           إغلاق
         </button>
-      </form>
+      </div>
     </dialog>
   );
 }

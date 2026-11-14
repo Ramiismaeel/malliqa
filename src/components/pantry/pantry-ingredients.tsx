@@ -1,6 +1,6 @@
 "use client";
 
-import { Pin, PinOff, Plus, Search, Trash2, X } from "lucide-react";
+import { Check, Pin, PinOff, Plus, Search, Trash2, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Emoji } from "@/components/ui/emoji";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -16,6 +16,7 @@ import {
   setStaple,
 } from "@/lib/db/repositories/pantry";
 import { findIngredientIdByName, ingredientSearchText } from "@/lib/kitchen/names";
+import { RAN_OUT_ICON } from "@/lib/labels";
 import type { CustomIngredient, PantryRow } from "@/lib/schemas/backup";
 import type { IngredientCategory } from "@/lib/schemas/ingredient";
 import { matchesQuery } from "@/lib/text/arabic";
@@ -100,8 +101,13 @@ export function PantryIngredients({ pantryRows, customIngredients }: PantryIngre
 
   const toggle = async (item: PantryItem) => {
     const next = !isAvailable(item.id);
-    await setAvailable(item.id, next);
-    if (!next) toast(`نفد: ${item.name}`, { emoji: "🫙", tone: "info" });
+    try {
+      await setAvailable(item.id, next);
+    } catch {
+      toast("تعذّر الحفظ، حاول مرة أخرى", { tone: "error" });
+      return;
+    }
+    if (!next) toast(`نفد: ${item.name}`, { emoji: RAN_OUT_ICON, tone: "info" });
   };
 
   const renderToggle = (item: PantryItem) => (
@@ -260,6 +266,20 @@ export function PantryIngredients({ pantryRows, customIngredients }: PantryIngre
                 ? "مثبّت كأساسي: يُعدّ متوفراً دائماً حتى تغيّره أنت."
                 : "الأساسيات مواد لا تنقطع من مطبخك (ملح، زيت، أرز…)."}
             </p>
+            {/* A slow, firm tap ends up here instead of toggling: offer what it was after. */}
+            {!isAvailable(menuItem.id) && (
+              <button
+                type="button"
+                className="btn btn-lg btn-secondary justify-start rounded-2xl"
+                onClick={async () => {
+                  await setAvailable(menuItem.id, true);
+                  setMenuId(null);
+                }}
+              >
+                <Check className="size-5" strokeWidth={3} />
+                متوفر عندي الآن
+              </button>
+            )}
             <button
               type="button"
               className="btn btn-lg justify-start rounded-2xl"
@@ -279,11 +299,11 @@ export function PantryIngredients({ pantryRows, customIngredients }: PantryIngre
                 className="btn btn-lg justify-start rounded-2xl"
                 onClick={async () => {
                   await markRanOut(menuItem.id);
-                  toast(`نفد: ${menuItem.name}`, { emoji: "🫙", tone: "info" });
+                  toast(`نفد: ${menuItem.name}`, { emoji: RAN_OUT_ICON, tone: "info" });
                   setMenuId(null);
                 }}
               >
-                <Emoji className="text-lg">🫙</Emoji>
+                <Emoji className="text-lg">{RAN_OUT_ICON}</Emoji>
                 نفد
               </button>
             )}

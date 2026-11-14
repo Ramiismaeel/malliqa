@@ -159,6 +159,29 @@ const shred = (cx: N, cy: N, deg: N): string =>
 const bean = (cx: N, cy: N, deg: N): string =>
   turned(deg, cx, cy, e(cx, cy, 4.5, 2.9, "#79ad42") + line(`M${cx - 2.4} ${cy + 0.2}c1.6 1 3.2 1 4.8 0`, "#557f29", 1));
 
+/** A kidney-shaped bean: a short thick arc with a highlight. */
+const kidney = (cx: N, cy: N, deg: N, dark: string, light: string): string =>
+  turned(
+    deg,
+    cx,
+    cy,
+    line(`M${cx - 8} ${cy + 3}c3-8 13-8 16 0`, dark, 12) + line(`M${cx - 5.5} ${cy - 1.5}c2.4-3 6-3.6 9-2.2`, light, 2.4),
+  );
+
+const kidneys = (dark: string, light: string): string =>
+  kidney(21, 20, -25, dark, light) + kidney(43, 31, 40, dark, light) + kidney(23, 46, 12, dark, light);
+
+/** A heap of lentils: flat discs stacked like a small pyramid. */
+const lentils = (dark: string, light: string): string =>
+  each(PYRAMID, ([x, y]) => e(x, y + 1, 10.4, 8, dark) + e(x - 1.6, y - 1, 6.2, 3.8, light));
+
+/** Two olives on a twig with a leaf. */
+const olives = (dark: string, light: string): string =>
+  line("M12 9c9 2 17 8 21 17", "#6b4a2a", 2.6) +
+  turned(-22, 43, 14, e(43, 14, 12, 4.8, "#5c8a35") + line("M33 14h19", "#a9cf7a", 1.2)) +
+  turned(18, 23, 41, e(23, 41, 11.5, 14, dark) + e(19, 35.5, 3, 5.2, light)) +
+  turned(-14, 44.5, 43, e(44.5, 43, 11, 13.5, dark) + e(41, 37.5, 2.8, 5, light));
+
 // ── the drawings ─────────────────────────────────────────────────────────────
 
 export const foodArt: Readonly<Record<string, string>> = {
@@ -339,6 +362,78 @@ export const foodArt: Readonly<Record<string, string>> = {
   jameed: each([[32, 20], [19.5, 42], [44.5, 42]] as const, ([x, y]) =>
     ball(x, y, 12.5, "#cfc9bb", "#ebe7dc", "#fbf9f2") + line(`M${x + 2} ${y + 3}l3 2.5M${x - 5} ${y + 5.5}l2.5 1`, "#bdb6a6", 1.1),
   ),
+  // ── replacements for emoji that older phones cannot draw (Emoji 13–15) ──
+
+  // Red kidney beans.
+  beans: kidneys("#9b3526", "#cf6a55"),
+  "white-beans": kidneys("#e3d3ac", "#fbf4dc"),
+  "fava-beans": kidneys("#a97c45", "#d3ab72"),
+  "lentils-brown": lentils("#7f6a38", "#ad9a5e"),
+  "lentils-red": lentils("#d55f27", "#f39a5c"),
+
+  // An open pod with its peas showing.
+  "pea-pod": turned(
+    -28,
+    32,
+    32,
+    p("M4 32c9-16 47-16 56 0-9 16-47 16-56 0z", "#4f9a3a") +
+      p("M11 32c8-9.5 34-9.5 42 0-8 9.5-34 9.5-42 0z", "#2d6b28") +
+      each([18.5, 27.5, 36.5, 45.5] as const, (x) => c(x, 32, 5, "#8fd05a") + c(x - 1.5, 30.4, 1.5, "#cdf0a4")) +
+      line("M59 32l4-2.5", "#3c7a2e", 2.6),
+  ),
+
+  // A ridged pod that tapers to a point, with its cap.
+  okra: turned(
+    -38,
+    32,
+    32,
+    p("M53 32c0 7-5 10.5-12 10.5C28 42.5 12 37 4 32c8-5 24-10.5 37-10.5 7 0 12 3.5 12 10.5z", "#6fa53c") +
+      line("M10 32h39M17 28c10-3 21-3.8 31-3.2M17 36c10 3 21 3.8 31 3.2", "#4b7a26", 1.6) +
+      p("M51 22.5h3.5a4 4 0 0 1 4 4v11a4 4 0 0 1-4 4H51z", "#496a2a") +
+      p("M58 29h4.5v6H58z", "#3a5520"),
+  ),
+
+  "green-beans":
+    line("M7 22c14-9 36-8 50 2", "#4f9a35", 7) +
+    line("M12 18.5c9-4 20-5 30-3", "#8fd05a", 1.8) +
+    line("M8 37c16-7 34-6 48 4", "#5fae3c", 7) +
+    line("M13 33c9-3.5 19-3.8 29-1.6", "#a6dc74", 1.8) +
+    line("M9 51c14-8 32-8 46 0", "#4f9a35", 7) +
+    line("M14 46.5c9-3.8 19-4 28-1.4", "#8fd05a", 1.8),
+
+  // A knobbly root, cut at one end.
+  ginger:
+    turned(-14, 31, 37, e(31, 37, 21, 10.5, "#cf9f5a")) +
+    e(17, 24.5, 8.5, 7, "#cf9f5a") +
+    turned(18, 44, 24, e(44, 24, 7.5, 10.5, "#cf9f5a")) +
+    e(51, 43.5, 8.5, 6.5, "#cf9f5a") +
+    e(43, 15.5, 5, 3, "#f1dba6") +
+    line("M15 40c8 3 20 2.5 30-3M13 24c2-2 5-3 8-2.5M48 45c2 .5 4 0 6-1", "#a97a36", 1.6),
+
+  // An empty glass jar: what is left when something runs out.
+  jar:
+    `<rect x="13" y="18" width="38" height="41" rx="9" fill="#d5e9f0" stroke="#8fb5c2" stroke-width="2.6"/>` +
+    `<rect x="22" y="12.5" width="20" height="7" fill="#c3dde6" stroke="#8fb5c2" stroke-width="2"/>` +
+    `<rect x="18" y="5" width="28" height="9.5" rx="3" fill="#c07a30"/>` +
+    line("M22 8.5h20", "#e2a55b", 1.6) +
+    line("M21.5 28v19", "#ffffff", 3.4),
+
+  olive: olives("#7da33a", "#bcd76f"),
+  "black-olives": olives("#584660", "#9d8ba6"),
+
+  "bell-pepper":
+    line("M32 18c0-4.5 1.5-7.5 5.5-9.5", "#2f6a24", 4.6) +
+    p("M32 16.5c-6-3-16-1-19 8-3 10 0 24 6 31 3 3 7 3 9 1 2 2 6 2 8 0 2 2 6 2 9-1 6-7 9-21 6-31-3-9-13-11-19-8z", "#3f9a3a") +
+    line("M24.5 24c-3 8-2 20 2 28M39.5 24c3 8 2 20-2 28", "#2a7628", 1.8) +
+    line("M17 28c-1.2 6 0 12.5 2.2 17.5", "#86d472", 2.6),
+
+  // A round loaf of pita with its browned blisters.
+  flatbread:
+    e(32, 36.5, 28.5, 22, "#c39a52") +
+    e(32, 33, 28.5, 22, "#ecd197") +
+    e(21, 26, 7, 3.6, "#d9b46e") + e(43, 29, 8, 4.2, "#d9b46e") + e(30, 43, 9, 4, "#d9b46e") +
+    dots("#b17f3c", 1.7, [[36, 21], [16.5, 36], [47, 41], [27, 33], [39, 36.5]]) +
+    line("M12 26c4-6 11-10 19-11", "#f8e7bd", 2.4),
 };
 
 /** The whole drawing as a standalone SVG document (used by the content studio). */

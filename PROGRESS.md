@@ -129,6 +129,20 @@ Short notes appended at the end of each phase. Scope and order live in `CLAUDE.m
     page's filter panel.
   - Suggestions are reshuffled on every visit instead of once a day: when the app opens and when the «اقتراحات» tab is
     tapped; not when coming back from a recipe.
+- **Owner's test on a phone (2026-11-14, Mi 10T Pro, Android 12):**
+  - *"Taps sometimes do nothing in the pantry."* Reproduced with real touch input (Chrome driven over CDP): a press of
+    half a second or longer opened the long-press menu under the finger, and lifting the finger sent a click to the
+    sheet's backdrop, which closed it at once — nothing added, nothing shown. Now a sheet closes from its backdrop only
+    when the press started there; the long-press timer is cleared on unmount and when the finger moves; the menu's
+    first action for an item that is not available is «متوفر عندي الآن»; a failed write shows a toast. Taps under
+    0.5 s were never lost in the test (70 of 70 random taps), so if the owner still sees misses, the cause is
+    elsewhere.
+  - *"In Firefox icons sometimes show as a grey line."* Not reproduced on a desktop Firefox. The app used 10 emoji from
+    Emoji 13–15 (beans, pea pod, jar, olive, flatbread…); Android 12's font stops at 13.1 and Firefox does not get the
+    newer ones from Google Play services as Chrome does. They are now drawings (`beans`, `white-beans`, `fava-beans`,
+    `lentils-brown`, `lentils-red`, `pea-pod`, `okra`, `green-beans`, `ginger`, `jar`, `olive`, `black-olives`,
+    `bell-pepper`, `flatbread`) or older emoji, and a test keeps emoji newer than Emoji 12 out of `src/`.
+    **Not confirmed on the phone yet.**
 - Filter chips no longer scroll horizontally (they were cut off with no way to reach the rest on desktop): the quick
   filters are three rows of equal-width chips, pantry categories and cuisines wrap, and the recipes page keeps
   cuisine/time/type/difficulty in a «فلاتر» panel with an active-filter count.

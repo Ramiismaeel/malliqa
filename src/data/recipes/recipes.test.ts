@@ -1,4 +1,7 @@
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { ingredientCategories } from "@/data/categories";
 import { equipment } from "@/data/equipment";
 import { foodArt } from "@/data/food-art";
 import {
@@ -9,6 +12,7 @@ import {
   ingredientGroups,
   ingredients,
 } from "@/data/ingredients";
+import { cuisineLabels, RAN_OUT_ICON } from "@/lib/labels";
 import { equipmentSchema } from "@/lib/schemas/equipment";
 import { ingredientGroupSchema, ingredientSchema } from "@/lib/schemas/ingredient";
 import { ART_PREFIX, courseSchema, GROUP_PREFIX, recipeSchema } from "@/lib/schemas/recipe";
@@ -151,10 +155,30 @@ describe("recipes", () => {
   });
 
   it("every drawing used as an icon exists, and every drawing is used", () => {
-    const icons = [...allRecipes, ...ingredients].map((item) => item.emoji ?? "");
+    const icons = [
+      ...[...allRecipes, ...ingredients, ...ingredientCategories, ...Object.values(cuisineLabels)].map((item) => item.emoji ?? ""),
+      RAN_OUT_ICON,
+    ];
     const used = new Set(icons.filter((icon) => icon.startsWith(ART_PREFIX)).map((icon) => icon.slice(ART_PREFIX.length)));
     for (const name of used) expect(foodArt[name], name).toBeDefined();
     for (const name of Object.keys(foodArt)) expect(used.has(name), name).toBe(true);
+  });
+
+  // A phone draws only the emoji its system font knows. Android 12 stops at
+  // Emoji 13.1, and Firefox there cannot fetch newer ones the way Chrome does,
+  // so a newer emoji shows as an empty box. Anything newer than Emoji 12 gets
+  // a drawing in `food-art.ts` instead.
+  it("uses no emoji newer than Emoji 12 anywhere in the app", () => {
+    const tooNew =
+      /[\u{1F6D6}\u{1F6D7}\u{1F6DC}-\u{1F6DF}\u{1F6FB}\u{1F6FC}\u{1F7F0}\u{1F90C}\u{1F972}\u{1F977}-\u{1F979}\u{1F9A3}\u{1F9A4}\u{1F9AB}-\u{1F9AD}\u{1F9CB}\u{1F9CC}\u{1FA74}-\u{1FA77}\u{1FA7B}-\u{1FA7F}\u{1FA83}-\u{1FA8F}\u{1FA96}-\u{1FAFF}]/gu;
+    const sourceFiles = (dir: string): string[] =>
+      readdirSync(dir, { withFileTypes: true }).flatMap((entry) =>
+        entry.isDirectory() ? sourceFiles(join(dir, entry.name)) : /\.tsx?$/.test(entry.name) ? [join(dir, entry.name)] : [],
+      );
+    for (const file of sourceFiles(join(process.cwd(), "src"))) {
+      const found = readFileSync(file, "utf8").match(tooNew) ?? [];
+      expect(found, file).toEqual([]);
+    }
   });
 
   it("built-in recipes are marked as builtin", () => {

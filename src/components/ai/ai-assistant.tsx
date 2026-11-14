@@ -196,7 +196,7 @@ function AssistantFlow({ kitchen, matches, onClose }: AiAssistantProps & { onClo
   if (view.name === "error") {
     return (
       <div className="flex flex-col items-center gap-3 py-6 text-center" role="alert">
-        <Emoji className="text-5xl">🫠</Emoji>
+        <Emoji className="text-5xl">😕</Emoji>
         <p className="font-bold">لم ينجح الأمر</p>
         <p className="max-w-xs text-sm leading-relaxed text-base-content/70">{view.message}</p>
         <div className="mt-1 flex gap-2">

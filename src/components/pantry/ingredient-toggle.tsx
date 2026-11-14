@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Pin } from "lucide-react";
-import { useRef, type MouseEvent } from "react";
+import { useEffect, useRef, type MouseEvent, type PointerEvent } from "react";
 import { Emoji } from "@/components/ui/emoji";
 
 interface IngredientToggleProps {
@@ -16,12 +16,15 @@ interface IngredientToggleProps {
   onMenu?: () => void;
 }
 
-const LONG_PRESS_MS = 480;
+const LONG_PRESS_MS = 500;
+/** A finger that travels further than this is scrolling, not pressing. */
+const MOVE_TOLERANCE_PX = 10;
 
 /** One ingredient as a large tappable pill. Tap = toggle, long-press = menu. */
 export function IngredientToggle({ name, emoji, active, staple = false, onToggle, onMenu }: IngredientToggleProps) {
   const timer = useRef<number | null>(null);
   const longPressed = useRef(false);
+  const pressOrigin = useRef({ x: 0, y: 0 });
 
   const clearTimer = () => {
     if (timer.current !== null) {
@@ -30,14 +33,27 @@ export function IngredientToggle({ name, emoji, active, staple = false, onToggle
     }
   };
 
-  const startPress = () => {
+  // The pill moves between sections when it is toggled; a timer left behind
+  // by the old copy must not open the menu later.
+  useEffect(() => clearTimer, []);
+
+  const startPress = (event: PointerEvent) => {
     if (!onMenu) return;
     longPressed.current = false;
+    pressOrigin.current = { x: event.clientX, y: event.clientY };
     clearTimer();
     timer.current = window.setTimeout(() => {
+      timer.current = null;
       longPressed.current = true;
       onMenu();
     }, LONG_PRESS_MS);
+  };
+
+  const trackPress = (event: PointerEvent) => {
+    if (timer.current === null) return;
+    const dx = event.clientX - pressOrigin.current.x;
+    const dy = event.clientY - pressOrigin.current.y;
+    if (Math.hypot(dx, dy) > MOVE_TOLERANCE_PX) clearTimer();
   };
 
   const handleClick = () => {
@@ -63,6 +79,7 @@ export function IngredientToggle({ name, emoji, active, staple = false, onToggle
       aria-pressed={active}
       onClick={handleClick}
       onPointerDown={startPress}
+      onPointerMove={trackPress}
       onPointerUp={clearTimer}
       onPointerLeave={clearTimer}
       onPointerCancel={clearTimer}

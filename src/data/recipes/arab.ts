@@ -343,7 +343,7 @@ export const arabRecipes = defineRecipes("arab", [
     id: "chicken-tagine",
     name: "طاجن دجاج بالزيتون والليمون",
     nameEn: "Chicken tagine with olives and lemon",
-    emoji: "🫒",
+    emoji: "art:olive",
     description: "دجاج مطهو ببطء مع البصل والزيتون والليمون على الطريقة المغربية.",
     mealType: "chicken",
     course: "main",

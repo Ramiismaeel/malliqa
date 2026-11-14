@@ -26,7 +26,7 @@ function AiRecipeView() {
   if (recipe === null) {
     return (
       <EmptyState
-        emoji="🫥"
+        emoji="🔎"
         title="الوصفة غير موجودة"
         action={
           <Link href="/my-recipes" className="btn btn-primary rounded-full">

@@ -6,8 +6,11 @@ import type { TimeBucket } from "@/lib/matching/timeBucket";
 // Arabic display labels for enum values. UI text lives outside
 // `src/lib/matching` on purpose.
 
+/** Shown with «نفد»: an empty jar (a drawing, since the jar emoji is too new for many phones). */
+export const RAN_OUT_ICON = "art:jar";
+
 export const cuisineLabels: Record<Cuisine, { label: string; emoji: string }> = {
-  syrian: { label: "سوري", emoji: "🫒" },
+  syrian: { label: "سوري", emoji: "art:olive" },
   levantine: { label: "شامي", emoji: "🧆" },
   arab: { label: "عربي", emoji: "🐪" },
   italian: { label: "إيطالي", emoji: "🍝" },
@@ -80,6 +83,6 @@ export const unitLabels: Record<Unit, string> = {
 export const advancePrepLabels: Record<AdvancePrep["kind"], { label: string; emoji: string }> = {
   soak: { label: "نقع", emoji: "💧" },
   marinate: { label: "تتبيل", emoji: "🧄" },
-  rise: { label: "تخمير", emoji: "🫧" },
+  rise: { label: "تخمير", emoji: "⏳" },
   chill: { label: "تبريد", emoji: "❄️" },
 };
