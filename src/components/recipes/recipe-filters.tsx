@@ -27,6 +27,11 @@ const CUISINE_OPTIONS: Cuisine[] = ["syrian", "levantine", "arab", "italian", "a
 interface RecipeFiltersProps<T extends HomeFilters> {
   value: T;
   onChange: (value: T) => void;
+  /**
+   * Home page: only course, time and «نباتي», in two rows. The full set
+   * (every meal type, difficulty) lives in the recipes page's filter panel.
+   */
+  compact?: boolean;
 }
 
 /**
@@ -34,34 +39,54 @@ interface RecipeFiltersProps<T extends HomeFilters> {
  * equal-width chips, so every filter is visible on any screen width — no
  * horizontal scrolling and nothing cut off.
  */
-export function RecipeFilters<T extends HomeFilters>({ value, onChange }: RecipeFiltersProps<T>) {
+export function RecipeFilters<T extends HomeFilters>({ value, onChange, compact = false }: RecipeFiltersProps<T>) {
+  const courseRow = (
+    <div className="grid grid-cols-3 gap-2" role="group" aria-label="نوع الطبق">
+      {COURSE_OPTIONS.map((option) => (
+        <Chip
+          key={option}
+          fill
+          active={value.course.includes(option)}
+          onToggle={() => onChange({ ...value, course: toggleIn(value.course, option) })}
+        >
+          <Emoji>{courseLabels[option].emoji}</Emoji>
+          {courseLabels[option].label}
+        </Chip>
+      ))}
+    </div>
+  );
+  const timeChips = TIME_OPTIONS.map((option) => (
+    <Chip
+      key={option.value}
+      fill
+      active={value.time.includes(option.value)}
+      onToggle={() => onChange({ ...value, time: toggleIn(value.time, option.value) })}
+    >
+      <Emoji>{option.emoji}</Emoji>
+      {timeBucketLabels[option.value].label}
+    </Chip>
+  ));
+
+  if (compact) {
+    return (
+      <div className="flex flex-col gap-2">
+        {courseRow}
+        <div className="grid grid-cols-4 gap-2" role="group" aria-label="المدة والنوع">
+          {timeChips}
+          <Chip fill active={value.meal.includes("veg")} onToggle={() => onChange({ ...value, meal: toggleIn(value.meal, "veg") })}>
+            <Emoji>🥗</Emoji>
+            نباتي
+          </Chip>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-2">
-      <div className="grid grid-cols-3 gap-2" role="group" aria-label="نوع الطبق">
-        {COURSE_OPTIONS.map((option) => (
-          <Chip
-            key={option}
-            fill
-            active={value.course.includes(option)}
-            onToggle={() => onChange({ ...value, course: toggleIn(value.course, option) })}
-          >
-            <Emoji>{courseLabels[option].emoji}</Emoji>
-            {courseLabels[option].label}
-          </Chip>
-        ))}
-      </div>
+      {courseRow}
       <div className="grid grid-cols-3 gap-2" role="group" aria-label="المدة">
-        {TIME_OPTIONS.map((option) => (
-          <Chip
-            key={option.value}
-            fill
-            active={value.time.includes(option.value)}
-            onToggle={() => onChange({ ...value, time: toggleIn(value.time, option.value) })}
-          >
-            <Emoji>{option.emoji}</Emoji>
-            {timeBucketLabels[option.value].label}
-          </Chip>
-        ))}
+        {timeChips}
       </div>
       <div className="grid grid-cols-4 gap-2" role="group" aria-label="نوع الوجبة">
         {MEAL_OPTIONS.map((option) => (

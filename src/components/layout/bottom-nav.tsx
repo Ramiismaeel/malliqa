@@ -3,6 +3,7 @@
 import { BookOpen, ChefHat, Refrigerator, Settings, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { newVisit } from "@/lib/kitchen/ui-state";
 
 interface Tab {
   href: string;
@@ -53,6 +54,8 @@ export function BottomNav() {
                 <Link
                   href={tab.href}
                   aria-current={active ? "page" : undefined}
+                  // Entering the suggestions reshuffles them.
+                  onClick={tab.href === "/" ? newVisit : undefined}
                   className={`group relative flex flex-1 py-1.5 after:absolute after:top-0 after:-bottom-16 after:content-[''] ${
                     first ? "ps-1.5 pe-0.5 after:-start-4 after:end-0" : last ? "ps-0.5 pe-1.5 after:start-0 after:-end-4" : "px-0.5 after:inset-x-0"
                   }`}

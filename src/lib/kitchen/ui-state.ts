@@ -63,6 +63,17 @@ const browseFiltersStore = createStore<BrowseFilters>({
   query: "",
 });
 
+// Order of the home suggestions. A new seed for every visit: when the app
+// opens and each time the «اقتراحات» tab is tapped. Coming back from a recipe
+// keeps the seed, so the list is where the user left it.
+const visitSeedStore = createStore<string>("0");
+
+export function newVisit(): void {
+  visitSeedStore.set(Math.random().toString(36).slice(2));
+}
+if (typeof window !== "undefined") newVisit();
+
+export const useVisitSeed = (): string => useStore(visitSeedStore)[0];
 export const useSelectedDay = () => useStore(dayStore);
 export const useHomeFilters = () => useStore(homeFiltersStore);
 export const useBrowseFilters = () => useStore(browseFiltersStore);

@@ -4,12 +4,13 @@ import {
   Flame,
   Microwave,
   Utensils,
-  Wind,
   Zap,
   type LucideIcon,
   type LucideProps,
 } from "lucide-react";
+import { AirFryerIcon } from "@/components/ui/air-fryer-icon";
 import { FoodProcessorIcon } from "@/components/ui/food-processor-icon";
+import { HandMixerIcon } from "@/components/ui/hand-mixer-icon";
 import { MeatGrinderIcon } from "@/components/ui/meat-grinder-icon";
 import { capabilityLabels } from "@/lib/labels";
 import type { Capability } from "@/lib/schemas/equipment";
@@ -37,13 +38,14 @@ function OvenIcon(props: LucideProps) {
   );
 }
 
-const ICONS: Record<Capability, LucideIcon | typeof OvenIcon | typeof FoodProcessorIcon | typeof MeatGrinderIcon> = {
+/** Lucide where it has the device; our own line drawings where it does not. */
+const ICONS: Record<Capability, LucideIcon | typeof OvenIcon | typeof FoodProcessorIcon> = {
   stovetop: Flame,
   oven: OvenIcon,
   microwave: Microwave,
-  "air-fryer": Wind,
+  "air-fryer": AirFryerIcon,
   blender: Blend,
-  "hand-mixer": Zap,
+  "hand-mixer": HandMixerIcon,
   "stand-mixer": Zap,
   "food-processor": FoodProcessorIcon,
   "meat-grinder": MeatGrinderIcon,

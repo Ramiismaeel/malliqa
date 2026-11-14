@@ -121,6 +121,14 @@ Short notes appended at the end of each phase. Scope and order live in `CLAUDE.m
     means "not available", so the recipe is hidden as unsuitable until the owner of a machine ticks it.
   - Studio: the course buttons now show the recipe's course from the code; picking another one records a requested
     change. The original review file is kept in `content/applied/`.
+- **Owner's general notes (2026-11-14):**
+  - Own drawings for the air fryer and the hand mixer (equipment card + line icon on recipes).
+  - Home: a card «عدّل محتويات البراد» that is always there and links to the pantry (it replaces the hint that only
+    showed with an empty fridge).
+  - Home filters cut to two rows: course, then time + «نباتي». Meat/chicken/fish and difficulty stay in the recipes
+    page's filter panel.
+  - Suggestions are reshuffled on every visit instead of once a day: when the app opens and when the «اقتراحات» tab is
+    tapped; not when coming back from a recipe.
 - Filter chips no longer scroll horizontally (they were cut off with no way to reach the rest on desktop): the quick
   filters are three rows of equal-width chips, pantry categories and cuisines wrap, and the recipes page keeps
   cuisine/time/type/difficulty in a «فلاتر» panel with an active-filter count.

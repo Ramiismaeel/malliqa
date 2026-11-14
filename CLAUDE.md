@@ -246,8 +246,9 @@ Output per recipe: `{ recipe, status, missing[], viaGroup[], viaSubstitute[], op
 
 **On-screen order** (`arrange.ts`, pure, applied after `matchRecipes`; the ranking in step 6 is unchanged):
 - Home, inside every section — `arrangeForDay(results, seed)`: course (main → appetizer → dessert) → missing count asc →
-  a shuffle keyed by `hash(seed + recipe id)`, with the planned day's date (`YYYY-MM-DD`) as the seed. So the same dish
-  is not on top every day, and nothing jumps while the pantry is edited.
+  a shuffle keyed by `hash(seed + recipe id)`. The seed is new for every visit (`useVisitSeed` in `ui-state.ts`): when
+  the app opens and each time the «اقتراحات» tab is tapped. Coming back from a recipe keeps it, so the list does not
+  move under the user.
 - Recipes page — `groupByCourse(results)`: course first, the engine's ranking inside each course. No shuffle.
 
 **Golden test (must exist and pass):** pantry = onion, butter, pasta, tomato-juice, minced-meat + staples (salt, black-pepper, mixed-spices, oil, garlic, coriander, bread, rice); equipment = stove only.
@@ -260,7 +261,7 @@ Output per recipe: `{ recipe, status, missing[], viaGroup[], viaSubstitute[], op
 ## 6. UX notes
 
 - Mobile-first, bottom nav with 4 tabs: **اقتراحات** (home), **مطبخي** (pantry), **وصفات**, **إعدادات**.
-- Home: segmented control **اليوم | غداً** at top → sections: "جاهزة الآن", "ينقصها شيء بسيط", "جهّزها الليلة للغد" (today mode only), collapsed "تحتاج تسوّق". Inside each section: main dishes, then appetizers, then desserts (a small heading opens each group), in an order that changes daily. Quick filter chips: أساسية/مقبلات/حلويات, سريعة/متوسطة/طويلة, سهلة/متوسطة/صعبة, لحوم/دجاج/سمك/نباتي. AI button at the bottom ("اقترح لي أفكاراً جديدة"), disabled offline.
+- Home: segmented control **اليوم | غداً** at top → sections: "جاهزة الآن", "ينقصها شيء بسيط", "جهّزها الليلة للغد" (today mode only), collapsed "تحتاج تسوّق". Inside each section: main dishes, then appetizers, then desserts (a small heading opens each group), in an order that changes on every visit. A card «عدّل محتويات البراد» above the filters always links to the pantry. Quick filter chips on home, two rows only: أساسية/مقبلات/حلويات, then سريعة/متوسطة/طويلة/نباتي (the owner found more too crowded; meat/chicken/fish and difficulty are in the recipes page's filter panel). AI button at the bottom ("اقترح لي أفكاراً جديدة"), disabled offline.
 - Recipe card: name, time + bucket, difficulty, equipment icons (stovetop/oven/blender…), missing items in red, "via substitute" in amber.
 - Recipe detail: ingredients with ✓/✗ against pantry, missing list, equipment, steps, favorite button, "ثبّت لليوم / للغد".
 - Pantry: category chips → toggles. Available items first. Search with Arabic normalization. Staples marked with a pin icon; long-press or menu to (un)mark staple. "نفد" quick action. Add custom ingredient (name + category).

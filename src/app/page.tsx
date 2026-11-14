@@ -17,7 +17,7 @@ import { useDayPlan, useFavoriteIds } from "@/lib/db/hooks";
 import { clearPlan, dateKey } from "@/lib/db/repositories/dayPlan";
 import { setSetting } from "@/lib/db/repositories/settings";
 import { formatCount, ITEM_FORMS } from "@/lib/format";
-import { EMPTY_FILTERS, mealChipsToTypes, useHomeFilters, useSelectedDay } from "@/lib/kitchen/ui-state";
+import { EMPTY_FILTERS, mealChipsToTypes, useHomeFilters, useSelectedDay, useVisitSeed } from "@/lib/kitchen/ui-state";
 import { useKitchen, useMatches, type Kitchen } from "@/lib/kitchen/use-kitchen";
 import { arrangeForDay } from "@/lib/matching/arrange";
 import { toSections, type Day, type MatchSections } from "@/lib/matching/matchRecipes";
@@ -29,6 +29,7 @@ export default function HomePage() {
   const kitchen = useKitchen();
   const [day, setDay] = useSelectedDay();
   const [filters, setFilters] = useHomeFilters();
+  const visitSeed = useVisitSeed();
   const favoriteIds = useFavoriteIds();
   const [showUnsuitable, setShowUnsuitable] = useState(false);
   const [showShopping, setShowShopping] = useState(false);
@@ -44,15 +45,15 @@ export default function HomePage() {
   );
   const results = useMatches(kitchen, day, matchFilters);
   // Inside every section: main dishes, then appetizers, then desserts, each in
-  // an order that changes with the day being planned.
+  // an order that changes with every visit.
   const sections = useMemo(() => {
     if (!results) return undefined;
     const split = toSections(results);
-    const seed = dateKey(day === "today" ? 0 : 1);
+    const seed = `${day}|${visitSeed}`;
     const arranged = {} as MatchSections;
     for (const name of Object.keys(split) as Array<keyof MatchSections>) arranged[name] = arrangeForDay(split[name], seed);
     return arranged;
-  }, [results, day]);
+  }, [results, day, visitSeed]);
 
   const filtered = hasActiveFilters(filters);
   const nothingToCook = sections ? sections.ready.length + sections.almost.length + sections.prepTonight.length === 0 : false;
@@ -87,8 +88,9 @@ export default function HomePage() {
 
       {kitchen && <PinnedPlan kitchen={kitchen} day={day} />}
       {kitchen && <BackupReminder kitchen={kitchen} />}
+      {kitchen && <PantryPrompt empty={kitchen.freshCount === 0} />}
 
-      <RecipeFilters value={filters} onChange={setFilters} />
+      <RecipeFilters compact value={filters} onChange={setFilters} />
 
       {!kitchen || !sections ? (
         <div className="flex flex-col gap-2.5">
@@ -98,17 +100,6 @@ export default function HomePage() {
         </div>
       ) : (
         <div key={`${day}`} className="flex flex-col gap-7">
-          {kitchen.freshCount === 0 && !filtered && (
-            <Link href="/pantry" className="pressable flex items-center gap-3 rounded-3xl bg-accent/30 p-4">
-              <Emoji className="animate-float text-3xl">🛒</Emoji>
-              <span className="min-w-0 flex-1 text-sm leading-relaxed">
-                <b className="block">ماذا يوجد في البراد اليوم؟</b>
-                أضف اللحم والخضار وما اشتريته، لتظهر وصفات تستعملها.
-              </span>
-              <ChevronLeft className="size-5 shrink-0" />
-            </Link>
-          )}
-
           {sections.ready.length > 0 && (
             <Section title="جاهزة الآن" emoji="✅" count={sections.ready.length} hint="كل مكوناتها الأساسية عندك">
               <RecipeList results={sections.ready} resolveRef={kitchen.resolveRef} favoriteIds={favoriteIds} initial={8} />
@@ -201,6 +192,26 @@ export default function HomePage() {
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * Always on the home page: the way to «مطبخي». Suggestions are only as good as
+ * the pantry, so the user is reminded to add what they bought (and remove what
+ * ran out) before looking at the list.
+ */
+function PantryPrompt({ empty }: { empty: boolean }) {
+  return (
+    <Link href="/pantry" className="pressable flex items-center gap-3 rounded-3xl bg-accent/30 p-3 ps-4">
+      <Emoji className={`text-3xl ${empty ? "animate-float" : ""}`}>🛒</Emoji>
+      <span className="min-w-0 flex-1 text-sm leading-snug">
+        <b className="block">{empty ? "ماذا في البراد اليوم؟" : "اشتريت شيئاً أو نفد شيء؟"}</b>
+        <span className="text-base-content/70">
+          {empty ? "أضف اللحم والخضار لتظهر وصفات تستعملها." : "أضف الكوسا واللحم وما عندك الآن."}
+        </span>
+      </span>
+      <span className="btn btn-primary btn-sm min-h-10 shrink-0 rounded-full">عدّل محتويات البراد</span>
+    </Link>
   );
 }
 
